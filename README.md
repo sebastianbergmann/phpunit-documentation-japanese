@@ -1,17 +1,17 @@
-# Building the Documentation
+# ドキュメントをビルドするには
 
-## Requirements
+## 必要なもの
 
 - Python
 - [Sphinx](http://www.sphinx-doc.org/)
 - [Read the Docs Sphinx Theme](https://github.com/rtfd/sphinx_rtd_theme)
 
-## Building the HTML Documentation
+## HTMLのビルド
 
-To build the complete documentation run:
+HTML形式のドキュメント作るには次のコマンドを実行します。
 
     make html
 
-# Output
+# 出力先
 
-Afterwards you will find the HTML files in `build/html`.
+HTMLファイルは `build/html` ディレクトリに出力されます。
