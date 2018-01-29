@@ -161,7 +161,7 @@ assertArraySubset()
 
 .. code-block:: bash
 
-    $ phpunit ArrayHasKeyTest
+    $ phpunit ArraySubsetTest
     PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
 
     F
