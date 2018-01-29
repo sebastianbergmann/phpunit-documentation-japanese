@@ -382,6 +382,13 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
 詳細は :ref:`writing-tests-for-phpunit.test-dependencies`
 を参照ください。
 
+.. _appendixes.annotations.doesNotPerformAssertions:
+
+@doesNotPerformAssertions
+#########################
+
+アサーションがひとつもないテストを、リスキーであるとみなさないようにします。
+
 .. _appendixes.annotations.expectedException:
 
 @expectedException
