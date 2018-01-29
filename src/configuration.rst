@@ -205,7 +205,7 @@ PHPUnit のコア機能を設定します。
       <log type="coverage-clover" target="/tmp/coverage.xml"/>
       <log type="coverage-php" target="/tmp/coverage.serialized"/>
       <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-      <log type="junit" target="/tmp/logfile.xml" logIncompleteSkipped="false"/>
+      <log type="junit" target="/tmp/logfile.xml"/>
       <log type="testdox-html" target="/tmp/testdox.html"/>
       <log type="testdox-text" target="/tmp/testdox.txt"/>
     </logging>
@@ -244,8 +244,7 @@ PHPUnit のコア機能を設定します。
 
   ``--testdox-text /tmp/testdox.txt``
 
-``lowUpperBound``、``highLowerBound``、
-``logIncompleteSkipped``
+``lowUpperBound``、``highLowerBound``
 および ``showUncoveredFiles``
 属性には、TextUI テストランナーで対応するオプションがありません。
 
