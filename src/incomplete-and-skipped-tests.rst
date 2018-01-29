@@ -214,6 +214,10 @@ MySQLi 拡張モジュールが使用可能かを調べたうえで、もし使�
       - `PHP_OS <http://php.net/manual/ja/reserved.constants.php#constant.php-os>`_ にマッチする正規表現
       - @requires OS Linux
       - @requires OS WIN32|WINNT
+    * - ``OSFAMILY``
+      - 任意の `OS ファミリー <http://php.net/manual/ja/reserved.constants.php#constant.php-os-family>`_
+      - @requires OSFAMILY Solaris
+      - @requires OSFAMILY Windows
     * - ``function``
       - `function_exists <http://php.net/function_exists>`_ に渡せるパラメータ
       - @requires function imap_open
