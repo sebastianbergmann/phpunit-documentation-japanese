@@ -4,3 +4,4 @@
 
 誤字脱字、英語版とのずれ、誤訳などがあればお気軽にご指摘ください。
 issueやpull requestは日本語で書いてもらってもまったく問題ありません。
+Of course, issue reports written in English are also welcome :)
