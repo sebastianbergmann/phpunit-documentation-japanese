@@ -258,7 +258,7 @@ PHPUnit Database Extension からデータベース接続にアクセスでき�
 (データベース名) に非常にシンプルなデータベース接続の抽象化レイヤーを渡します。このパラメータの型は
 ``PHPUnit_Extensions_Database_DB_IDatabaseConnection`` です。
 
-“データベース接続の使い方“で、このインターフェイスの API
+“データベース接続APIの使い方“で、このインターフェイスの API
 と、その活用法について説明します。
 
 .. _database.implementing-getdataset:
@@ -1240,7 +1240,7 @@ IDataSet は ``IteratorAggregate``
 
 .. _database.the-connection-api:
 
-接続 API
+データベース接続APIの使い方
 ######
 
 Connection インターフェイスには、三種類のおもしろいメソッドが用意されています。
