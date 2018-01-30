@@ -617,6 +617,12 @@ PHPUnit はテストが実行される順序を変更しないので、
 ``expectExceptionMessageRegExp()`` といったメソッドで、
 テスト対象のコードで発生するであろう例外をテストできます。
 
+.. admonition:: Note
+
+   expectExceptionMessage は ``$actual`` の中に
+   ``$expected`` のメッセージが含まれるかどうかを確かめるだけのものであり、
+   完全一致するかどうかを確かめるわけではないことに注意しましょう。
+
 別の方法として、``@expectedException``、
 ``@expectedExceptionCode``、
 ``@expectedExceptionMessage``、
