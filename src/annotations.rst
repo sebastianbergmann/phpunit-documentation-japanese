@@ -740,6 +740,32 @@ small テストは実行時間が 1 秒を超えたら失敗します。
 @testdox
 ########
 
+アジャイルドキュメントを生成する際に使う別の説明を指定します
+(:ref:`other-uses-for-tests.agile-documentation` を参照ください)。
+``@testdox`` アノテーションは、クラスにもテストメソッドにも指定できます。
+
+.. code-block:: php
+
+    /**
+     * @testdox A bank account
+     */
+    class BankAccountTest extends TestCase
+    {
+        /**
+         * @testdox has an initial balance of zero
+         */
+        public function balanceIsInitiallyZero()
+        {
+            $this->assertEquals(0, $this->ba->getBalance());
+        }
+    }
+
+.. admonition:: Note
+
+   PHPUnit 7.0 より前のバージョンでは、アノテーションのパースにバグがあるため、
+   ``@testdox`` アノテーションを指定すると自動的に
+   ``@test`` アノテーションも指定したものとみなされます。
+
 .. code-block:: php
 
 .. _appendixes.annotations.testWith:
