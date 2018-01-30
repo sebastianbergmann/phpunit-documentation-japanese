@@ -611,7 +611,7 @@ PHPUnit はテストが実行される順序を変更しないので、
     FAILURES!
     Tests: 1, Assertions: 1, Failures: 1.
 
-さらに、``expectException()``、
+``expectException()`` メソッドのほかにも
 ``expectExceptionCode()``、
 ``expectExceptionMessage()``、
 ``expectExceptionMessageRegExp()`` といったメソッドで、
