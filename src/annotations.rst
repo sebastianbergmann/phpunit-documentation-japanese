@@ -742,6 +742,28 @@ small テストは実行時間が 1 秒を超えたら失敗します。
 
 .. code-block:: php
 
+.. _appendixes.annotations.testWith:
+
+@testWith
+#########
+
+テストメソッド ``@dataProvider`` とともに使うメソッドを実装するかわりに、
+``@testWith`` アノテーションを使ってデータセットを定義することができます。
+
+.. code-block:: php
+
+    /**
+     * @param string    $input
+     * @param int       $expectedLength
+     *
+     * @testWith        ["test", 4]
+     *                  ["longer-string", 13]
+     */
+    public function testStringLength(string $input, int $expectedLength)
+    {
+        $this->assertEquals($expectedLength, strlen($input));
+    }
+
 .. _appendixes.annotations.ticket:
 
 @ticket
