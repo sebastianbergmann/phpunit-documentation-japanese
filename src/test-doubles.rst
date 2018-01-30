@@ -60,7 +60,7 @@ PHPUnit の ``createMock($type)`` メソッドや ``getMockBuilder($type)`` メ�
 
 .. admonition:: 制限：final、private および static メソッド
 
-   ``final``, ``private`` および
+   ``final``, ``private``, ``protected`` および
    ``static`` メソッドのスタブやモックは作れないことに注意しましょう。
    PHPUnit のテストダブル機能ではこれらを無視し、元のメソッドの振る舞いをそのまま維持します。
 
