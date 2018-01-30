@@ -889,7 +889,7 @@ assertEquals()
 
 ``assertEquals(float $expected, float $actual[, string $message = '', float $delta = 0])``
 
-2 つの float 値 ``$expected`` と ``$actual`` の誤差が ``$delta`` より大きい場合にエラー ``$message`` を報告します。
+2 つの float 値 ``$expected`` と ``$actual`` の絶対差が ``$delta`` より大きい場合にエラー ``$message`` を報告します。2 つの float 値 ``$expected`` と ``$actual`` の絶対差が ``$delta`` *以下* である場合はアサーションに成功します。
 
 なぜ ``$delta`` が必要となるのかについては "`What Every Computer Scientist Should Know About Floating-Point Arithmetic <http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html>`_" を参照ください。
 
@@ -904,7 +904,7 @@ assertEquals()
     {
         public function testSuccess()
         {
-            $this->assertEquals(1.0, 1.1, '', 0.2);
+            $this->assertEquals(1.0, 1.1, '', 0.1);
         }
 
         public function testFailure()
