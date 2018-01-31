@@ -322,9 +322,9 @@ PHPUnit は、*失敗 (failures)* と
 
     指定したサフィックスのテストファイルだけを探します。
 
-``--report-useless-tests``
+``--dont-report-useless-tests``
 
-    何もテストをしないテストについて厳格にチェックします。
+    何もテストをしないテストについて報告しません。
     詳細は :ref:`risky-tests` を参照ください。
 
 ``--strict-coverage``
