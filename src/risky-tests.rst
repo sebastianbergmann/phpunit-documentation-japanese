@@ -13,11 +13,11 @@ PHPUnit は、テストを実行する際に、以下のような追加のチェ
 無意味なテスト
 #######
 
-PHPUnit は、何も確かめていないテストを検出することができます。
-このチェックを有効にするには、コマンドラインオプション
-``--report-useless-tests``
+PHPUnit はデフォルトで、何も確かめていないテストを検出します。
+このチェックを無効にするには、コマンドラインオプション
+``--dont-report-useless-tests``
 を使うか、あるいは PHPUnit の XML 設定ファイルで
-``beStrictAboutTestsThatDoNotTestAnything="true"``
+``beStrictAboutTestsThatDoNotTestAnything="false"``
 を設定します。
 
 何もアサーションを実行していないテストは、このチェックを有効にしておくと、
