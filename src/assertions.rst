@@ -137,7 +137,7 @@ assertClassHasAttribute()
 assertArraySubset()
 ###################
 
-``assertArraySubset(array $subset, array $array[, bool $strict = '', string $message = ''])``
+``assertArraySubset(array $subset, array $array[, bool $strict = false, string $message = ''])``
 
 ``$array`` が ``$subset`` を含まない場合にエラー ``$message`` を報告します。
 
