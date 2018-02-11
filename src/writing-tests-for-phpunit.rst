@@ -606,7 +606,7 @@ PHPUnit はテストが実行される順序を変更しないので、
     There was 1 failure:
 
     1) ExceptionTest::testException
-    Expected exception InvalidArgumentException
+    Failed asserting that exception of type "InvalidArgumentException" is thrown.
 
     FAILURES!
     Tests: 1, Assertions: 1, Failures: 1.
@@ -661,7 +661,7 @@ PHPUnit はテストが実行される順序を変更しないので、
     There was 1 failure:
 
     1) ExceptionTest::testException
-    Expected exception InvalidArgumentException
+    Failed asserting that exception of type "InvalidArgumentException" is thrown.
 
     FAILURES!
     Tests: 1, Assertions: 1, Failures: 1.
@@ -693,7 +693,7 @@ PHP のエラーのテスト
     class ExpectedErrorTest extends TestCase
     {
         /**
-         * @expectedException PHPUnit\Framework\Error
+         * @expectedException PHPUnit\Framework\Error\Error
          */
         public function testFailingInclude()
         {
@@ -723,7 +723,7 @@ PHP のエラーのテスト
    あまりに一般化されすぎたクラスをテストすると、予期せぬ副作用を引き起こしかねません。
    というわけで、
    ``@expectedException`` や
-   ``setExpectedException()``
+   ``expectException()``
    を使った ``Exception``
    クラスのテストはできないようにしました。
 
