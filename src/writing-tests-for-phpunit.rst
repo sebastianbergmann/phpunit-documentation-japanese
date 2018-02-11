@@ -26,7 +26,7 @@ PHP の配列操作のテストを PHPUnit 用に書く方法を示します。
 
 #.
 
-   テストメソッドの中で ``assertEquals()`` のようなアサーションメソッド (:ref:`appendixes.assertions` を参照ください) を使用して、期待される値と実際の値が等しいことを確かめます。
+   テストメソッドの中で ``assertSame()`` のようなアサーションメソッド (:ref:`appendixes.assertions` を参照ください) を使用して、期待される値と実際の値が等しいことを確かめます。
 
 .. code-block:: php
     :caption: PHPUnit での配列操作のテスト
@@ -40,14 +40,14 @@ PHP の配列操作のテストを PHPUnit 用に書く方法を示します。
         public function testPushAndPop()
         {
             $stack = [];
-            $this->assertEquals(0, count($stack));
+            $this->assertSame(0, count($stack));
 
             array_push($stack, 'foo');
-            $this->assertEquals('foo', $stack[count($stack)-1]);
-            $this->assertEquals(1, count($stack));
+            $this->assertSame('foo', $stack[count($stack)-1]);
+            $this->assertSame(1, count($stack));
 
-            $this->assertEquals('foo', array_pop($stack));
-            $this->assertEquals(0, count($stack));
+            $this->assertSame('foo', array_pop($stack));
+            $this->assertSame(0, count($stack));
         }
     }
     ?>
@@ -127,7 +127,7 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
         public function testPush(array $stack)
         {
             array_push($stack, 'foo');
-            $this->assertEquals('foo', $stack[count($stack)-1]);
+            $this->assertSame('foo', $stack[count($stack)-1]);
             $this->assertNotEmpty($stack);
 
             return $stack;
@@ -138,7 +138,7 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
          */
         public function testPop(array $stack)
         {
-            $this->assertEquals('foo', array_pop($stack));
+            $this->assertSame('foo', array_pop($stack));
             $this->assertEmpty($stack);
         }
     }
@@ -251,7 +251,7 @@ PHPUnit はテストが実行される順序を変更しないので、
          */
         public function testConsumer()
         {
-            $this->assertEquals(
+            $this->assertSame(
                 ['first', 'second'],
                 func_get_args()
             );
@@ -303,7 +303,7 @@ PHPUnit はテストが実行される順序を変更しないので、
          */
         public function testAdd($a, $b, $expected)
         {
-            $this->assertEquals($expected, $a + $b);
+            $this->assertSame($expected, $a + $b);
         }
 
         public function additionProvider()
@@ -330,7 +330,7 @@ PHPUnit はテストが実行される順序を変更しないので、
     There was 1 failure:
 
     1) DataTest::testAdd with data set #3 (1, 1, 3)
-    Failed asserting that 2 matches expected 3.
+    Failed asserting that 2 is identical to 3.
 
     /home/sb/DataTest.php:9
 
@@ -354,7 +354,7 @@ PHPUnit はテストが実行される順序を変更しないので、
          */
         public function testAdd($a, $b, $expected)
         {
-            $this->assertEquals($expected, $a + $b);
+            $this->assertSame($expected, $a + $b);
         }
 
         public function additionProvider()
@@ -381,7 +381,7 @@ PHPUnit はテストが実行される順序を変更しないので、
     There was 1 failure:
 
     1) DataTest::testAdd with data set "one plus one" (1, 1, 3)
-    Failed asserting that 2 matches expected 3.
+    Failed asserting that 2 is identical to 3.
 
     /home/sb/DataTest.php:9
 
@@ -404,7 +404,7 @@ PHPUnit はテストが実行される順序を変更しないので、
          */
         public function testAdd($a, $b, $expected)
         {
-            $this->assertEquals($expected, $a + $b);
+            $this->assertSame($expected, $a + $b);
         }
 
         public function additionProvider()
@@ -426,7 +426,7 @@ PHPUnit はテストが実行される順序を変更しないので、
     There was 1 failure:
 
     1) DataTest::testAdd with data set #3 ('1', '1', '3')
-    Failed asserting that 2 matches expected '3'.
+    Failed asserting that 2 is identical to 3.
 
     /home/sb/DataTest.php:11
 
@@ -518,7 +518,7 @@ PHPUnit はテストが実行される順序を変更しないので、
          */
         public function testConsumer()
         {
-            $this->assertEquals(
+            $this->assertSame(
                 ['provider1', 'first', 'second'],
                 func_get_args()
             );
@@ -538,15 +538,15 @@ PHPUnit はテストが実行される順序を変更しないので、
     There was 1 failure:
 
     1) DependencyAndDataProviderComboTest::testConsumer with data set #1 ('provider2')
-    Failed asserting that two arrays are equal.
+    Failed asserting that two arrays are identical.
     --- Expected
     +++ Actual
     @@ @@
-    Array (
+    Array &0 (
     -    0 => 'provider1'
     +    0 => 'provider2'
-    1 => 'first'
-    2 => 'second'
+         1 => 'first'
+         2 => 'second'
     )
 
     /home/sb/DependencyAndDataProviderComboTest.php:31
@@ -877,7 +877,7 @@ PHP のエラーのテスト
     class ArrayDiffTest extends TestCase
     {
         public function testEquality() {
-            $this->assertEquals(
+            $this->assertSame(
                 [1, 2,  3, 4, 5, 6],
                 [1, 2, 33, 4, 5, 6]
             );
@@ -897,7 +897,7 @@ PHP のエラーのテスト
     There was 1 failure:
 
     1) ArrayDiffTest::testEquality
-    Failed asserting that two arrays are equal.
+    Failed asserting that two arrays are identical.
     --- Expected
     +++ Actual
     @@ @@
@@ -931,7 +931,7 @@ PHP のエラーのテスト
     class LongArrayDiffTest extends TestCase
     {
         public function testEquality() {
-            $this->assertEquals(
+            $this->assertSame(
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2,  3, 4, 5, 6],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 33, 4, 5, 6]
             );
@@ -951,7 +951,7 @@ PHP のエラーのテスト
     There was 1 failure:
 
     1) LongArrayDiffTest::testEquality
-    Failed asserting that two arrays are equal.
+    Failed asserting that two arrays are identical.
     --- Expected
     +++ Actual
     @@ @@
@@ -977,7 +977,7 @@ PHP のエラーのテスト
 この実装が原因で、実際の違う箇所よりも多くの問題を報告してしまうことがあります。
 
 この問題が発生するのは、
-assertEquals などの「緩い」比較の関数を、配列やオブジェクトに対して使った場合だけです。
+assertSame などの「緩い」比較の関数を、配列やオブジェクトに対して使った場合だけです。
 
 .. code-block:: php
     :caption: 緩い比較を使った場合の diff の生成のエッジケース
@@ -989,7 +989,7 @@ assertEquals などの「緩い」比較の関数を、配列やオブジェク�
     class ArrayWeakComparisonTest extends TestCase
     {
         public function testEquality() {
-            $this->assertEquals(
+            $this->assertSame(
                 [1, 2, 3, 4, 5, 6],
                 ['1', 2, 33, 4, 5, 6]
             );

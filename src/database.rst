@@ -201,7 +201,7 @@ PHPUnit のデータベーステストケースの設定
     {
         public function testCalculate()
         {
-            $this->assertEquals(2, 1 + 1);
+            $this->assertSame(2, 1 + 1);
         }
     }
     ?>
@@ -1176,7 +1176,7 @@ Composite データセットを使えば、両方のフィクスチャファイ�
         public function getTableNames();
         public function getTableMetaData($tableName);
         public function getTable($tableName);
-        public function assertEquals(PHPUnit_Extensions_Database_DataSet_IDataSet $other);
+        public function assertSame(PHPUnit_Extensions_Database_DataSet_IDataSet $other);
 
         public function getReverseIterator();
     }
@@ -1209,7 +1209,7 @@ IDataSet は ``IteratorAggregate``
         public function getRowCount();
         public function getValue($row, $column);
         public function getRow($row);
-        public function assertEquals(PHPUnit_Extensions_Database_DataSet_ITable $other);
+        public function assertSame(PHPUnit_Extensions_Database_DataSet_ITable $other);
     }
     ?>
 
@@ -1327,7 +1327,7 @@ Connection インターフェイスには、三種類のおもしろいメソッ
 
            public function testGetRowCount()
            {
-               $this->assertEquals(2, $this->getConnection()->getRowCount('guestbook'));
+               $this->assertSame(2, $this->getConnection()->getRowCount('guestbook'));
            }
        }
        ?>
@@ -1364,12 +1364,12 @@ guestbook に行を追加した後で、初期登録した 2 エントリ以外�
 
         public function testAddEntry()
         {
-            $this->assertEquals(2, $this->getConnection()->getRowCount('guestbook'), "Pre-Condition");
+            $this->assertSame(2, $this->getConnection()->getRowCount('guestbook'), "Pre-Condition");
 
             $guestbook = new Guestbook();
             $guestbook->addEntry("suzy", "Hello world!");
 
-            $this->assertEquals(3, $this->getConnection()->getRowCount('guestbook'), "Inserting failed");
+            $this->assertSame(3, $this->getConnection()->getRowCount('guestbook'), "Inserting failed");
         }
     }
     ?>

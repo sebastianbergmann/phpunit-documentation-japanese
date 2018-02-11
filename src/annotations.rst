@@ -266,7 +266,7 @@ PHPUnit などのアプリケーションでは、
      */
     public function testBalanceIsInitiallyZero()
     {
-        $this->assertEquals(0, $this->ba->getBalance());
+        $this->assertSame(0, $this->ba->getBalance());
     }
 
 これを指定した場合は、指定したメソッドのみのコードカバレッジ情報を考慮することになります。
@@ -732,7 +732,7 @@ small テストは実行時間が 1 秒を超えたら失敗します。
      */
     public function initialBalanceShouldBe0()
     {
-        $this->assertEquals(0, $this->ba->getBalance());
+        $this->assertSame(0, $this->ba->getBalance());
     }
 
 .. _appendixes.annotations.testdox:
@@ -756,7 +756,7 @@ small テストは実行時間が 1 秒を超えたら失敗します。
          */
         public function balanceIsInitiallyZero()
         {
-            $this->assertEquals(0, $this->ba->getBalance());
+            $this->assertSame(0, $this->ba->getBalance());
         }
     }
 
@@ -787,7 +787,7 @@ small テストは実行時間が 1 秒を超えたら失敗します。
      */
     public function testStringLength(string $input, int $expectedLength)
     {
-        $this->assertEquals($expectedLength, strlen($input));
+        $this->assertSame($expectedLength, strlen($input));
     }
 
 .. _appendixes.annotations.ticket:

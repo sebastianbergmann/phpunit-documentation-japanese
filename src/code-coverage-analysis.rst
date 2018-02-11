@@ -214,7 +214,7 @@ PHPUnit でこれを実現するには、
          */
         public function testBalanceIsInitiallyZero()
         {
-            $this->assertEquals(0, $this->ba->getBalance());
+            $this->assertSame(0, $this->ba->getBalance());
         }
 
         /**
@@ -227,7 +227,7 @@ PHPUnit でこれを実現するには、
             }
 
             catch (BankAccountException $e) {
-                $this->assertEquals(0, $this->ba->getBalance());
+                $this->assertSame(0, $this->ba->getBalance());
 
                 return;
             }
@@ -245,7 +245,7 @@ PHPUnit でこれを実現するには、
             }
 
             catch (BankAccountException $e) {
-                $this->assertEquals(0, $this->ba->getBalance());
+                $this->assertSame(0, $this->ba->getBalance());
 
                 return;
             }
@@ -260,11 +260,11 @@ PHPUnit でこれを実現するには、
          */
         public function testDepositWithdrawMoney()
         {
-            $this->assertEquals(0, $this->ba->getBalance());
+            $this->assertSame(0, $this->ba->getBalance());
             $this->ba->depositMoney(1);
-            $this->assertEquals(1, $this->ba->getBalance());
+            $this->assertSame(1, $this->ba->getBalance());
             $this->ba->withdrawMoney(1);
-            $this->assertEquals(0, $this->ba->getBalance());
+            $this->assertSame(0, $this->ba->getBalance());
         }
     }
     ?>

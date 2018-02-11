@@ -39,7 +39,7 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
 そして、``array`` の作成を
 ``setUp()`` メソッドで行います。
 最後に、冗長なコードをテストメソッドから削除し、
-アサーションメソッド ``assertEquals()``
+アサーションメソッド ``assertSame()``
 ではメソッド変数 ``$stack`` のかわりに
 新たに導入したインスタンス変数 ``$this->stack``
 を使うようにします。
@@ -68,14 +68,14 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
         public function testPush()
         {
             array_push($this->stack, 'foo');
-            $this->assertEquals('foo', $this->stack[count($this->stack)-1]);
+            $this->assertSame('foo', $this->stack[count($this->stack)-1]);
             $this->assertFalse(empty($this->stack));
         }
 
         public function testPop()
         {
             array_push($this->stack, 'foo');
-            $this->assertEquals('foo', array_pop($this->stack));
+            $this->assertSame('foo', array_pop($this->stack));
             $this->assertTrue(empty($this->stack));
         }
     }

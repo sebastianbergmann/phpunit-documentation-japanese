@@ -128,7 +128,7 @@ SUT の入力を間接的にコントロールできるようにすることが�
 
             // $stub->doSomething() をコールすると
             // 'foo' を返すようになります
-            $this->assertEquals('foo', $stub->doSomething());
+            $this->assertSame('foo', $stub->doSomething());
         }
     }
     ?>
@@ -160,7 +160,7 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
         public function testStub()
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->getMockBuilder($originalClassName)
+            $stub = $this->getMockBuilder(SomeClass::class)
                          ->disableOriginalConstructor()
                          ->disableOriginalClone()
                          ->disableArgumentCloning()
@@ -173,7 +173,7 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
 
             // $stub->doSomething() をコールすると
             // 'foo' を返すようになります
-            $this->assertEquals('foo', $stub->doSomething());
+            $this->assertSame('foo', $stub->doSomething());
         }
     }
     ?>
@@ -209,10 +209,10 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
                  ->will($this->returnArgument(0));
 
             // $stub->doSomething('foo') は 'foo' を返します
-            $this->assertEquals('foo', $stub->doSomething('foo'));
+            $this->assertSame('foo', $stub->doSomething('foo'));
 
             // $stub->doSomething('bar') は 'bar' を返します
-            $this->assertEquals('bar', $stub->doSomething('bar'));
+            $this->assertSame('bar', $stub->doSomething('bar'));
         }
     }
     ?>
@@ -277,8 +277,8 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
                  ->will($this->returnValueMap($map));
 
             // $stub->doSomething() は、渡した引数に応じて異なる値を返します
-            $this->assertEquals('d', $stub->doSomething('a', 'b', 'c'));
-            $this->assertEquals('h', $stub->doSomething('e', 'f', 'g'));
+            $this->assertSame('d', $stub->doSomething('a', 'b', 'c'));
+            $this->assertSame('h', $stub->doSomething('e', 'f', 'g'));
         }
     }
     ?>
@@ -311,7 +311,7 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
                  ->will($this->returnCallback('str_rot13'));
 
             // $stub->doSomething($argument) は str_rot13($argument) を返します
-            $this->assertEquals('fbzrguvat', $stub->doSomething('something'));
+            $this->assertSame('fbzrguvat', $stub->doSomething('something'));
         }
     }
     ?>
@@ -341,9 +341,9 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
                  ->will($this->onConsecutiveCalls(2, 3, 5, 7));
 
             // $stub->doSomething() は毎回異なる値を返します
-            $this->assertEquals(2, $stub->doSomething());
-            $this->assertEquals(3, $stub->doSomething());
-            $this->assertEquals(5, $stub->doSomething());
+            $this->assertSame(2, $stub->doSomething());
+            $this->assertSame(3, $stub->doSomething());
+            $this->assertSame(5, $stub->doSomething());
         }
     }
     ?>
