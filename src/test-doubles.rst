@@ -18,7 +18,7 @@ Gerard Meszaros は、テストダブルの概念を
     have undesirable side effects. In other cases, our test strategy requires
     us to have more control or visibility of the internal behavior of the SUT.
 
-    - テスト対象のシステム (SUT: system under test)
+    \- テスト対象のシステム (SUT: system under test)
     をテストすることは、時に非常に困難なこととなります。というのも、
     システムが他のコンポーネントに依存しており、
     そのコンポーネントをテスト環境で利用できないことがあるからです。
@@ -33,7 +33,7 @@ Gerard Meszaros は、テストダブルの概念を
     has to provide the same API as the real one so that the SUT thinks it is
     the real one!
 
-    - 実際に依存するコンポーネント (DOC: depended-on component)
+    \- 実際に依存するコンポーネント (DOC: depended-on component)
     を使わないテストを書く場合は、それをテストダブルで置き換えることができます。
     テストダブルは、必ずしも実際の DOC
     とまったく同様に動作する必要はありません。
@@ -67,7 +67,7 @@ PHPUnit の ``createMock($type)`` メソッドや ``getMockBuilder($type)`` メ�
 .. _test-doubles.stubs:
 
 スタブ
-###
+####
 
 実際のオブジェクトを置き換えて、
 設定した何らかの値を (オプションで) 返すようなテストダブルのことを
