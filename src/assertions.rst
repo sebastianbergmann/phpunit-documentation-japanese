@@ -2453,14 +2453,14 @@ assertThat()
 ############
 
 もっと複雑なアサーションを行う場合には、
-``PHPUnit_Framework_Constraint`` クラスを使用します。
+``PHPUnit\Framework\Constraint`` クラスを使用します。
 これらは、``assertThat()`` メソッドを使用して評価されます。
 :numref:`appendixes.assertions.assertThat.example` は、
 ``logicalNot()`` と ``equalTo()``
 を用いて ``assertNotEquals()``
 と同じアサーションを行う方法を示すものです。
 
-``assertThat(mixed $value, PHPUnit_Framework_Constraint $constraint[, $message = ''])``
+``assertThat(mixed $value, PHPUnit\Framework\Constraint $constraint[, $message = ''])``
 
 ``$value`` が ``$constraint`` にマッチしない場合にエラー ``$message`` を報告します。
 
@@ -2489,7 +2489,7 @@ assertThat()
     ?>
 
 :numref:`appendixes.assertions.assertThat.tables.constraints` に、
-使用できる ``PHPUnit_Framework_Constraint`` クラスをまとめます。
+使用できる ``PHPUnit\Framework\Constraint`` クラスをまとめます。
 
 .. rst-class:: table
 .. list-table:: 制約
@@ -2498,71 +2498,71 @@ assertThat()
 
     * - 制約
       - 意味
-    * - ``PHPUnit_Framework_Constraint_Attribute attribute(PHPUnit_Framework_Constraint $constraint, $attributeName)``
+    * - ``PHPUnit\Framework\Constraint\Attribute attribute(PHPUnit\Framework\Constraint $constraint, $attributeName)``
       - 別の制約を、クラスあるいはオブジェクトの属性として適用する制約。
-    * - ``PHPUnit_Framework_Constraint_IsAnything anything()``
+    * - ``PHPUnit\Framework\Constraint\IsAnything anything()``
       - あらゆる入力値を受け入れる制約。
-    * - ``PHPUnit_Framework_Constraint_ArrayHasKey arrayHasKey(mixed $key)``
+    * - ``PHPUnit\Framework\Constraint\ArrayHasKey arrayHasKey(mixed $key)``
       - 配列が指定したキーを保持していることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_TraversableContains contains(mixed $value)``
+    * - ``PHPUnit\Framework\Constraint\TraversableContains contains(mixed $value)``
       - ``Iterator`` インターフェイスを実装している ``array`` やオブジェクトが、指定した値を保持していることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_TraversableContainsOnly containsOnly(string $type)``
+    * - ``PHPUnit\Framework\Constraint\TraversableContainsOnly containsOnly(string $type)``
       - 評価対象の ``array``、あるいは ``Iterator`` インターフェイスを実装したオブジェクトが、指定した型の唯一の値を含むことを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_TraversableContainsOnly containsOnlyInstancesOf(string $classname)``
+    * - ``PHPUnit\Framework\Constraint\TraversableContainsOnly containsOnlyInstancesOf(string $classname)``
       - 評価対象の ``array``、あるいは ``Iterator`` インターフェイスを実装したオブジェクトが、指定したクラスの唯一のインスタンスを含むことを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_IsEqual equalTo($value, $delta = 0, $maxDepth = 10)``
+    * - ``PHPUnit\Framework\Constraint\IsEqual equalTo($value, $delta = 0, $maxDepth = 10)``
       - ある値が別の値と等しいかどうかを調べる制約。
-    * - ``PHPUnit_Framework_Constraint_Attribute attributeEqualTo($attributeName, $value, $delta = 0, $maxDepth = 10)``
+    * - ``PHPUnit\Framework\Constraint\Attribute attributeEqualTo($attributeName, $value, $delta = 0, $maxDepth = 10)``
       - ある値がクラスあるいはオブジェクトの属性と等しいかどうかを調べる制約。
-    * - ``PHPUnit_Framework_Constraint_DirectoryExists directoryExists()``
+    * - ``PHPUnit\Framework\Constraint\DirectoryExists directoryExists()``
       - 指定した名前のディレクトリが存在するかどうかを調べる制約。
-    * - ``PHPUnit_Framework_Constraint_FileExists fileExists()``
+    * - ``PHPUnit\Framework\Constraint\FileExists fileExists()``
       - 指定した名前のファイルが存在するかどうかを調べる制約。
-    * - ``PHPUnit_Framework_Constraint_IsReadable isReadable()``
+    * - ``PHPUnit\Framework\Constraint\IsReadable isReadable()``
       - 指定した名前のファイルが読み込み可能かどうかを調べる制約。
-    * - ``PHPUnit_Framework_Constraint_IsWritable isWritable()``
+    * - ``PHPUnit\Framework\Constraint\IsWritable isWritable()``
       - 指定した名前のファイルが書き込み可能かどうかを調べる制約。
-    * - ``PHPUnit_Framework_Constraint_GreaterThan greaterThan(mixed $value)``
+    * - ``PHPUnit\Framework\Constraint\GreaterThan greaterThan(mixed $value)``
       - 評価される値が、指定した値より大きいことを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_Or greaterThanOrEqual(mixed $value)``
+    * - ``PHPUnit\Framework\Constraint\Or greaterThanOrEqual(mixed $value)``
       - 評価される値が、指定した値以上であることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_ClassHasAttribute classHasAttribute(string $attributeName)``
+    * - ``PHPUnit\Framework\Constraint\ClassHasAttribute classHasAttribute(string $attributeName)``
       - 評価されるクラスに、指定した属性があることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_ClassHasStaticAttribute classHasStaticAttribute(string $attributeName)``
+    * - ``PHPUnit\Framework\Constraint\ClassHasStaticAttribute classHasStaticAttribute(string $attributeName)``
       - 評価されるクラスに、指定した static 属性があることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_ObjectHasAttribute hasAttribute(string $attributeName)``
+    * - ``PHPUnit\Framework\Constraint\ObjectHasAttribute hasAttribute(string $attributeName)``
       - 評価されるオブジェクトが、指定した属性を保持していることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_IsIdentical identicalTo(mixed $value)``
+    * - ``PHPUnit\Framework\Constraint\IsIdentical identicalTo(mixed $value)``
       - ある値が別の値と同一であることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_IsFalse isFalse()``
+    * - ``PHPUnit\Framework\Constraint\IsFalse isFalse()``
       - 評価される値が ``false`` であることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_IsInstanceOf isInstanceOf(string $className)``
+    * - ``PHPUnit\Framework\Constraint\IsInstanceOf isInstanceOf(string $className)``
       - 評価されるオブジェクトが、指定したクラスのインスタンスであることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_IsNull isNull()``
+    * - ``PHPUnit\Framework\Constraint\IsNull isNull()``
       - 評価される値が ``NULL`` であることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_IsTrue isTrue()``
+    * - ``PHPUnit\Framework\Constraint\IsTrue isTrue()``
       - 評価される値が ``true`` であることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_IsType isType(string $type)``
+    * - ``PHPUnit\Framework\Constraint\IsType isType(string $type)``
       - 評価される値が、指定した型であることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_LessThan lessThan(mixed $value)``
+    * - ``PHPUnit\Framework\Constraint\LessThan lessThan(mixed $value)``
       - 評価される値が、指定した値より小さいことを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_Or lessThanOrEqual(mixed $value)``
+    * - ``PHPUnit\Framework\Constraint\Or lessThanOrEqual(mixed $value)``
       - 評価される値が、指定した値以下であることを保証する制約。
     * - ``logicalAnd()``
       - 論理積 (AND)。
-    * - ``logicalNot(PHPUnit_Framework_Constraint $constraint)``
+    * - ``logicalNot(PHPUnit\Framework\Constraint $constraint)``
       - 論理否定 (NOT)。
     * - ``logicalOr()``
       - 論理和 (OR)。
     * - ``logicalXor()``
       - 排他的論理和 (XOR)。
-    * - ``PHPUnit_Framework_Constraint_PCREMatch matchesRegularExpression(string $pattern)``
+    * - ``PHPUnit\Framework\Constraint\PCREMatch matchesRegularExpression(string $pattern)``
       - 評価される文字列が、正規表現にマッチすることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_StringContains stringContains(string $string, bool $case)``
+    * - ``PHPUnit\Framework\Constraint\StringContains stringContains(string $string, bool $case)``
       - 評価される文字列が、指定した文字列を含むことを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_StringEndsWith stringEndsWith(string $suffix)``
+    * - ``PHPUnit\Framework\Constraint\StringEndsWith stringEndsWith(string $suffix)``
       - 評価される文字列が、指定したサフィックスで終わることを保証する制約。
-    * - ``PHPUnit_Framework_Constraint_StringStartsWith stringStartsWith(string $prefix)``
+    * - ``PHPUnit\Framework\Constraint\StringStartsWith stringStartsWith(string $prefix)``
       - 評価される文字列が、指定したプレフィックスで始まることを保証する制約。
 
 .. _appendixes.assertions.assertTrue:

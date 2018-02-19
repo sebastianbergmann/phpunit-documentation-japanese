@@ -161,8 +161,8 @@ PHPUnit は、*失敗 (failures)* と
     という名前のファイルの中に定義されているものとします。
 
     ``UnitTest`` は、``PHPUnit\Framework\TestCase``
-    を継承したクラスであるか、あるいは ``PHPUnit_Framework_Test``
-    オブジェクト、例えば ``PHPUnit_Framework_TestSuite``
+    を継承したクラスであるか、あるいは ``PHPUnit\Framework\Test``
+    オブジェクト、例えば ``PHPUnit\Framework\TestSuite``
     のインスタンスを返す ``public static suite()``
     というメソッドを保持するクラスでなければなりません。
 
@@ -425,7 +425,7 @@ PHPUnit は、*失敗 (failures)* と
 
 ``--loader``
 
-    ``PHPUnit_Runner_TestSuiteLoader`` を実装したクラスのうち、
+    ``PHPUnit\Runner\TestSuiteLoader`` を実装したクラスのうち、
     実際に使用するものを指定します。
 
     標準のテストスイートローダーは、現在の作業ディレクトリおよび PHP
@@ -447,7 +447,7 @@ PHPUnit は、*失敗 (failures)* と
 ``--printer``
 
     結果を表示するために使うプリンタクラスを指定します。このプリンタクラスは
-    ``PHPUnit_Util_Printer`` を継承し、かつ
+    ``PHPUnit\Util\Printer`` を継承し、かつ
     ``PHPUnit\Framework\TestListener``
     インターフェイスを実装したものでなければなりません。
 

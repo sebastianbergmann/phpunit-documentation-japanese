@@ -33,13 +33,15 @@ PHPUnit\\Framework\\TestCase のサブクラスの作成
 ``assertThat()`` に渡して評価しています。
 
 .. code-block:: php
-    :caption: PHPUnit_Framework_Assert クラスの assertTrue() および isTrue() メソッド
+    :caption: PHPUnit\Framework\Assert クラスの assertTrue() および isTrue() メソッド
     :name: extending-phpunit.examples.Assert.php
 
     <?php
+    namespace PHPUnit\Framework;
+
     use PHPUnit\Framework\TestCase;
 
-    abstract class PHPUnit_Framework_Assert
+    abstract class Assert
     {
         // ...
 
@@ -48,7 +50,7 @@ PHPUnit\\Framework\\TestCase のサブクラスの作成
          *
          * @param  boolean $condition
          * @param  string  $message
-         * @throws PHPUnit_Framework_AssertionFailedError
+         * @throws PHPUnit\Framework\AssertionFailedError
          */
         public static function assertTrue($condition, $message = '')
         {
@@ -58,32 +60,34 @@ PHPUnit\\Framework\\TestCase のサブクラスの作成
         // ...
 
         /**
-         * Returns a PHPUnit_Framework_Constraint_IsTrue matcher object.
+         * Returns a PHPUnit\Framework\Constraint\IsTrue matcher object.
          *
-         * @return PHPUnit_Framework_Constraint_IsTrue
+         * @return PHPUnit\Framework\Constraint\IsTrue
          * @since  Method available since Release 3.3.0
          */
         public static function isTrue()
         {
-            return new PHPUnit_Framework_Constraint_IsTrue;
+            return new PHPUnit\Framework\Constraint\IsTrue;
         }
 
         // ...
     }?>
 
 :numref:`extending-phpunit.examples.IsTrue.php` は、
-``PHPUnit_Framework_Constraint_IsTrue`` が
+``PHPUnit\Framework\Constraint\IsTrue`` が
 matcher オブジェクト (あるいは制約) のために抽象クラス
-``PHPUnit_Framework_Constraint`` を継承している部分です。
+``PHPUnit\Framework\Constraint`` を継承している部分です。
 
 .. code-block:: php
-    :caption: PHPUnit_Framework_Constraint_IsTrue クラス
+    :caption: PHPUnit\Framework\Constraint\IsTrue クラス
     :name: extending-phpunit.examples.IsTrue.php
 
     <?php
-    use PHPUnit\Framework\TestCase;
+    namespace PHPUnit\Framework\Constraint;
 
-    class PHPUnit_Framework_Constraint_IsTrue extends PHPUnit_Framework_Constraint
+    use PHPUnit\Framework\Constraint;
+
+    class IsTrue extends Constraint
     {
         /**
          * Evaluates the constraint for parameter $other. Returns true if the
@@ -110,7 +114,7 @@ matcher オブジェクト (あるいは制約) のために抽象クラス
 
 ``assertTrue()`` や
 ``isTrue()`` メソッドの実装を
-``PHPUnit_Framework_Constraint_IsTrue`` クラスと同じようにしておけば、
+``PHPUnit\Framework\Constraint\IsTrue`` クラスと同じようにしておけば、
 アサーションの評価やタスクの記録 (テストの統計情報に自動的に更新するなど)
 を ``assertThat()`` が自動的に行ってくれるようになります。
 さらに、モックオブジェクトを設定する際の matcher として ``isTrue()``
@@ -135,47 +139,47 @@ PHPUnit\\Framework\\TestListener の実装
 
     class SimpleTestListener implements TestListener
     {
-        public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+        public function addError(PHPUnit\Framework\Test $test, Exception $e, $time)
         {
             printf("テスト '%s' の実行中にエラーが発生\n", $test->getName());
         }
 
-        public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+        public function addFailure(PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e, $time)
         {
             printf("テスト '%s' に失敗\n", $test->getName());
         }
 
-        public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+        public function addIncompleteTest(PHPUnit\Framework\Test $test, Exception $e, $time)
         {
             printf("テスト '%s' は未完成\n", $test->getName());
         }
 
-        public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+        public function addRiskyTest(PHPUnit\Framework\Test $test, Exception $e, $time)
         {
             printf("テスト '%s' は危険\n", $test->getName());
         }
 
-        public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+        public function addSkippedTest(PHPUnit\Framework\Test $test, Exception $e, $time)
         {
             printf("テスト '%s' をスキップ\n", $test->getName());
         }
 
-        public function startTest(PHPUnit_Framework_Test $test)
+        public function startTest(PHPUnit\Framework\Test $test)
         {
             printf("テスト '%s' が開始\n", $test->getName());
         }
 
-        public function endTest(PHPUnit_Framework_Test $test, $time)
+        public function endTest(PHPUnit\Framework\Test $test, $time)
         {
             printf("テスト '%s' が終了\n", $test->getName());
         }
 
-        public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+        public function startTestSuite(PHPUnit\Framework\TestSuite $suite)
         {
             printf("テストスイート '%s' が開始\n", $suite->getName());
         }
 
-        public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+        public function endTestSuite(PHPUnit\Framework\TestSuite $suite)
         {
             printf("テストスイート '%s' が終了\n", $suite->getName());
         }
@@ -183,7 +187,7 @@ PHPUnit\\Framework\\TestListener の実装
     ?>
 
 :numref:`extending-phpunit.examples.BaseTestListener.php`
-は、抽象クラス ``PHPUnit_Framework_BaseTestListener``
+は、抽象クラス ``PHPUnit\Framework\BaseTestListener``
 のサブクラスを作る例です。これは、インターフェイスのメソッドのうち実際に使うものだけを指定し、
 他のメソッドについては空の実装を提供します。
 
@@ -192,11 +196,11 @@ PHPUnit\\Framework\\TestListener の実装
     :name: extending-phpunit.examples.BaseTestListener.php
 
     <?php
-    use PHPUnit\Framework\TestCase;
+    use PHPUnit\Framework\BaseTestListener;
 
-    class ShortTestListener extends PHPUnit_Framework_BaseTestListener
+    class ShortTestListener extends BaseTestListener
     {
-        public function endTest(PHPUnit_Framework_Test $test, $time)
+        public function endTest(PHPUnit\Framework\Test $test, $time)
         {
             printf("テスト '%s' が終了\n", $test->getName());
         }
@@ -240,7 +244,7 @@ PHPUnit には、``PHPUnit_Extensions_RepeatedTest``
     {
         private $timesRepeat = 1;
 
-        public function __construct(PHPUnit_Framework_Test $test, $timesRepeat = 1)
+        public function __construct(PHPUnit\Framework\Test $test, $timesRepeat = 1)
         {
             parent::__construct($test);
 
@@ -255,7 +259,7 @@ PHPUnit には、``PHPUnit_Extensions_RepeatedTest``
             return $this->timesRepeat * $this->test->count();
         }
 
-        public function run(PHPUnit_Framework_TestResult $result = null)
+        public function run(PHPUnit\Framework\TestResult $result = null)
         {
             if ($result === null) {
                 $result = $this->createResult();
@@ -272,11 +276,11 @@ PHPUnit には、``PHPUnit_Extensions_RepeatedTest``
 
 .. _extending-phpunit.PHPUnit_Framework_Test:
 
-PHPUnit_Framework_Test の実装
+PHPUnit\Framework\Test の実装
 ##########################
 
-``PHPUnit_Framework_Test`` インターフェイスの機能は限られており、
-実装するのは簡単です。``PHPUnit_Framework_Test``
+``PHPUnit\Framework\Test`` インターフェイスの機能は限られており、
+実装するのは簡単です。``PHPUnit\Framework\Test``
 を実装するのは ``PHPUnit\Framework\TestCase`` の実装より単純で、
 これを用いて例えば *データ駆動のテスト (data-driven tests)*
 などを実行します。
@@ -294,7 +298,7 @@ PHPUnit_Framework_Test の実装
     <?php
     use PHPUnit\Framework\TestCase;
 
-    class DataDrivenTest implements PHPUnit_Framework_Test
+    class DataDrivenTest implements PHPUnit\Framework\Test
     {
         private $lines;
 
@@ -308,10 +312,10 @@ PHPUnit_Framework_Test の実装
             return 1;
         }
 
-        public function run(PHPUnit_Framework_TestResult $result = null)
+        public function run(PHPUnit\Framework\TestResult $result = null)
         {
             if ($result === null) {
-                $result = new PHPUnit_Framework_TestResult;
+                $result = new PHPUnit\Framework\TestResult;
             }
 
             foreach ($this->lines as $line) {
@@ -322,12 +326,12 @@ PHPUnit_Framework_Test の実装
                 list($expected, $actual) = explode(';', $line);
 
                 try {
-                    PHPUnit_Framework_Assert::assertEquals(
+                    PHPUnit\Framework\Assert::assertEquals(
                       trim($expected), trim($actual)
                     );
                 }
 
-                catch (PHPUnit_Framework_AssertionFailedError $e) {
+                catch (PHPUnit\Framework\AssertionFailedError $e) {
                     $stopTime = PHP_Timer::stop();
                     $result->addFailure($this, $e, $stopTime);
                 }
@@ -349,7 +353,7 @@ PHPUnit_Framework_Test の実装
     }
 
     $test = new DataDrivenTest('data_file.csv');
-    $result = PHPUnit_TextUI_TestRunner::run($test);
+    $result = PHPUnit\TextUI\TestRunner::run($test);
     ?>
 
 .. code-block:: bash

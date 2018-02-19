@@ -36,15 +36,15 @@
 テストの成功を青信号、失敗を赤信号と考えるなら、
 テストが未完成あるいは未実装であることを表すための黄信号が必要です。
 そのような場合に使用するインターフェイスが
-``PHPUnit_Framework_IncompleteTest`` で、
+``PHPUnit\Framework\IncompleteTest`` で、
 これは未完成あるいは未実装のテストメソッドで発生する例外を表すものです。
 このインターフェイスの標準的な実装が
-``PHPUnit_Framework_IncompleteTestError`` です。
+``PHPUnit\Framework\IncompleteTestError`` です。
 
 :numref:`incomplete-and-skipped-tests.incomplete-tests.examples.SampleTest.php`
 では ``SampleTest`` というテストケースクラスを定義しています。
 便利なメソッド ``markTestIncomplete()``
-(これは、自動的に ``PHPUnit_Framework_IncompleteTestError``
+(これは、自動的に ``PHPUnit\Framework\IncompleteTestError``
 を発生させます) をテストメソッド内でコールすることで、
 このメソッドがまだ完成していないことをはっきりさせます。
 

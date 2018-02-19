@@ -222,7 +222,7 @@ PHPUnit のデータベーステストケースの設定
         use TestCaseTrait;
 
         /**
-         * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+         * @return PHPUnit\Extensions\Database\DB\IDatabaseConnection
          */
         public function getConnection()
         {
@@ -231,7 +231,7 @@ PHPUnit のデータベーステストケースの設定
         }
 
         /**
-         * @return PHPUnit_Extensions_Database_DataSet_IDataSet
+         * @return PHPUnit\Extensions\Database\DataSet\IDataSet
          */
         public function getDataSet()
         {
@@ -256,7 +256,7 @@ PHPUnit Database Extension からデータベース接続にアクセスでき�
 ``createDefaultDBConnection`` メソッドに渡しました。
 このメソッドは PDO のインスタンスをラップしたもので、二番目のパラメータ
 (データベース名) に非常にシンプルなデータベース接続の抽象化レイヤーを渡します。このパラメータの型は
-``PHPUnit_Extensions_Database_DB_IDatabaseConnection`` です。
+``PHPUnit\DbUnit\Database\Connection`` です。
 
 “データベース接続APIの使い方“で、このインターフェイスの API
 と、その活用法について説明します。
@@ -270,8 +270,8 @@ getDataSet() の実装
 個々のテストを実行する前のデータベースの初期状態がどうあるべきかということです。
 データベースの状態の抽象化は DataSet と DataTable
 という概念を使って行い、これらをそれぞれ
-``PHPUnit_Extensions_Database_DataSet_IDataSet`` および
-``PHPUnit_Extensions_Database_DataSet_IDataTable``
+``PHPUnit\DbUnit\DataSet\IDataSet`` および
+``PHPUnit\DbUnit\DataSet\IDataTable``
 というインターフェイスで表します。次の節でこれらの概念を詳しく説明し、
 これをデータベースのテストに使うと何がうれしいのかについても示します。
 
@@ -334,7 +334,7 @@ PHPUnit は、テストの実行前にデータベーススキーマ
         // PDO のインスタンス生成は、クリーンアップおよびフィクスチャ読み込みのときに一度だけ
         static private $pdo = null;
 
-        // PHPUnit_Extensions_Database_DB_IDatabaseConnection のインスタンス生成は、テストごとに一度だけ
+        // PHPUnit\DbUnit\Database\Connection のインスタンス生成は、テストごとに一度だけ
         private $conn = null;
 
         final public function getConnection()
@@ -386,7 +386,7 @@ PHPUnit にはさらにすばらしい機能があるので、それを使って
         // PDO のインスタンス生成は、クリーンアップおよびフィクスチャ読み込みのときに一度だけ
         static private $pdo = null;
 
-        // PHPUnit_Extensions_Database_DB_IDatabaseConnection のインスタンス生成は、テストごとに一度だけ
+        // PHPUnit\DbUnit\Database\Connection のインスタンス生成は、テストごとに一度だけ
         private $conn = null;
 
         final public function getConnection()
@@ -867,7 +867,13 @@ PHP の DataSet には、これまでのファイルベースのデータセッ�
 .. code-block:: php
 
     <?php
-    class MyApp_DbUnit_ArrayDataSet extends PHPUnit_Extensions_Database_DataSet_AbstractDataSet
+
+    use PHPUnit\DbUnit\DataSet\AbstractDataSet;
+    use PHPUnit\DbUnit\DataSet\DefaultTableMetaData
+    use PHPUnit\DbUnit\DataSet\DefaultTable
+    use PHPUnit\DbUnit\DataSet\DefaultTableIterator
+
+    class MyApp_DbUnit_ArrayDataSet extends AbstractDataSet
     {
         /**
          * @var array
@@ -885,8 +891,8 @@ PHP の DataSet には、これまでのファイルベースのデータセッ�
                     $columns = array_keys($rows[0]);
                 }
 
-                $metaData = new PHPUnit_Extensions_Database_DataSet_DefaultTableMetaData($tableName, $columns);
-                $table = new PHPUnit_Extensions_Database_DataSet_DefaultTable($metaData);
+                $metaData = new DefaultTableMetaData($tableName, $columns);
+                $table = new DefaultTable($metaData);
 
                 foreach ($rows AS $row) {
                     $table->addRow($row);
@@ -897,7 +903,7 @@ PHP の DataSet には、これまでのファイルベースのデータセッ�
 
         protected function createIterator($reverse = false)
         {
-            return new PHPUnit_Extensions_Database_DataSet_DefaultTableIterator($this->tables, $reverse);
+            return new DefaultTableIterator($this->tables, $reverse);
         }
 
         public function getTable($tableName)
@@ -923,7 +929,7 @@ Query/SQL ベースのデータセットでデータベースの実際の中身�
 .. code-block:: php
 
     <?php
-    $ds = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
+    $ds = new PHPUnit\DbUnit\DataSet\QueryDataSet($this->getConnection());
     $ds->addTable('guestbook');
     ?>
 
@@ -933,7 +939,7 @@ Query/SQL ベースのデータセットでデータベースの実際の中身�
 .. code-block:: php
 
     <?php
-    $ds = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
+    $ds = new PHPUnit\DbUnit\DataSet\QueryDataSet($this->getConnection());
     $ds->addTable('guestbook', 'SELECT * FROM guestbook');
     ?>
 
@@ -944,7 +950,7 @@ Query/SQL ベースのデータセットでデータベースの実際の中身�
 .. code-block:: php
 
     <?php
-    $ds = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
+    $ds = new PHPUnit\DbUnit\DataSet\QueryDataSet($this->getConnection());
     $ds->addTable('guestbook', 'SELECT id, content FROM guestbook ORDER BY created DESC');
     ?>
 
@@ -975,7 +981,7 @@ Database (DB) データセット
         use TestCaseTrait;
 
         /**
-         * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+         * @return PHPUnit\DbUnit\Database\Connection
          */
         public function getConnection()
         {
@@ -1038,7 +1044,7 @@ guestbook の例で NULL 値を扱うには、このようなファイルを作�
         public function getDataSet()
         {
             $ds = $this->createFlatXmlDataSet('myFlatXmlFixture.xml');
-            $rds = new PHPUnit_Extensions_Database_DataSet_ReplacementDataSet($ds);
+            $rds = new PHPUnit\DbUnit\DataSet\ReplacementDataSet($ds);
             $rds->addFullReplacement('##NULL##', null);
             return $rds;
         }
@@ -1071,7 +1077,7 @@ guestbook の例で NULL 値を扱うには、このようなファイルを作�
             $tableNames = ['guestbook'];
             $dataSet = $this->getConnection()->createDataSet();
 
-            $filterDataSet = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($dataSet);
+            $filterDataSet = new PHPUnit\DbUnit\DataSet\DataSetFilter($dataSet);
             $filterDataSet->addIncludeTables(['guestbook']);
             $filterDataSet->setIncludeColumnsForTable('guestbook', ['id', 'content']);
             // ..
@@ -1082,14 +1088,14 @@ guestbook の例で NULL 値を扱うには、このようなファイルを作�
             $tableNames = ['guestbook'];
             $dataSet = $this->getConnection()->createDataSet();
 
-            $filterDataSet = new PHPUnit_Extensions_Database_DataSet_DataSetFilter($dataSet);
+            $filterDataSet = new PHPUnit\DbUnit\DataSet\DataSetFilter($dataSet);
             $filterDataSet->addExcludeTables(['foo', 'bar', 'baz']); // only keep the guestbook table!
             $filterDataSet->setExcludeColumnsForTable('guestbook', ['user', 'created']);
             // ..
         }
     }
     ?>
-    
+
 .. admonition:: Note
 
     ひとつのテーブルに対してカラムの exclude フィルタと
@@ -1140,7 +1146,7 @@ Composite データセットを使えば、両方のフィクスチャファイ�
             $ds1 = $this->createFlatXmlDataSet('fixture1.xml');
             $ds2 = $this->createFlatXmlDataSet('fixture2.xml');
 
-            $compositeDs = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet();
+            $compositeDs = new PHPUnit\DbUnit\DataSet\CompositeDataSet();
             $compositeDs->addDataSet($ds1);
             $compositeDs->addDataSet($ds2);
 
@@ -1172,12 +1178,14 @@ Composite データセットを使えば、両方のフィクスチャファイ�
 .. code-block:: php
 
     <?php
-    interface PHPUnit_Extensions_Database_DataSet_IDataSet extends IteratorAggregate
+    namespace PHPUnit\DbUnit\DataSet;
+
+    interface IDataSet extends IteratorAggregate
     {
         public function getTableNames();
         public function getTableMetaData($tableName);
         public function getTable($tableName);
-        public function assertSame(PHPUnit_Extensions_Database_DataSet_IDataSet $other);
+        public function assertEquals(IDataSet $other);
 
         public function getReverseIterator();
     }
@@ -1204,13 +1212,15 @@ IDataSet は ``IteratorAggregate``
 .. code-block:: php
 
     <?php
-    interface PHPUnit_Extensions_Database_DataSet_ITable
+    namespace PHPUnit\DbUnit\DataSet;
+
+    interface ITable
     {
         public function getTableMetaData();
         public function getRowCount();
         public function getValue($row, $column);
         public function getRow($row);
-        public function assertSame(PHPUnit_Extensions_Database_DataSet_ITable $other);
+        public function assertEquals(ITable $other);
     }
     ?>
 
@@ -1219,7 +1229,7 @@ IDataSet は ``IteratorAggregate``
 これらのメソッドはすべて、Database Extension のさまざまなアサーションで必須となります。
 その詳細は次の章で説明します。
 ``getTableMetaData()`` メソッドの返す値は、
-``PHPUnit_Extensions_Database_DataSet_ITableMetaData``
+``PHPUnit\DbUnit\DataSet\ITableMetaData``
 インターフェイスを実装したものでなければなりません。
 このインターフェイスはテーブルの構造を表し、このような情報を保持します。
 
@@ -1251,7 +1261,9 @@ Connection インターフェイスには、三種類のおもしろいメソッ
 .. code-block:: php
 
     <?php
-    interface PHPUnit_Extensions_Database_DB_IDatabaseConnection
+    namespace PHPUnit\DbUnit\Database;
+
+    interface Connection
     {
         public function createDataSet(Array $tableNames = NULL);
         public function createQueryTable($resultName, $sql);
@@ -1525,6 +1537,7 @@ QueryTable 方式で可能です。単に結果の名前とクエリを指定し
        <?php
        use PHPUnit\Framework\TestCase;
        use PHPUnit\DbUnit\TestCaseTrait;
+       use PHPUnit\DbUnit\DataSet\QueryDataSet;
 
        class DataSetAssertionsTest extends TestCase
        {
@@ -1532,7 +1545,7 @@ QueryTable 方式で可能です。単に結果の名前とクエリを指定し
 
            public function testManualDataSetAssertion()
            {
-               $dataSet = new PHPUnit_Extensions_Database_DataSet_QueryDataSet();
+               $dataSet = new QueryDataSet();
                $dataSet->addTable('guestbook', 'SELECT id, content, user FROM guestbook'); // additional tables
                $expectedDataSet = $this->createFlatXmlDataSet('guestbook.xml');
 

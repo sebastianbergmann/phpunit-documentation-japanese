@@ -720,17 +720,17 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
 
     * - Matcher
       - 意味
-    * - ``PHPUnit_Framework_MockObject_Matcher_AnyInvokedCount any()``
+    * - ``PHPUnit\Framework\MockObject\Matcher\AnyInvokedCount any()``
       - 評価対象のメソッドがゼロ回以上実行された際にマッチするオブジェクトを返します。
-    * - ``PHPUnit_Framework_MockObject_Matcher_InvokedCount never()``
+    * - ``PHPUnit\Framework\MockObject\Matcher\InvokedCount never()``
       - 評価対象のメソッドが実行されなかった際にマッチするオブジェクトを返します。
-    * - ``PHPUnit_Framework_MockObject_Matcher_InvokedAtLeastOnce atLeastOnce()``
+    * - ``PHPUnit\Framework\MockObject\Matcher\InvokedAtLeastOnce atLeastOnce()``
       - 評価対象のメソッドが最低一回以上実行された際にマッチするオブジェクトを返します。
-    * - ``PHPUnit_Framework_MockObject_Matcher_InvokedCount once()``
+    * - ``PHPUnit\Framework\MockObject\Matcher\InvokedCount once()``
       - 評価対象のメソッドが一度だけ実行された際にマッチするオブジェクトを返します。
-    * - ``PHPUnit_Framework_MockObject_Matcher_InvokedCount exactly(int $count)``
+    * - ``PHPUnit\Framework\MockObject\Matcher\InvokedCount exactly(int $count)``
       - 評価対象のメソッドが指定した回数だけ実行された際にマッチするオブジェクトを返します。
-    * - ``PHPUnit_Framework_MockObject_Matcher_InvokedAtIndex at(int $index)``
+    * - ``PHPUnit\Framework\MockObject\Matcher\InvokedAtIndex at(int $index)``
       - 評価対象のメソッドが ``$index`` 回目に実行された際にマッチするオブジェクトを返します。
 
 .. admonition:: Note
