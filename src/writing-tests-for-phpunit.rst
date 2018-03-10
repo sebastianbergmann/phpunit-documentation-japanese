@@ -50,7 +50,6 @@ PHP の配列操作のテストを PHPUnit 用に書く方法を示します。
             $this->assertSame(0, count($stack));
         }
     }
-    ?>
 |
     *Martin Fowler*:
 
@@ -142,7 +141,6 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
             $this->assertEmpty($stack);
         }
     }
-    ?>
 
 上の例では、まず最初のテスト ``testEmpty()``
 で新しい配列を作り、それが空であることを確かめます。
@@ -189,7 +187,6 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
         {
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -256,7 +253,6 @@ PHPUnit はテストが実行される順序を変更しないので、
             $this->assertSame('second', $b);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -315,7 +311,6 @@ PHPUnit はテストが実行される順序を変更しないので、
             ];
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -366,7 +361,6 @@ PHPUnit はテストが実行される順序を変更しないので、
             ];
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -411,7 +405,6 @@ PHPUnit はテストが実行される順序を変更しないので、
             return new CsvFileIterator('data.csv');
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -475,7 +468,6 @@ PHPUnit はテストが実行される順序を変更しないので、
             $this->key++;
         }
     }
-    ?>
 
 ``@dataProvider`` で指定したメソッドと
 ``@depends`` で指定したテストの両方からの入力を受け取るテストの場合、
@@ -523,7 +515,6 @@ PHPUnit はテストが実行される順序を変更しないので、
             );
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -591,7 +582,6 @@ PHPUnit はテストが実行される順序を変更しないので、
             $this->expectException(InvalidArgumentException::class);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -646,7 +636,6 @@ PHPUnit はテストが実行される順序を変更しないので、
         {
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -699,7 +688,6 @@ PHP のエラーのテスト
             include 'not_existing_file.php';
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -743,21 +731,23 @@ PHP のエラーのテスト
     {
         public function testFileWriting() {
             $writer = new FileWriter;
+
             $this->assertFalse(@$writer->write('/is-not-writeable/file', 'stuff'));
         }
     }
+
     class FileWriter
     {
         public function write($file, $content) {
             $file = fopen($file, 'w');
+
             if($file == false) {
                 return false;
             }
+
             // ...
         }
     }
-
-    ?>
 
 .. code-block:: bash
 
@@ -771,8 +761,7 @@ PHP のエラーのテスト
     OK (1 test, 1 assertion)
 
 もしエラーを抑制しなければ、このテストは失敗して
-``fopen(/is-not-writeable/file): failed to open stream:
-    No such file or directory`` となります。
+``fopen(/is-not-writeable/file): failed to open stream: No such file or directory`` となります。
 
 .. _writing-tests-for-phpunit.output:
 
@@ -811,7 +800,6 @@ PHP のエラーのテスト
             print 'baz';
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -882,7 +870,6 @@ PHP のエラーのテスト
             );
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -936,7 +923,6 @@ PHP のエラーのテスト
             );
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -994,7 +980,6 @@ assertSame などの「緩い」比較の関数を、配列やオブジェクト
             );
         }
     }
-    ?>
 
 .. code-block:: bash
 
