@@ -1,14 +1,15 @@
 ==============
-PHPUnit Manual
+PHPUnit マニュアル
 ==============
 
-Edition for PHPUnit |version|. Updated on |today|.
+対応バージョン：PHPUnit |version|
+更新日：|today|
 
 Sebastian Bergmann
 
-This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+この作品は、Creative Commons Attribution 3.0 Unported License の下でライセンスされています。
 
-Contents:
+目次
 
 .. toctree::
    :maxdepth: 3
