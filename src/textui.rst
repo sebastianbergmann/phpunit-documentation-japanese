@@ -221,7 +221,7 @@ PHPUnit は、*失敗 (failures)* と
 ``--testdox-html`` および ``--testdox-text``
 
     実行したテストについて、HTML あるいはプレーンテキスト形式のドキュメントを生成します
-    詳細は :ref:`other-uses-for-tests` を参照ください。
+    ( :ref:`textui.testdox` を参照ください)。
 
 ``--filter``
 
@@ -442,7 +442,7 @@ PHPUnit は、*失敗 (failures)* と
 ``--testdox``
 
     テストの進行状況を、アジャイルな文書として報告します。
-    詳細は :ref:`other-uses-for-tests` を参照ください。
+    ( :ref:`textui.testdox`) を参照ください。
 
 ``--printer``
 
@@ -487,4 +487,41 @@ PHPUnit は、*失敗 (failures)* と
 
    PHPUnit 4.8 以降では、これらのオプションを引数の後にも指定できるようになりました。
 
+TestDox
+#######
 
+PHPUnit の TestDox 機能は、テストクラス内のすべてのテストメソッドの名前を抽出し、
+それを PHP 風のキャメルケースから通常の文に変換します。つまり
+``testBalanceIsInitiallyZero()`` が "Balance is initially zero"
+のようになるわけです。最後のほうの数字のみが違うメソッド、例えば
+``testBalanceCannotBecomeNegative()`` と
+``testBalanceCannotBecomeNegative2()`` のようなものが存在した場合は、
+文 "Balance cannot become negative" は一度のみ表示され、
+全てのテストが成功したことを表します。
+
+``BankAccount`` クラスのアジャイルな文書を見てみましょう。
+
+.. code-block:: bash
+
+    $ phpunit --testdox BankAccountTest
+    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+
+    BankAccount
+     ✔ Balance is initially zero
+     ✔ Balance cannot become negative
+
+また、アジャイルな文書を HTML あるいはプレーンテキスト形式で作成してファイルに書き出すこともできます。
+この場合は、引数 ``--testdox-html``
+あるいは ``--testdox-text`` を使用します。
+
+アジャイルな文書は、プロジェクト内であなたが作成しようとしている外部パッケージについて、
+このように動作するであるという期待をまとめた文書にもなります。
+外部のパッケージを使用するときには、
+そのパッケージが期待通りに動作しなくなるというリスクに常にさらされています。
+パッケージのバージョンアップにより知らないうちに挙動が変わってしまい、
+あなたのコードが動作しなくなる可能性もあります。そのようなことを避けるため、
+「このパッケージはこのように動作するはず」
+ということを常にテストケースで記述しておくようにします。テストが成功すれば、
+期待通りに動作していることがわかります。もし動作仕様をすべてテストで記述できているのなら、
+外部パッケージが将来バージョンアップされたとしても何の心配もいりません。
+テストをクリアしたということは、システムは期待通りに動作するということだからです。
