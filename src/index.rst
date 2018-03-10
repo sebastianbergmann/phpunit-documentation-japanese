@@ -3,6 +3,7 @@ PHPUnit マニュアル
 ==============
 
 対応バージョン：PHPUnit |version|
+
 更新日：|today|
 
 Sebastian Bergmann
