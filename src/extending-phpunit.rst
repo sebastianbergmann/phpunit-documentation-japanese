@@ -211,69 +211,6 @@ PHPUnit\\Framework\\TestListener の実装
 に、自作のテストリスナーをテスト実行時にアタッチするための
 PHPUnit の設定方法についての説明があります。
 
-.. _extending-phpunit.PHPUnit_Extensions_TestDecorator:
-
-PHPUnit_Extensions_TestDecorator のサブクラスの作成
-##########################################
-
-``PHPUnit_Extensions_TestDecorator``
-のサブクラスでテストケースあるいはテストスイートをラッピングし、
-デコレータパターンを使用することで
-各テストの実行前後に何らかの処理をさせることができます。
-
-PHPUnit には、``PHPUnit_Extensions_RepeatedTest``
-および ``PHPUnit_Extensions_TestSetup``
-という 2 つの具象テストデコレータが付属しています。
-前者はテストを繰り返し実行し、それらが全て成功した場合にのみ成功とみなします。
-後者については :ref:`fixtures` で説明しました。
-
-:numref:`extending-phpunit.examples.RepeatedTest.php`
-は、テストデコレータ ``PHPUnit_Extensions_RepeatedTest``
-の一部を抜粋したものです。独自のデコレータを作成するための参考にしてください。
-
-.. code-block:: php
-    :caption: RepeatedTest デコレータ
-    :name: extending-phpunit.examples.RepeatedTest.php
-
-    <?php
-    use PHPUnit\Framework\TestCase;
-
-    require_once 'PHPUnit/Extensions/TestDecorator.php';
-
-    class PHPUnit_Extensions_RepeatedTest extends PHPUnit_Extensions_TestDecorator
-    {
-        private $timesRepeat = 1;
-
-        public function __construct(PHPUnit\Framework\Test $test, $timesRepeat = 1)
-        {
-            parent::__construct($test);
-
-            if (is_integer($timesRepeat) &&
-                $timesRepeat >= 0) {
-                $this->timesRepeat = $timesRepeat;
-            }
-        }
-
-        public function count()
-        {
-            return $this->timesRepeat * $this->test->count();
-        }
-
-        public function run(PHPUnit\Framework\TestResult $result = null)
-        {
-            if ($result === null) {
-                $result = $this->createResult();
-            }
-
-            for ($i = 0; $i < $this->timesRepeat && !$result->shouldStop(); $i++) {
-                $this->test->run($result);
-            }
-
-            return $result;
-        }
-    }
-    ?>
-
 .. _extending-phpunit.PHPUnit_Framework_Test:
 
 PHPUnit\Framework\Test の実装
