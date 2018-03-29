@@ -283,16 +283,34 @@ PHPUnit は、*失敗 (failures)* と
 
     有効なフィルターパターンの例は、:numref:`textui.examples.filter-patterns` を参照ください。
 
-    .. code-block:: php
+    .. code-block:: shell
         :caption: フィルターパターンの例
         :name: textui.examples.filter-patterns
+
+        --filter 'TestNamespace\\TestCaseClass::testMethod'
+        --filter 'TestNamespace\\TestCaseClass'
+        --filter TestNamespace
+        --filter TestCaseClase
+        --filter testMethod
+        --filter '/::testMethod .*"my named data"/'
+        --filter '/::testMethod .*#5$/'
+        --filter '/::testMethod .*#(5|6|7)$/'
 
     データプロバイダーのマッチングに使えるショートカットは、
     :numref:`textui.examples.filter-shortcuts` を参照ください。
 
-    .. code-block:: php
+    .. code-block:: shell
         :caption: フィルターのショートカット
         :name: textui.examples.filter-shortcuts
+
+        --filter 'testMethod#2'
+        --filter 'testMethod#2-4'
+        --filter '#2'
+        --filter '#2-4'
+        --filter 'testMethod@my named data'
+        --filter 'testMethod@my.*data'
+        --filter '@my named data'
+        --filter '@my.*data'
 
 ``--testsuite``
 
