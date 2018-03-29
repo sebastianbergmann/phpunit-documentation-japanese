@@ -63,6 +63,9 @@ PHPUnit の ``createMock($type)`` メソッドや ``getMockBuilder($type)`` メ�
    ``final``, ``private``, ``protected`` および
    ``static`` メソッドのスタブやモックは作れないことに注意しましょう。
    PHPUnit のテストダブル機能ではこれらを無視し、元のメソッドの振る舞いをそのまま維持します。
+   ただし ``static`` メソッドは例外で、これは
+   ``\PHPUnit\Framework\MockObject\BadMethodCallException``
+   をスローするメソッドに置き換えられます。
 
 .. _test-doubles.stubs:
 
