@@ -776,6 +776,13 @@ small テストは実行時間が 1 秒を超えたら失敗します。
 テストメソッド ``@dataProvider`` とともに使うメソッドを実装するかわりに、
 ``@testWith`` アノテーションを使ってデータセットを定義することができます。
 
+データセットには複数の要素を含めることができます。
+複数の要素からなるデータセットを定義するには、要素ごとに別の行で定義します。
+データセットの要素は、JSONの配列形式でなければいけません。
+
+データセットをテストに渡す方法について、詳しくは :ref:`writing-tests-for-phpunit.data-providers`
+を参照ください。
+
 .. code-block:: php
 
     /**
@@ -788,6 +795,21 @@ small テストは実行時間が 1 秒を超えたら失敗します。
     public function testStringLength(string $input, int $expectedLength)
     {
         $this->assertSame($expectedLength, strlen($input));
+    }
+
+JSONのオブジェクト形式で書いた場合は、連想配列として扱われます。
+
+.. code-block:: php
+
+    /**
+     * @param array     $array
+     * @param array     $keys
+     *
+       * @testWith        [{"day": "monday", "conditions": "sunny"}, ["day", "conditions"]]
+     */
+    public function testArrayKeys($array, $keys)
+    {
+        $this->assertSame($keys, array_keys($array));
     }
 
 .. _appendixes.annotations.ticket:
