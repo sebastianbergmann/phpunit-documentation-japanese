@@ -100,8 +100,6 @@ SUT の入力を間接的にコントロールできるようにすることが�
     :name: test-doubles.stubs.examples.SomeClass.php
 
     <?php
-    use PHPUnit\Framework\TestCase;
-
     class SomeClass
     {
         public function doSomething()
