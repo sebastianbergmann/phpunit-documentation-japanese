@@ -19,7 +19,7 @@
 PHPUnit のコードカバレッジ解析では
 `php-code-coverage <https://github.com/sebastianbergmann/php-code-coverage>`_
 コンポーネントを使っています。このコンポーネントは、
-`Xdebug <http://www.xdebug.org/>`_
+`Xdebug <https://www.xdebug.org/>`_
 拡張モジュールが提供するステートメントカバレッジ機能を利用しています。
 
 .. admonition:: Note
@@ -28,7 +28,7 @@ PHPUnit のコードカバレッジ解析では
    テストを実行したときに Xdebug がロードできないという notice が出る場合は、
    Xdebug がインストールされていないかあるいはうまく設定できていないのでしょう。
    PHPUnit のコードカバレッジ機能を使う前に、まずは
-   `Xdebug のインストールガイド <http://xdebug.org/docs/install>`_
+   `Xdebug のインストールガイド <https://xdebug.org/docs/install>`_
    を読んでみましょう。
 
 PHPUnit は、HTML ベースのコードカバレッジレポートを生成するだけでなく、
