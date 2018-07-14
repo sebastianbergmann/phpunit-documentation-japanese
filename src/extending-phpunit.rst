@@ -71,7 +71,7 @@ PHPUnit\\Framework\\TestCase のサブクラスの作成
         }
 
         // ...
-    }?>
+    }
 
 :numref:`extending-phpunit.examples.IsTrue.php` は、
 ``PHPUnit\Framework\Constraint\IsTrue`` が

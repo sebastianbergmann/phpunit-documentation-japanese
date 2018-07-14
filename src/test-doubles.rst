@@ -107,7 +107,6 @@ SUT の入力を間接的にコントロールできるようにすることが�
             // なにかをします
         }
     }
-    ?>
 
 .. code-block:: php
     :caption: メソッドに固定値を返させるスタブ
@@ -132,7 +131,6 @@ SUT の入力を間接的にコントロールできるようにすることが�
             $this->assertSame('foo', $stub->doSomething());
         }
     }
-    ?>
 
 .. admonition:: 制限： "method" という名前のメソッド
 
@@ -177,7 +175,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $this->assertSame('foo', $stub->doSomething());
         }
     }
-    ?>
 
 ここまでの例では、
 ``willReturn($value)`` を使ってシンプルな値を返していました。
@@ -216,7 +213,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $this->assertSame('bar', $stub->doSomething('bar'));
         }
     }
-    ?>
 
 流れるようなインターフェイスをテストするときには、
 スタブメソッドがオブジェクト自身への参照を返すようにできると便利です。
@@ -245,7 +241,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $this->assertSame($stub, $stub->doSomething());
         }
     }
-    ?>
 
 スタブメソッドをコールした結果として、
 定義済みの引数リストにあわせて異なる値を返さなければならないこともあるでしょう。
@@ -282,7 +277,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $this->assertSame('h', $stub->doSomething('e', 'f', 'g'));
         }
     }
-    ?>
 
 スタブメソッドをコールした結果として固定値
 (``returnValue()`` を参照ください) や (不変の) 引数
@@ -315,7 +309,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $this->assertSame('fbzrguvat', $stub->doSomething('something'));
         }
     }
-    ?>
 
 コールバックメソッドを設定するよりももう少しシンプルな方法として、
 希望する返り値のリストを指定することもできます。この場合に使うのは
@@ -347,7 +340,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $this->assertSame(5, $stub->doSomething());
         }
     }
-    ?>
 
 値を返すのではなく、スタブメソッドで例外を発生させることもできます。
 :numref:`test-doubles.stubs.examples.StubTest8.php`
@@ -375,7 +367,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $stub->doSomething();
         }
     }
-    ?>
 
 また、スタブを使用することで、よりよい設計を行うことができるようにもなります。
 あちこちで使用されているリソースを単一の窓口 (façade : ファサード)
@@ -492,7 +483,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
 
         // その他のメソッド
     }
-    ?>
 
 :numref:`test-doubles.mock-objects.examples.SubjectTest.php`
 では、モックオブジェクトを作成して
@@ -545,7 +535,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $subject->doSomething();
         }
     }
-    ?>
 
 ``with()`` メソッドには任意の数の引数を渡すことができます。
 これは、モック対象のメソッドの引数の数に対応します。
@@ -584,7 +573,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $subject->doSomethingBad();
         }
     }
-    ?>
 
 ``withConsecutive()`` メソッドには、
 テスト対象の呼び出しにあわせて、引数の配列を好きなだけ渡せます。
@@ -617,7 +605,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $mock->set('bar', 48);
         }
     }
-    ?>
 
 ``callback()`` 制約を使えば、より複雑な引数の検証ができます。
 この制約は、PHP のコールバックを引数として受け取ります。
@@ -658,7 +645,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $subject->doSomethingBad();
         }
     }
-    ?>
 
 .. code-block:: php
     :caption: メソッドが一度だけ呼ばれ、同じオブジェクトが渡されたことを確かめるテスト
@@ -684,7 +670,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             $mock->foo($expectedObject);
         }
     }
-    ?>
 
 .. code-block:: php
     :caption: パラメータのクローンの有効にしたモックオブジェクトの作成
@@ -707,7 +692,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
             // identicalTo 制約は失敗します
         }
     }
-    ?>
 
 :ref:`appendixes.assertions.assertThat.tables.constraints`
 はメソッドの引数に適用できる制約、そして
@@ -823,7 +807,6 @@ PHPUnit は、Prophecy を使ったテストダブルの作成に標準で対応
             $subject->doSomething();
         }
     }
-    ?>
 
 Prophecy を使ってスタブやスパイそしてモックを作ったり設定したり使ったりする方法の詳細については、
 その `ドキュメント <https://github.com/phpspec/prophecy#how-to-use-it>`_ を参照ください。
@@ -867,7 +850,6 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
             $this->assertTrue($mock->concreteMethod());
         }
     }
-    ?>
 
 ``getMockForAbstractClass()`` メソッドは、
 抽象クラスのモックオブジェクトを返します。
@@ -904,7 +886,6 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
             $this->assertTrue($stub->concreteMethod());
         }
     }
-    ?>
 
 .. _test-doubles.stubbing-and-mocking-web-services:
 
@@ -992,7 +973,6 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
             );
         }
     }
-    ?>
 
 .. _test-doubles.mocking-the-filesystem:
 
@@ -1049,7 +1029,7 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
                 mkdir($this->directory, 0700, true);
             }
         }
-    }?>
+    }
 
 vfsStream のような仮想ファイルシステムがなければ、外部への影響なしに
 ``setDirectory()`` メソッドを個別にテストすることができません
@@ -1088,7 +1068,6 @@ vfsStream のような仮想ファイルシステムがなければ、外部へ�
             }
         }
     }
-    ?>
 
 この方式には、次のような問題があります。
 
@@ -1132,7 +1111,6 @@ vfsStream のような仮想ファイルシステムがなければ、外部へ�
             $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild('id'));
         }
     }
-    ?>
 
 この方式には次のような利点があります。
 

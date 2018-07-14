@@ -204,7 +204,6 @@ PHPUnit のデータベーステストケースの設定
             $this->assertSame(2, 1 + 1);
         }
     }
-    ?>
 
 テストコードで Database Extension を使う場合は少しだけ複雑になり、
 別の抽象テストケースを継承しなければなりません。そして、二つの抽象メソッド
@@ -238,7 +237,6 @@ PHPUnit のデータベーステストケースの設定
             return $this->createFlatXMLDataSet(dirname(__FILE__).'/_files/guestbook-seed.xml');
         }
     }
-    ?>
 
 .. _database.implementing-getconnection:
 
@@ -349,7 +347,6 @@ PHPUnit は、テストの実行前にデータベーススキーマ
             return $this->conn;
         }
     }
-    ?>
 
 しかし、これはまだデータベースへの接続情報を
 PDO 接続の設定にハードコードしてしまっています。
@@ -401,7 +398,6 @@ PHPUnit にはさらにすばらしい機能があるので、それを使って
             return $this->conn;
         }
     }
-    ?>
 
 データベースの設定情報を切り替えてテストスイートを実行するには、
 コマンドラインから次のようにします。
@@ -600,7 +596,6 @@ Database TestCase から作るには、
             return $this->createFlatXmlDataSet('myFlatXmlFixture.xml');
         }
     }
-    ?>
 
 .. _database.xml-dataset:
 
@@ -670,7 +665,6 @@ Database TestCase から作るには、
             return $this->createXMLDataSet('myXmlFixture.xml');
         }
     }
-    ?>
 
 .. _database.mysql-xml-dataset:
 
@@ -708,7 +702,6 @@ PHPUnit 3.5 以降で対応します。この形式のファイルを生成す�
             return $this->createMySQLXMLDataSet('/path/to/file.xml');
         }
     }
-    ?>
 
 .. _database.yaml-dataset:
 
@@ -757,7 +750,6 @@ YAML Dataset 用のファクトリーメソッドは今のところ Database Tes
             return new YamlDataSet(dirname(__FILE__)."/_files/guestbook.yml");
         }
     }
-    ?>
 
 .. _database.csv-dataset:
 
@@ -800,7 +792,6 @@ CSV データセットを作るには、このようにします。
             return $dataSet;
         }
     }
-    ?>
 
 .. _database.array-dataset:
 
@@ -843,7 +834,6 @@ guestbook の例だと、このようになります。
             );
         }
     }
-    ?>
 
 PHP の DataSet には、これまでのファイルベースのデータセットに比べて明らかな利点があります。
 
@@ -915,7 +905,6 @@ PHP の DataSet には、これまでのファイルベースのデータセッ�
             return $this->tables[$tableName];
         }
     }
-    ?>
 
 .. _database.query-sql-dataset:
 
@@ -931,7 +920,6 @@ Query/SQL ベースのデータセットでデータベースの実際の中身�
     <?php
     $ds = new PHPUnit\DbUnit\DataSet\QueryDataSet($this->getConnection());
     $ds->addTable('guestbook');
-    ?>
 
 単にテーブル名だけを指定してテーブルを追加すると、
 次のクエリを実行してデータテーブルを定義したのと同じ意味になります。
@@ -941,7 +929,6 @@ Query/SQL ベースのデータセットでデータベースの実際の中身�
     <?php
     $ds = new PHPUnit\DbUnit\DataSet\QueryDataSet($this->getConnection());
     $ds->addTable('guestbook', 'SELECT * FROM guestbook');
-    ?>
 
 ここでテーブルに対して任意のクエリを実行して、
 取得する行や列を絞り込んだり
@@ -952,7 +939,6 @@ Query/SQL ベースのデータセットでデータベースの実際の中身�
     <?php
     $ds = new PHPUnit\DbUnit\DataSet\QueryDataSet($this->getConnection());
     $ds->addTable('guestbook', 'SELECT id, content FROM guestbook ORDER BY created DESC');
-    ?>
 
 データベースアサーションの節で、このデータセットを使う方法をより詳しく説明しています。
 
@@ -1005,7 +991,6 @@ Database (DB) データセット
             // ...
         }
     }
-    ?>
 
 .. _database.replacement-dataset:
 
@@ -1049,7 +1034,6 @@ guestbook の例で NULL 値を扱うには、このようなファイルを作�
             return $rds;
         }
     }
-    ?>
 
 .. _database.dataset-filter:
 
@@ -1094,7 +1078,6 @@ guestbook の例で NULL 値を扱うには、このようなファイルを作�
             // ..
         }
     }
-    ?>
 
 .. admonition:: Note
 
@@ -1153,7 +1136,6 @@ Composite データセットを使えば、両方のフィクスチャファイ�
             return $compositeDs;
         }
     }
-    ?>
 
 .. _database.beware-of-foreign-keys:
 
@@ -1189,7 +1171,6 @@ Composite データセットを使えば、両方のフィクスチャファイ�
 
         public function getReverseIterator();
     }
-    ?>
 
 公開インターフェイスは、データベーステストケースの
 ``assertDataSetsEqual()``
@@ -1222,7 +1203,6 @@ IDataSet は ``IteratorAggregate``
         public function getRow($row);
         public function assertEquals(ITable $other);
     }
-    ?>
 
 ``getTableMetaData()`` メソッドは別として、
 それ以外のメソッドはまさに文字通りの働きをするものです。
@@ -1271,7 +1251,6 @@ Connection インターフェイスには、三種類のおもしろいメソッ
 
         // ...
     }
-    ?>
 
 #.
 
@@ -1294,7 +1273,6 @@ Connection インターフェイスには、三種類のおもしろいメソッ
                $dataSet = $this->getConnection()->createDataSet();
            }
        }
-       ?>
 
 #.
 
@@ -1319,7 +1297,6 @@ Connection インターフェイスには、三種類のおもしろいメソッ
                $queryTable = $this->getConnection()->createQueryTable('guestbook', 'SELECT * FROM guestbook');
            }
        }
-       ?>
 
 #.
 
@@ -1343,7 +1320,6 @@ Connection インターフェイスには、三種類のおもしろいメソッ
                $this->assertSame(2, $this->getConnection()->getRowCount('guestbook'));
            }
        }
-       ?>
 
 .. _database.database-assertions-api:
 
@@ -1385,7 +1361,6 @@ guestbook に行を追加した後で、初期登録した 2 エントリ以外�
             $this->assertSame(3, $this->getConnection()->getRowCount('guestbook'), "Inserting failed");
         }
     }
-    ?>
 
 .. _database.asserting-the-state-of-a-table:
 
@@ -1423,7 +1398,6 @@ guestbook に行を追加した後で、初期登録した 2 エントリ以外�
             $this->assertTablesEqual($expectedTable, $queryTable);
         }
     }
-    ?>
 
 さて次に、このアサーションに使うフラット XML ファイル
 *expectedBook.xml* を用意しましょう。
@@ -1462,7 +1436,6 @@ QueryTable の呼び出しも修正しなければなりません。
     $queryTable = $this->getConnection()->createQueryTable(
         'guestbook', 'SELECT id, content, user FROM guestbook'
     );
-    ?>
 
 .. _database.asserting-the-result-of-a-query:
 
@@ -1493,7 +1466,6 @@ QueryTable 方式で可能です。単に結果の名前とクエリを指定し
             $this->assertTablesEqual($expectedTable, $queryTable);
         }
     }
-    ?>
 
 .. _database.asserting-the-state-of-multiple-tables:
 
@@ -1526,7 +1498,6 @@ QueryTable 方式で可能です。単に結果の名前とクエリを指定し
                $this->assertDataSetsEqual($expectedDataSet, $dataSet);
            }
        }
-       ?>
 
 #.
 
@@ -1552,7 +1523,6 @@ QueryTable 方式で可能です。単に結果の名前とクエリを指定し
                $this->assertDataSetsEqual($expectedDataSet, $dataSet);
            }
        }
-       ?>
 
 .. _database.frequently-asked-questions:
 

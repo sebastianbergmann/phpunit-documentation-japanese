@@ -65,7 +65,6 @@ assertArrayHasKey()
             $this->assertArrayHasKey('foo', ['bar' => 'baz']);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -111,7 +110,6 @@ assertClassHasAttribute()
             $this->assertClassHasAttribute('foo', stdClass::class);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -157,7 +155,6 @@ assertArraySubset()
             $this->assertArraySubset(['config' => ['key-a', 'key-b']], ['config' => ['key-a']]);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -208,7 +205,6 @@ assertClassHasStaticAttribute()
             $this->assertClassHasStaticAttribute('foo', stdClass::class);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -256,7 +252,6 @@ assertContains()
             $this->assertContains(4, [1, 2, 3]);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -297,7 +292,6 @@ assertContains()
             $this->assertContains('baz', 'foobar');
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -337,7 +331,6 @@ assertContains()
             $this->assertContains('foo', 'FooBar', '', true);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -387,7 +380,6 @@ assertContainsOnly()
             $this->assertContainsOnly('string', ['1', '2', 3]);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -438,7 +430,6 @@ assertContainsOnlyInstancesOf()
             );
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -484,7 +475,6 @@ assertCount()
             $this->assertCount(0, ['foo']);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -530,7 +520,6 @@ assertDirectoryExists()
             $this->assertDirectoryExists('/path/to/directory');
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -576,7 +565,6 @@ assertDirectoryIsReadable()
             $this->assertDirectoryIsReadable('/path/to/directory');
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -622,7 +610,6 @@ assertDirectoryIsWritable()
             $this->assertDirectoryIsWritable('/path/to/directory');
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -670,7 +657,6 @@ assertEmpty()
             $this->assertEmpty(['foo']);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -756,7 +742,6 @@ assertEqualXMLStructure()
             );
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -841,7 +826,6 @@ assertEquals()
             $this->assertEquals("foo\nbar\nbaz\n", "foo\nbah\nbaz\n");
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -912,7 +896,6 @@ assertEquals()
             $this->assertEquals(1.0, 1.1);
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -957,7 +940,6 @@ assertEquals()
             $this->assertEquals($expected, $actual);
         }
     }
-    ?>
 
 .. code-block:: bash
 

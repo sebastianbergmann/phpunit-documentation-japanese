@@ -275,7 +275,6 @@ PHPUnit は、*失敗 (failures)* と
                     ];
                 }
             }
-            ?>
 
     ``/path/to/my/test.phpt``
 

@@ -335,7 +335,6 @@ PHPUnit などのアプリケーションでは、
             $o->publicMethod();
         }
     }
-    ?>
 
 .. _appendixes.annotations.coversNothing:
 

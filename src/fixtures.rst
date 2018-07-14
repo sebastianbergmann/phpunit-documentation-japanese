@@ -79,7 +79,6 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
             $this->assertTrue(empty($this->stack));
         }
     }
-    ?>
 
 テンプレートメソッド ``setUp()`` および ``tearDown()``
 は、テストケースクラスのテストメソッドごとに (そして最初にインスタンスを作成したときに)
@@ -149,7 +148,6 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
             throw $e;
         }
     }
-    ?>
 
 .. code-block:: bash
 
@@ -257,7 +255,6 @@ tearDown() よりも setUp()
             self::$dbh = null;
         }
     }
-    ?>
 
 このようにフィクスチャを共有することがテストの価値を下げてしまうということを、
 まだうまく伝え切れていないかもしれません。問題なのは、
