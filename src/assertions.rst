@@ -14,16 +14,16 @@
 #########################################
 
 PHPUnit のアサーションの実装は、 ``PHPUnit\Framework\Assert``
-およびそれを継承した ``PHPUnit\\Framework\\TestCase`` にあります。
+およびそれを継承した ``PHPUnit\Framework\TestCase`` にあります。
 
 アサーションメソッドは static 宣言されていて、あらゆるコンテキストから
-``PHPUnit\\Framework\\Assert::assertTrue()`` などのように使えます。
-また、 ``PHPUnit\\Framework\\TestCase`` を継承したクラスの中では
+``PHPUnit\Framework\Assert::assertTrue()`` などのように使えます。
+また、 ``PHPUnit\Framework\TestCase`` を継承したクラスの中では
 ``$this->assertTrue()`` や ``self::assertTrue()`` などとしても使えます。
 
 さらに、PHPUnit に含まれるファイル :file:`src/Framework/Assert/Functions.php`
 を (手動で) インクルードしてしまえば、グローバルなラッパー関数 ``assertTrue()``
-などを使うことさえできてしまいます。これは、 ``PHPUnit\\Framework\\TestCase``
+などを使うことさえできてしまいます。これは、 ``PHPUnit\Framework\TestCase``
 を継承したクラスを含めてあらゆるコンテキストで使えます。
 
 PHPUnit を使い始めたばかりの開発者の多くは、たとえばアサーションを実行するときに
