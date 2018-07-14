@@ -115,13 +115,15 @@ PHPUnit に対してどのソースコードファイルをコードカバレッ
 ホワイトリストの設定には、コマンドラインオプションの ``--whitelist``
 を使うか、あるいは設定ファイルを使います (:ref:`appendixes.configuration.whitelisting-files` を参照ください)。
 
-オプションで、ホワイトリストに追加したファイルをすべて、コードカバレッジレポートに追加することもできます。
-そのためには、PHPUnit の設定で ``addUncoveredFilesFromWhitelist="true"``
-とします (:ref:`appendixes.configuration.whitelisting-files` を参照ください)。
-こうすれば、まだテストされていないファイルもすべて、レポートに含めることができます。
-カバーされていないファイルにおける、実行可能な行についての情報を知りたい場合は、同じく PHPUnit の設定で
-``processUncoveredFilesFromWhitelist="true"`` とします
-(:ref:`appendixes.configuration.whitelisting-files` を参照ください)。
+設定項目 ``addUncoveredFilesFromWhitelist`` および ``processUncoveredFilesFromWhitelist`` で、ホワイトリストの使いかたを設定できます。
+
+- ``addUncoveredFilesFromWhitelist="false"`` と指定すると、ホワイトリストの追加したファイルのうち、実行される行が少なくとも一行以上あるファイルだけをコードカバレッジレポートに含めます。
+
+- ``addUncoveredFilesFromWhitelist="true"`` (デフォルト) と指定すると、実行されるコードが一行もないファイルを含めてホワイトリスト上のすべてのファイルをコードカバレッジレポートに含めます。
+
+- ``processUncoveredFilesFromWhitelist="false"`` (デフォルト) と指定すると、実行される行が一行もないホワイトリスト上のファイルも (``addUncoveredFilesFromWhitelist="true"`` が指定されている場合) コードカバレッジレポートに追加されますが、PHPUnit には読み込まれず、実行可能な行数の解析は行われません。
+
+- ``processUncoveredFilesFromWhitelist="true"`` と指定すると、実行される行が一行もないホワイトリスト上のファイルが PHPUnit に読み込まれて、実行可能な行数の解析も行われるようになります。
 
 .. admonition:: Note
 
