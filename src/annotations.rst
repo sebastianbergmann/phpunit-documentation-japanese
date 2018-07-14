@@ -420,7 +420,7 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
          * @expectedException     MyException
          * @expectedExceptionCode 20
          */
-        public function testExceptionHasErrorcode20()
+        public function testExceptionHasErrorCode20()
         {
             throw new MyException('Some Message', 20);
         }
@@ -441,7 +441,7 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
           * @expectedException     MyException
           * @expectedExceptionCode MyClass::ERRORCODE
           */
-        public function testExceptionHasErrorcode20()
+        public function testExceptionHasErrorCode20()
         {
           throw new MyException('Some Message', 20);
         }
