@@ -47,7 +47,7 @@ PHPUnit のコマンドラインテストランナーに
 .. code-block:: bash
 
     $ phpunit --bootstrap src/autoload.php tests
-    PHPUnit 7.0.0 by Sebastian Bergmann.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     .................................
 
@@ -67,7 +67,7 @@ PHPUnit のコマンドラインテストランナーに
 .. code-block:: bash
 
     $ phpunit --bootstrap src/autoload.php tests/CurrencyTest
-    PHPUnit 7.0.0 by Sebastian Bergmann.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     ........
 
@@ -81,7 +81,7 @@ PHPUnit のコマンドラインテストランナーに
 .. code-block:: bash
 
     $ phpunit --bootstrap src/autoload.php --filter testObjectCanBeConstructedForValidConstructorArgument tests
-    PHPUnit 7.0.0 by Sebastian Bergmann.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     ..
 

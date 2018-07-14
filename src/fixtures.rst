@@ -154,7 +154,7 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
 .. code-block:: bash
 
     $ phpunit TemplateMethodsTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     TemplateMethodsTest::setUpBeforeClass
     TemplateMethodsTest::setUp

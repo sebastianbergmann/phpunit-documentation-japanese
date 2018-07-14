@@ -6,7 +6,7 @@
 PHPUnit マニュアル
 =============
 
-*PHPUnit 7.0 対応版 Updated on format="Y-m-d".*
+*PHPUnit |version| 対応版 Updated on format="Y-m-d".*
 Sebastian Bergmann
 
 2005

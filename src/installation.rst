@@ -11,7 +11,7 @@ PHPUnit のインストール
 要件
 ##
 
-PHPUnit 7.0 は PHP 7 以降のバージョンで動作しますが、最新版の PHP
+PHPUnit |version| は PHP 7.1 以降のバージョンで動作しますが、最新版の PHP
 を使うことを強く推奨します。
 
 PHPUnit を使うには、拡張モジュール `dom <http://php.net/manual/ja/dom.setup.php>`_、`json <http://php.net/manual/ja/json.installation.php>`_、
@@ -59,9 +59,9 @@ PHAR をグローバルにインストールするには、次のようにしま
 
 .. code-block:: bash
 
-    $  wget https://phar.phpunit.de/phpunit-7.0.phar
-    $  chmod +x phpunit-7.0.phar
-    $  sudo mv phpunit-7.0.phar /usr/local/bin/phpunit
+    $  wget https://phar.phpunit.de/phpunit-|version|.phar
+    $  chmod +x phpunit-|version|.phar
+    $  sudo mv phpunit-|version|.phar /usr/local/bin/phpunit
     $  phpunit --version
     PHPUnit x.y.z by Sebastian Bergmann and contributors.
 
@@ -69,8 +69,8 @@ PHAR をグローバルにインストールするには、次のようにしま
 
 .. code-block:: bash
 
-    $  wget https://phar.phpunit.de/phpunit-7.0.phar
-    $  php phpunit-7.0.phar --version
+    $  wget https://phar.phpunit.de/phpunit-|version|.phar
+    $  php phpunit-|version|.phar --version
     PHPUnit x.y.z by Sebastian Bergmann and contributors.
 
 .. _installation.phar.windows:
@@ -94,7 +94,7 @@ PHAR をグローバルにインストールする方法は、
 
 #.
 
-   `<https://phar.phpunit.de/phpunit-7.0.phar>`_ をダウンロードして、
+   `<https://phar.phpunit.de/phpunit-|version|.phar>`_ をダウンロードして、
    :file:`C:\\bin\\phpunit.phar` に保存します。
 
 #.
@@ -280,7 +280,7 @@ Composer
 
 .. code-block:: bash
 
-    composer require --dev phpunit/phpunit ^7.0
+    composer require --dev phpunit/phpunit ^|version|
 
 .. _installation.optional-packages:
 

@@ -191,7 +191,7 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
 .. code-block:: bash
 
     $ phpunit --verbose DependencyFailureTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     FS
 
@@ -257,7 +257,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. code-block:: bash
 
     $ phpunit --verbose MultipleDependenciesTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     ...
 
@@ -315,7 +315,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. code-block:: bash
 
     $ phpunit DataTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     ...F
 
@@ -409,7 +409,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. code-block:: bash
 
     $ phpunit DataTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     ...F
 
@@ -519,7 +519,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. code-block:: bash
 
     $ phpunit --verbose DependencyAndDataProviderComboTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     ...F
 
@@ -543,6 +543,62 @@ PHPUnit はテストが実行される順序を変更しないので、
 
     FAILURES!
     Tests: 4, Assertions: 4, Failures: 1.
+
+.. code-block:: php
+    :caption: ひとつのテストでの複数のデータプロバイダの使用
+    :name: writing-tests-for-phpunit.data-providers.examples2.DataTest.php
+
+    <?php
+    use PHPUnit\Framework\TestCase;
+
+    class DataTest extends TestCase
+    {
+        /**
+         * @dataProvider additionWithNonNegativeNumbersProvider
+         * @dataProvider additionWithNegativeNumbersProvider
+         */
+        public function testAdd($a, $b, $expected)
+        {
+            $this->assertSame($expected, $a + $b);
+        }
+
+        public function additionWithNonNegativeNumbersProvider()
+        {
+            return [
+                [0, 1, 1],
+                [1, 0, 1],
+                [1, 1, 3]
+            ];
+        }
+
+        public function additionWithNegativeNumbersProvider()
+        {
+            return [
+                [-1, 1, 0],
+                [-1, -1, -2],
+                [1, -1, 0]
+            ];
+        }
+     }
+
+.. code-block:: bash
+
+    $ phpunit DataTest
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
+
+    ..F...                                                              6 / 6 (100%)
+
+    Time: 0 seconds, Memory: 5.75Mb
+
+    There was 1 failure:
+
+    1) DataTest::testAdd with data set #3 (1, 1, 3)
+    Failed asserting that 2 is identical to 3.
+
+    /home/sb/DataTest.php:12
+
+    FAILURES!
+    Tests: 6, Assertions: 6, Failures: 1.
 
 .. admonition:: Note
 
@@ -586,7 +642,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. code-block:: bash
 
     $ phpunit ExceptionTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     F
 
@@ -640,7 +696,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. code-block:: bash
 
     $ phpunit ExceptionTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     F
 
@@ -692,7 +748,7 @@ PHP のエラーのテスト
 .. code-block:: bash
 
     $ phpunit -d error_reporting=2 ExpectedErrorTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     .
 
@@ -752,7 +808,7 @@ PHP のエラーのテスト
 .. code-block:: bash
 
     $ phpunit ErrorSuppressionTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     .
 
@@ -804,7 +860,7 @@ PHP のエラーのテスト
 .. code-block:: bash
 
     $ phpunit OutputTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     .F
 
@@ -874,7 +930,7 @@ PHP のエラーのテスト
 .. code-block:: bash
 
     $ phpunit ArrayDiffTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     F
 
@@ -927,7 +983,7 @@ PHP のエラーのテスト
 .. code-block:: bash
 
     $ phpunit LongArrayDiffTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     F
 
@@ -984,7 +1040,7 @@ assertSame などの「緩い」比較の関数を、配列やオブジェクト
 .. code-block:: bash
 
     $ phpunit ArrayWeakComparisonTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     F
 

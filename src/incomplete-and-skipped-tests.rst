@@ -76,7 +76,7 @@
 .. code-block:: bash
 
     $ phpunit --verbose SampleTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     I
 
@@ -155,7 +155,7 @@ MySQLi 拡張モジュールが使用可能かを調べたうえで、もし使�
 .. code-block:: bash
 
     $ phpunit --verbose DatabaseTest
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     S
 

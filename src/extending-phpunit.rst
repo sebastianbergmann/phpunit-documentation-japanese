@@ -295,7 +295,7 @@ PHPUnit\Framework\Test の実装
 
 .. code-block:: bash
 
-    PHPUnit 7.0.0 by Sebastian Bergmann and contributors.
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     .F
 
