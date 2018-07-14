@@ -13,32 +13,32 @@
 アサーションメソッドはstaticで使うべきか、それとも非staticで使うべきか
 #########################################
 
-PHPUnit のアサーションの実装は、PHPUnit\\Framework\\Assert
-およびそれを継承した PHPUnit\\Framework\\TestCase にあります。
+PHPUnit のアサーションの実装は、 ``PHPUnit\Framework\Assert``
+およびそれを継承した ``PHPUnit\\Framework\\TestCase`` にあります。
 
 アサーションメソッドは static 宣言されていて、あらゆるコンテキストから
-PHPUnit\\Framework\\Assert::assertTrue() などのように使えます。
-また、PHPUnit\\Framework\\TestCase を継承したクラスの中では
-$this->assertTrue() や self::assertTrue() などとしても使えます。
+``PHPUnit\\Framework\\Assert::assertTrue()`` などのように使えます。
+また、 ``PHPUnit\\Framework\\TestCase`` を継承したクラスの中では
+``$this->assertTrue()`` や ``self::assertTrue()`` などとしても使えます。
 
 さらに、PHPUnit に含まれるファイル :file:`src/Framework/Assert/Functions.php`
-を (手動で) インクルードしてしまえば、グローバルなラッパー関数 assertTrue()
-などを使うことさえできてしまいます。これは、PHPUnit\\Framework\\TestCase
+を (手動で) インクルードしてしまえば、グローバルなラッパー関数 ``assertTrue()``
+などを使うことさえできてしまいます。これは、 ``PHPUnit\\Framework\\TestCase``
 を継承したクラスを含めてあらゆるコンテキストで使えます。
 
 PHPUnit を使い始めたばかりの開発者の多くは、たとえばアサーションを実行するときに
-$this->assertTrue() と self::assertTrue()
+``$this->assertTrue()`` と ``self::assertTrue()``
 のどちらを使うのが「正しい方法」なのだろうかと思うことでしょう。
 端的に言って、どちらがよいなどということはありません。同様に、どちらが悪いというものでもありません。
 どちらを使うかは、個人的な好みの問題です。
 
-どちらかといえば $this->assertTrue()
+どちらかといえば ``$this->assertTrue()``
 を使うほうが自然に感じるという人が多いようです。テストメソッドは、テストオブジェクト上で実行されるからです。
 アサーションメソッドが static 宣言されていることによって、
 テストオブジェクトのスコープを超えた再利用が可能になります。
 また、グローバル関数のラッパーを使えば、
-($this->assertTrue() や self::assertTrue() ではなく
-assertTrue() と書くことによって) タイプ量を抑えることができます。
+``($this->assertTrue()`` や ``self::assertTrue()`` ではなく
+``assertTrue()`` と書くことによって) タイプ量を抑えることができます。
 
 .. _appendixes.assertions.assertArrayHasKey:
 
