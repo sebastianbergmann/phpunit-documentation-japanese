@@ -186,21 +186,23 @@ PHPUnit\\Framework\\TestListener の実装
     }
     ?>
 
-:numref:`extending-phpunit.examples.BaseTestListener.php`
-は、抽象クラス ``PHPUnit\Framework\BaseTestListener``
-のサブクラスを作る例です。これは、インターフェイスのメソッドのうち実際に使うものだけを指定し、
+:numref:`extending-phpunit.examples.ExtendedTestListener.php`
+は、トレイト ``PHPUnit\Framework\TestListenerDefaultImplementation``
+の使用例です。これは、インターフェイスのメソッドのうち実際に使うものだけを指定し、
 他のメソッドについては空の実装を提供します。
 
 .. code-block:: php
-    :caption: ベーステストリスナーの利用法
-    :name: extending-phpunit.examples.BaseTestListener.php
+    :caption: テストリスナーのデフォルト実装のトレイトの利用法
+    :name: extending-phpunit.examples.ExtendedTestListener.php
 
     <?php
-    use PHPUnit\Framework\BaseTestListener;
+    use PHPUnit\Framework\TestListenerDefaultImplementation;
 
-    class ShortTestListener extends BaseTestListener
+    class ShortTestListener
     {
-        public function endTest(PHPUnit\Framework\Test $test, $time)
+        use TestListenerDefaultImplementation;
+
+        public function endTest(PHPUnit\Framework\Test $test, $time): void
         {
             printf("テスト '%s' が終了\n", $test->getName());
         }
