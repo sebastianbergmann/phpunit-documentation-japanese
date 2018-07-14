@@ -25,7 +25,7 @@ PHPUnit のコードカバレッジ解析では
 .. admonition:: Note
 
    Xdebug は PHPUnit 本体には組み込まれていません。
-   テストを実行したときに Xdebug がロードできないという notice が出る場合は、
+   テストを実行したときに no code coverage driver is available という notice が出る場合は、
    Xdebug がインストールされていないかあるいはうまく設定できていないのでしょう。
    PHPUnit のコードカバレッジ機能を使う前に、まずは
    `Xdebug のインストールガイド <https://xdebug.org/docs/install>`_
