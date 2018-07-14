@@ -817,7 +817,9 @@ JSONのオブジェクト形式で書いた場合は、連想配列として扱�
 @ticket
 #######
 
-.. code-block:: php
+``@ticket`` アノテーションは
+``@group`` アノテーション (:ref:`appendixes.annotations.group` を参照ください) のエイリアスで、
+チケットIDにもとづいたテストのフィルタリングができるようになります。
 
 .. _appendixes.annotations.uses:
 
