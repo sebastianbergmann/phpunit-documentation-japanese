@@ -894,7 +894,7 @@ PHP の DataSet には、これまでのファイルベースのデータセッ�
                 $metaData = new DefaultTableMetaData($tableName, $columns);
                 $table = new DefaultTable($metaData);
 
-                foreach ($rows AS $row) {
+                foreach ($rows as $row) {
                     $table->addRow($row);
                 }
                 $this->tables[$tableName] = $table;
@@ -1265,9 +1265,9 @@ Connection インターフェイスには、三種類のおもしろいメソッ
 
     interface Connection
     {
-        public function createDataSet(Array $tableNames = NULL);
+        public function createDataSet(array $tableNames = null);
         public function createQueryTable($resultName, $sql);
-        public function getRowCount($tableName, $whereClause = NULL);
+        public function getRowCount($tableName, $whereClause = null);
 
         // ...
     }
