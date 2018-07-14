@@ -17,7 +17,7 @@
 この章では、PHPUnit のコードカバレッジ機能について学びます。
 これは、テストを実行したときに、実装コードのどの部分が実行されたかを調べるものです。
 PHPUnit のコードカバレッジ解析では
-`PHP_CodeCoverage <https://github.com/sebastianbergmann/php-code-coverage>`_
+`php-code-coverage <https://github.com/sebastianbergmann/php-code-coverage>`_
 コンポーネントを使っています。このコンポーネントは、
 `Xdebug <http://www.xdebug.org/>`_
 拡張モジュールが提供するステートメントカバレッジ機能を利用しています。
@@ -57,14 +57,14 @@ Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています
 
     *関数・メソッドカバレッジ* は、
     関数やメソッドが実行されたかどうかを計測します。
-    PHP_CodeCoverage は、その関数やメソッド内の実行可能な行がすべて実行された場合にのみ、
+    php-code-coverage は、その関数やメソッド内の実行可能な行がすべて実行された場合にのみ、
     その関数やメソッドが実行されたとみなします。
 
 *クラス・トレイトカバレッジ*
 
     *クラス・トレイトカバレッジ* は、
     クラスやトレイトがカバーされたかどうかを計測します。
-    PHP_CodeCoverage は、クラスやトレイト内のすべてのメソッドがカバーされている場合にのみ、
+    php-code-coverage は、クラスやトレイト内のすべてのメソッドがカバーされている場合にのみ、
     そのクラスやトレイトがカバーされたとみなします。
 
 *Opcode Coverage*
@@ -100,7 +100,7 @@ Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています
    *オペコードカバレッジ*、
    *ブランチカバレッジ*、
    *パスカバレッジ* については、
-   PHP_CodeCoverage ではまだサポートしていません。
+   php-code-coverage ではまだサポートしていません。
 
 .. _code-coverage-analysis.whitelisting-files:
 
