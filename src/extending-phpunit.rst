@@ -314,4 +314,61 @@ PHPUnit\Framework\Test の実装
     FAILURES!
     Tests: 2, Failures: 1.
 
+.. _extending-phpunit.TestRunner:
 
+TestRunner の拡張
+########################
+
+PHPUnit |version| は TestRunner エクステンションをサポートしており、
+テストの実行中のさまざまなイベントにフックを組み込めます。
+PHPUnit の XML 設定ファイルでエクステンションを組み込む方法については
+:ref:`appendixes.configuration.extensions` を参照ください。
+
+エクステンションでフックを組み込めるイベントはインターフェイスとして航海されており、
+これをエクステンションが実装する必要があります。
+PHPUnit |version| で使えるイベントの一覧を
+:ref:`extending-phpunit.hooks` に示します。
+
+.. _extending-phpunit.hooks:
+
+利用可能なフックインターフェイス
+-------------------------
+
+- ``AfterIncompleteTestHook``
+- ``AfterLastTestHook``
+- ``AfterRiskyTestHook``
+- ``AfterSkippedTestHook``
+- ``AfterSuccessfulTestHook``
+- ``AfterTestErrorHook``
+- ``AfterTestFailureHook``
+- ``AfterTestWarningHook``
+- ``BeforeFirstTestHook``
+- ``BeforeTestHook``
+
+:numref:`extending-phpunit.examples.TestRunnerExtension` に、
+``BeforeFirstTestHook`` と ``AfterLastTestHook``
+を実装したエクステンションの例を示します。
+
+.. code-block:: php
+    :caption: TestRunner エクステンションの例
+    :name: extending-phpunit.examples.TestRunnerExtension
+
+    <?php
+
+    namespace Vendor;
+
+    use PHPUnit\Runner\AfterLastTestHook;
+    use PHPUnit\Runner\BeforeFirstTestHook;
+
+    final class MyExtension implements BeforeFirstTestHook, AfterLastTestHook
+    {
+        public function executeAfterLastTest(): void
+        {
+            // 最後のテストの実行後にコールされます
+        }
+
+        public function executeBeforeFirstTest(): void
+        {
+            // 最初のテストの実行前にコールされます
+        }
+    }
