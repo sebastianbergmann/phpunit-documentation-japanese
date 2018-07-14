@@ -31,6 +31,9 @@ PHPUnit のコードカバレッジ解析では
    `Xdebug のインストールガイド <https://xdebug.org/docs/install>`_
    を読んでみましょう。
 
+   php-code-coverage は `phpdbg <https://phpdbg.room11.org/introduction.html>`_
+   もコードカバレッジデータのソースとしてサポートしています。
+
 PHPUnit は、HTML ベースのコードカバレッジレポートを生成するだけでなく、
 XML ベースのログファイルにコードカバレッジ情報を出力することもできます。
 Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています。
