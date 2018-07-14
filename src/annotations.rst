@@ -765,8 +765,6 @@ small テストは実行時間が 1 秒を超えたら失敗します。
    ``@testdox`` アノテーションを指定すると自動的に
    ``@test`` アノテーションも指定したものとみなされます。
 
-.. code-block:: php
-
 .. _appendixes.annotations.testWith:
 
 @testWith
