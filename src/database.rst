@@ -672,9 +672,9 @@ MySQL XML データセット
 ----------------
 
 この新しい XML フォーマットは、
-`MySQL データベース <http://www.mysql.com>`_ 専用です。
+`MySQL データベース <https://www.mysql.com>`_ 専用です。
 PHPUnit 3.5 以降で対応します。この形式のファイルを生成するには、
-`mysqldump <http://dev.mysql.com/doc/refman/5.0/ja/mysqldump.html>`_
+`mysqldump <https://dev.mysql.com/doc/refman/5.0/ja/mysqldump.html>`_
 を使います。``mysqldump`` では CSV データセットも対応していますが、
 それとは違ってこの XML 形式の場合はひとつのファイルに複数のテーブルを含めることができます。
 この形式のファイルを作るには、
@@ -875,7 +875,7 @@ PHP の DataSet には、これまでのファイルベースのデータセッ�
          */
         public function __construct(array $data)
         {
-            foreach ($data AS $tableName => $rows) {
+            foreach ($data as $tableName => $rows) {
                 $columns = [];
                 if (isset($rows[0])) {
                     $columns = array_keys($rows[0]);
