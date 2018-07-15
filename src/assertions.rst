@@ -2512,7 +2512,7 @@ assertThat()
       - 評価されるクラスに、指定した属性があることを保証する制約。
     * - ``PHPUnit\Framework\Constraint\ClassHasStaticAttribute classHasStaticAttribute(string $attributeName)``
       - 評価されるクラスに、指定した static 属性があることを保証する制約。
-    * - ``PHPUnit\Framework\Constraint\ObjectHasAttribute hasAttribute(string $attributeName)``
+    * - ``PHPUnit\Framework\Constraint\ObjectHasAttribute objectHasAttribute(string $attributeName)``
       - 評価されるオブジェクトが、指定した属性を保持していることを保証する制約。
     * - ``PHPUnit\Framework\Constraint\IsIdentical identicalTo(mixed $value)``
       - ある値が別の値と同一であることを保証する制約。
