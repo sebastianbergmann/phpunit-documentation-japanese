@@ -201,9 +201,10 @@ PHPUnit\\Framework\\TestListener の実装
     :name: extending-phpunit.examples.ExtendedTestListener.php
 
     <?php
+    use PHPUnit\Framework\TestListener;
     use PHPUnit\Framework\TestListenerDefaultImplementation;
 
-    class ShortTestListener
+    class ShortTestListener implements TestListener
     {
         use TestListenerDefaultImplementation;
 
