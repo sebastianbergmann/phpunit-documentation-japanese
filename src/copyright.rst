@@ -6,7 +6,7 @@
 著作権
 ===
 
-.. code-block:: php
+.. code-block:: text
 
     Copyright (c) 2005-2018 Sebastian Bergmann.
 
