@@ -9,7 +9,7 @@ PHPUnit のインストール
 .. _installation.requirements:
 
 要件
-##
+####
 
 PHPUnit |version| は PHP 7.1 以降のバージョンで動作しますが、最新版の PHP
 を使うことを強く推奨します。
