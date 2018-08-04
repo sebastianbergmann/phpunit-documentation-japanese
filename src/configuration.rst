@@ -307,6 +307,28 @@ PHPUnit のコア機能を設定します。
         new stdClass
     );
 
+.. _appendixes.configuration.extensions:
+
+TestRunner エクステンションの組み込み
+#####################################
+
+``<extensions>`` 要素とその子要素である ``<extension>`` を使って
+カスタムの TestRunner エクステンションを組み込みます。
+
+:numref:`configuration.examples.RegisterExtension` にエクステンションを
+組み込む方法を示します。
+
+.. code-block:: xml
+    :caption: Registering a TestRunner Extension
+    :name: configuration.examples.RegisterExtension
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.1/phpunit.xsd">
+          <extensions>
+              <extension class="Vendor\MyExtension"/>
+          </extensions>
+      </phpunit>
+
 .. _appendixes.configuration.php-ini-constants-variables:
 
 PHP INI 項目や定数、グローバル変数の設定
