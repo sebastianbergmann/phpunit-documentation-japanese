@@ -2,9 +2,9 @@
 
 .. _writing-tests-for-phpunit:
 
-=================
+==========================
 PHPUnit 用のテストの書き方
-=================
+==========================
 
 :numref:`writing-tests-for-phpunit.examples.StackTest.php` で、
 PHP の配列操作のテストを PHPUnit 用に書く方法を示します。
@@ -63,7 +63,7 @@ PHP の配列操作のテストを PHPUnit 用に書く方法を示します。
 .. _writing-tests-for-phpunit.test-dependencies:
 
 テストの依存性
-#######
+##############
 
     *Adrian Kuhn et. al.*:
 
@@ -268,7 +268,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. _writing-tests-for-phpunit.data-providers:
 
 データプロバイダ
-########
+################
 
 テストメソッドには任意の引数を渡すことができます。
 この引数は、データプロバイダメソッド
@@ -626,7 +626,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. _writing-tests-for-phpunit.exceptions:
 
 例外のテスト
-######
+############
 
 :numref:`writing-tests-for-phpunit.exceptions.examples.ExceptionTest.php`
 は、テストするコード内で例外がスローされたかどうかを
@@ -721,7 +721,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 .. _writing-tests-for-phpunit.errors:
 
 PHP のエラーのテスト
-############
+####################
 
 デフォルトでは、PHPUnit はテストの実行中に発生した PHP のエラーや警告そして notice
 を例外に変換します。これらの例外を用いて、たとえば
@@ -832,7 +832,7 @@ PHP のエラーのテスト
 .. _writing-tests-for-phpunit.output:
 
 出力内容のテスト
-########
+################
 
 メソッドの実行結果を確かめる方法として、(``echo`` や
 ``print`` などによる)
@@ -915,7 +915,7 @@ PHP のエラーのテスト
 .. _writing-tests-for-phpunit.error-output:
 
 エラー出力
-#####
+##########
 
 テストが失敗した場合、PHPUnit は、状況を可能な限り詳細に報告します。
 これが、何が問題だったのかを調べるのに役立つでしょう。
@@ -1023,7 +1023,7 @@ PHP のエラーのテスト
 .. _writing-tests-for-phpunit.error-output.edge-cases:
 
 エッジケース
-======
+============
 
 比較に失敗したときに、PHPUnit は入力値をテキスト形式にしてこれを比較します。
 この実装が原因で、実際の違う箇所よりも多くの問題を報告してしまうことがあります。

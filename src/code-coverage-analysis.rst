@@ -2,9 +2,9 @@
 
 .. _code-coverage-analysis:
 
-==========
+====================
 コードカバレッジ解析
-==========
+====================
 
     *Wikipedia*:
 
@@ -47,7 +47,7 @@ Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています
 .. _code-coverage-analysis.metrics:
 
 コードカバレッジの指標
-###########
+######################
 
 コードカバレッジを計測するための指標には、さまざまなものがあります。
 
@@ -108,7 +108,7 @@ Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています
 .. _code-coverage-analysis.whitelisting-files:
 
 ファイルのホワイトリスト
-############
+########################
 
 *ホワイトリスト* を設定して、
 PHPUnit に対してどのソースコードファイルをコードカバレッジレポートに含めるかを指定する必要があります。
@@ -134,7 +134,7 @@ PHPUnit に対してどのソースコードファイルをコードカバレッ
 .. _code-coverage-analysis.ignoring-code-blocks:
 
 コードブロックの無視
-##########
+####################
 
 どうしてもテストができないコードブロックなどを、
 コードカバレッジ解析時に無視させたいこともあるでしょう。
@@ -188,7 +188,7 @@ PHPUnit でこれを実現するには、
 .. _code-coverage-analysis.specifying-covered-methods:
 
 カバーするメソッドの指定
-############
+########################
 
 テストコードで ``@covers`` アノテーション
 (:ref:`appendixes.annotations.covers.tables.annotations`)
@@ -312,7 +312,7 @@ PHPUnit でこれを実現するには、
 .. _code-coverage-analysis.edge-cases:
 
 エッジケース
-######
+############
 
 この節では、コードカバレッジ情報がわかりにくくなってしまうような、
 エッジケースについて紹介します。
