@@ -319,7 +319,7 @@ TestRunner エクステンションの組み込み
 組み込む方法を示します。
 
 .. code-block:: xml
-    :caption: Registering a TestRunner Extension
+    :caption: TestRunner エクステンションの組み込み
     :name: configuration.examples.RegisterExtension
 
       <?xml version="1.0" encoding="UTF-8"?>
