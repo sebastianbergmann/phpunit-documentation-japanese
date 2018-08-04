@@ -2,9 +2,9 @@
 
 .. _appendixes.copyright:
 
-===
+======
 著作権
-===
+======
 
 .. code-block:: text
 
