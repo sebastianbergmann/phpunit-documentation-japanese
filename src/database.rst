@@ -111,7 +111,7 @@ PHPUnit では助けようにもどうにもならないことが、
 可能な限りはデータベースを使わないテストで済ませるようにすれば、
 巨大なテストスイートであっても 1 分未満で実行させるのは容易です。
 
-`Doctrine 2 プロジェクト <http://www.doctrine-project.org>`_ がよい例です。
+`Doctrine 2 プロジェクト <https://www.doctrine-project.org>`_ がよい例です。
 このプロジェクトのテストスイートには現時点で約 1000 件のテストが含まれています。
 そのほぼ半数がデータベースを扱うテストですが、
 標準的なデスクトップコンピューター上の MySQL
@@ -301,7 +301,7 @@ PHPUnit は、テストの実行前にデータベーススキーマ
 
 #.
 
-   `Doctrine 2 <http://www.doctrine-project.org>`_ や
+   `Doctrine 2 <https://www.doctrine-project.org>`_ や
    `Propel <http://www.propelorm.org/>`_
    といったライブラリを使っている場合は、その API を使えばテストの実行前に必要なデータベーススキーマを作ることができます。
    `PHPUnit のブートストラップ <textui.html>`_
@@ -1538,7 +1538,7 @@ PHPUnit は、テストごとにデータベーススキーマを作り直すの
 データベースやテーブル、シーケンス、トリガー、そしてビューなどは、
 テストスイートを実行する前に作っておく必要があります。
 
-`Doctrine 2 <http://www.doctrine-project.org>`_ や
+`Doctrine 2 <https://www.doctrine-project.org>`_ や
 `eZ Components <http://www.ezcomponents.org>`_
 の強力なツールを使えば、定義済みのデータ構造からデータベーススキーマを作成できます。
 しかし、これらを使うには PHPUnit extension にフックで組み込まねばなりません。
