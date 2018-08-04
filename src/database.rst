@@ -49,8 +49,8 @@ DBUnit 拡張を使うと、テスト用のデータベースのセットアッ�
 
 DBUnit が現在サポートしているのは、MySQL および
 PostgreSQL、Oracle、SQLite です。
-`Zend Framework <http://framework.zend.com>`_ や
-`Doctrine 2 <http://www.doctrine-project.org>`_
+`Zend Framework <https://framework.zend.com>`_ や
+`Doctrine 2 <https://www.doctrine-project.org>`_
 を使うと、IBM DB2 や Microsoft SQL Server のような他のデータベースにもアクセスできます。
 
 .. _database.difficulties-in-database-testing:
