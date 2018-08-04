@@ -2,9 +2,9 @@
 
 .. _extending-phpunit:
 
-===========
+==============
 PHPUnit の拡張
-===========
+==============
 
 テストを書きやすくする、あるいはテストの実行結果の表示方法を変更するなど、
 PHPUnit はさまざまな方法で拡張することができます。
@@ -13,7 +13,7 @@ PHPUnit を拡張するための第一歩をここで説明します。
 .. _extending-phpunit.PHPUnit_Framework_TestCase:
 
 PHPUnit\\Framework\\TestCase のサブクラスの作成
-######################################
+###############################################
 
 ``PHPUnit\Framework\TestCase``
 を継承した抽象サブクラスにカスタムアサーションやユーティリティメソッドを書き、
@@ -23,7 +23,7 @@ PHPUnit\\Framework\\TestCase のサブクラスの作成
 .. _extending-phpunit.custom-assertions:
 
 カスタムアサーションの作成
-#############
+##########################
 
 カスタムアサーションを作成するときには、PHPUnit 自体のアサーションの実装方法を真似るのがおすすめです。
 :numref:`extending-phpunit.examples.Assert.php` を見ればわかるとおり、
@@ -123,7 +123,7 @@ matcher オブジェクト (あるいは制約) のために抽象クラス
 .. _extending-phpunit.PHPUnit_Framework_TestListener:
 
 PHPUnit\\Framework\\TestListener の実装
-####################################
+#######################################
 
 :numref:`extending-phpunit.examples.SimpleTestListener.php` は、
 ``PHPUnit\Framework\TestListener``
@@ -222,7 +222,7 @@ PHPUnit の設定方法についての説明があります。
 .. _extending-phpunit.PHPUnit_Framework_Test:
 
 PHPUnit\Framework\Test の実装
-##########################
+#############################
 
 ``PHPUnit\Framework\Test`` インターフェイスの機能は限られており、
 実装するのは簡単です。``PHPUnit\Framework\Test``
@@ -325,7 +325,7 @@ PHPUnit\Framework\Test の実装
 .. _extending-phpunit.TestRunner:
 
 TestRunner の拡張
-########################
+#################
 
 PHPUnit |version| は TestRunner エクステンションをサポートしており、
 テストの実行中のさまざまなイベントにフックを組み込めます。
@@ -340,7 +340,7 @@ PHPUnit |version| で使えるイベントの一覧を
 .. _extending-phpunit.hooks:
 
 利用可能なフックインターフェイス
--------------------------
+--------------------------------
 
 - ``AfterIncompleteTestHook``
 - ``AfterLastTestHook``

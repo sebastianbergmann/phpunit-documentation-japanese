@@ -2,9 +2,9 @@
 
 .. _appendixes.configuration:
 
-==========
+================
 XML 設定ファイル
-==========
+================
 
 .. _appendixes.configuration.phpunit:
 
@@ -99,7 +99,7 @@ PHPUnit のコア機能を設定します。
 .. _appendixes.configuration.testsuites:
 
 テストスイート
-#######
+##############
 
 ``<testsuites>`` 要素とその子要素である
 ``<testsuite>`` を使って、
@@ -136,7 +136,7 @@ PHPUnit のコア機能を設定します。
 .. _appendixes.configuration.groups:
 
 グループ
-####
+########
 
 ``<groups>`` 要素とその子要素である
 ``<include>``、
@@ -170,7 +170,7 @@ PHPUnit のコア機能を設定します。
 .. _appendixes.configuration.whitelisting-files:
 
 コードカバレッジ対象のファイルのホワイトリスト
-#######################
+##############################################
 
 ``<filter>`` 要素とその子要素を使って、
 コードカバレッジレポートのホワイトリストを設定します。
@@ -191,7 +191,7 @@ PHPUnit のコア機能を設定します。
 .. _appendixes.configuration.logging:
 
 ログ出力
-####
+########
 
 ``<logging>`` 要素とその子要素である
 ``<log>`` を使って、
@@ -267,7 +267,7 @@ PHPUnit のコア機能を設定します。
 .. _appendixes.configuration.test-listeners:
 
 テストリスナー
-#######
+##############
 
 ``<listeners>`` 要素とその子要素である
 ``<listener>`` を使って、
@@ -310,7 +310,7 @@ PHPUnit のコア機能を設定します。
 .. _appendixes.configuration.php-ini-constants-variables:
 
 PHP INI 項目や定数、グローバル変数の設定
-########################
+########################################
 
 ``<php>`` 要素とその子要素を使って、
 PHP の設定や定数、グローバル変数を設定します。また、

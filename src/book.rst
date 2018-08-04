@@ -2,9 +2,9 @@
 
 .. _phpunit:
 
-=============
+==================
 PHPUnit マニュアル
-=============
+==================
 
 *PHPUnit |version| 対応版 Updated on format="Y-m-d".*
 Sebastian Bergmann

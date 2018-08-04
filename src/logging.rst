@@ -2,16 +2,16 @@
 
 .. _logging:
 
-====
+========
 ログ出力
-====
+========
 
 PHPUnit は、いくつかの形式のログファイルを作成することができます。
 
 .. _logging.xml:
 
 テスト結果 (XML)
-###########
+################
 
 PHPUnit が作成するテスト結果の XML のログファイルは、
 `Apache Ant の JUnit タスク <http://ant.apache.org/manual/Tasks/junit.html>`_
@@ -92,7 +92,7 @@ XML ログファイルです。
 .. _logging.codecoverage.xml:
 
 コードカバレッジ (XML)
-##############
+######################
 
 PHPUnit がコードカバレッジ情報のログ出力の際に使用している XML のフォーマットは、
 `Clover <http://www.atlassian.com/software/clover/>`_
@@ -141,7 +141,7 @@ XML ログファイルです。
 .. _logging.codecoverage.text:
 
 コードカバレッジ (テキスト)
-###############
+###########################
 
 人間が読める形式のコードカバレッジ情報を、コマンドラインあるいはテキストファイルに出力します。
 

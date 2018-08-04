@@ -2,16 +2,16 @@
 
 .. _appendixes.assertions:
 
-======
+============
 アサーション
-======
+============
 
 この節では、利用可能なアサーションメソッドの一覧を示します。
 
 .. _appendixes.assertions.static-vs-non-static-usage-of-assertion-methods:
 
 アサーションメソッドはstaticで使うべきか、それとも非staticで使うべきか
-#########################################
+######################################################################
 
 PHPUnit のアサーションの実装は、 ``PHPUnit\Framework\Assert``
 およびそれを継承した ``PHPUnit\Framework\TestCase`` にあります。
