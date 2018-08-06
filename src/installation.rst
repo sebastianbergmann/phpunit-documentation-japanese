@@ -129,7 +129,7 @@ Cygwin や MingW32 (TortoiseGit など) のシェル環境で使う場合は、
 五番目のステップは飛ばしてもかまいません。単にファイルを
 :file:`phpunit`
 という名前 (拡張子 :file:`.phar` は不要) で保存して、あとは
-chmod 775 phpunit
+``chmod 775 phpunit``
 で実行可能にしておきましょう。
 
 .. _installation.phar.verification:
