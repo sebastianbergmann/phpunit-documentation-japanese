@@ -33,7 +33,7 @@ PHPUnit\\Framework\\TestCase のサブクラスの作成
 ``assertThat()`` に渡して評価しています。
 
 .. code-block:: php
-    :caption: PHPUnit\Framework\Assert クラスの assertTrue() および isTrue() メソッド
+    :caption: PHPUnit\\Framework\\Assert クラスの assertTrue() および isTrue() メソッド
     :name: extending-phpunit.examples.Assert.php
 
     <?php
@@ -79,7 +79,7 @@ matcher オブジェクト (あるいは制約) のために抽象クラス
 ``PHPUnit\Framework\Constraint`` を継承している部分です。
 
 .. code-block:: php
-    :caption: PHPUnit\Framework\Constraint\IsTrue クラス
+    :caption: PHPUnit\\Framework\\Constraint\\IsTrue クラス
     :name: extending-phpunit.examples.IsTrue.php
 
     <?php
@@ -221,8 +221,8 @@ PHPUnit の設定方法についての説明があります。
 
 .. _extending-phpunit.PHPUnit_Framework_Test:
 
-PHPUnit\Framework\Test の実装
-#############################
+PHPUnit\\Framework\\Test の実装
+###############################
 
 ``PHPUnit\Framework\Test`` インターフェイスの機能は限られており、
 実装するのは簡単です。``PHPUnit\Framework\Test``
