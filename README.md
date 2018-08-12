@@ -8,6 +8,7 @@
 * [ポルトガル語（ブラジル）](https://github.com/sebastianbergmann/phpunit-documentation-brazilian-portuguese)
 * [日本語 ^^;](https://github.com/sebastianbergmann/phpunit-documentation-japanese)
 * [簡体字中文](https://github.com/sebastianbergmann/phpunit-documentation-chinese)
+* [ロシア語](https://github.com/sebastianbergmann/phpunit-documentation-russian)
 
 ## 新しい言語への翻訳
 
