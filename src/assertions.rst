@@ -2151,6 +2151,10 @@ assertStringMatchesFormat()
 
   ``%c``: 任意の一文字。
 
+-
+
+  ``%%``: パーセント文字 ``%`` そのもの。
+
 .. _appendixes.assertions.assertStringMatchesFormatFile:
 
 assertStringMatchesFormatFile()
