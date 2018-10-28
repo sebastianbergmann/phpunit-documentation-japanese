@@ -22,6 +22,7 @@ PHPUnit のコア機能を設定します。
              backupGlobals="true"
              backupStaticAttributes="false"
              <!--bootstrap="/path/to/bootstrap.php"-->
+             cacheResult="false"
              cacheTokens="false"
              colors="false"
              convertErrorsToExceptions="true"
