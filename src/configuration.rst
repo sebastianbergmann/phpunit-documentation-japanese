@@ -347,4 +347,10 @@ PHP の設定や定数、グローバル変数を設定します。また、
     $_FILES['foo'] = 'bar';
     $_REQUEST['foo'] = 'bar';
 
+デフォルトでは、既存の環境変数は上書きしません。
+設定済みの環境変数を上書きしたい場合ば ``force`` 属性を使いましょう。
 
+.. code-block:: xml
+
+    <php>
+      <env name="foo" value="bar" force="true"/>
