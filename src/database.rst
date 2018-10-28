@@ -41,6 +41,9 @@ PHPUnit でのテストがやりづらいことを実感するはずです。
 
 DBUnit 拡張を使うと、テスト用のデータベースのセットアップを単純化でき、
 データベース操作後の内容の検証もすることができます。
+DbUnit 拡張は簡単にインストールできます。
+:ref:`installation.optional-packages`
+を参照ください。
 
 .. _database.supported-vendors-for-database-testing:
 
