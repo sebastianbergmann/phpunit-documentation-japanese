@@ -277,19 +277,17 @@ PHPUnit\\Framework\\Test の実装
                 }
 
                 catch (PHPUnit\Framework\AssertionFailedError $e) {
-                    $stopTime = PHP_Timer::stop();
                     $result->addFailure($this, $e, $stopTime);
                 }
 
                 catch (Exception $e) {
-                    $stopTime = PHP_Timer::stop();
                     $result->addError($this, $e, $stopTime);
                 }
-
-                if ($stopTime === null) {
+                
+                finally {
                     $stopTime = PHP_Timer::stop();
                 }
-
+                
                 $result->endTest($this, $stopTime);
             }
 
