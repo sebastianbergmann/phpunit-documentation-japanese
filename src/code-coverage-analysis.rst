@@ -340,4 +340,29 @@ PHPUnit でこれを実現するには、
     }
     ?>
 
+Xdebug を使ったコードカバレッジ出力の高速化
+####################################################
+
+Xdebug 2.6 以降では、ホワイトリストによるフィルタリングを Xdebug に任せることで、
+コードカバレッジ用データを収集する効率を劇的に向上させることができます。
+
+そのためには、まず ``--dump-xdebug-filter`` オプションを使って
+Xdebug 用のフィルタースクリプトを生成します。
+
+.. code-block:: bash
+
+    $ phpunit --dump-xdebug-filter build/xdebug-filter.php
+    PHPUnit 7.4.0 by Sebastian Bergmann and contributors.
+
+    Runtime:       PHP 7.2.11 with Xdebug 2.6.1
+    Configuration: /workspace/project/phpunit.xml
+
+    Wrote Xdebug filter script to build/xdebug-filter.php
+
+これで、 コードカバレッジレポートの生成時に ``--prepend`` オプションを使って
+Xdebug フィルタースクリプトをロードできるようになりました。
+
+.. code-block:: bash
+
+    $ phpunit --prepend build/xdebug-filter.php --coverage-html build/coverage-report
 
