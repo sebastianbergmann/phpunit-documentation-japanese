@@ -30,8 +30,24 @@
 
 HTML形式のドキュメント作るには次のコマンドを実行します。
 
-    make html
-
-# 出力先
+```
+$ make html
+```
 
 HTMLファイルは `build/html` ディレクトリに出力されます。
+
+## 自動校正
+
+### セットアップ
+
+```
+$ pip install docutils-ast-writer
+$ npm install
+```
+
+### 使いかた
+
+```
+$ ./node_modules/.bin/textlint src
+```
+
