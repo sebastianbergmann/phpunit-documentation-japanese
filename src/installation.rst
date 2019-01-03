@@ -301,15 +301,3 @@ Composer
 
         composer require --dev phpunit/php-invoker
 
-``DbUnit``
-
-    DbUnit の PHP/PHPUnit 向けの移植。データベースとのやりとりをテスト可能にする。
-
-    このパッケージは、PHPUnit の PHAR 版の中に含まれていません。
-    Composer でインストールするには、次のコマンドを実行します。
-
-    .. code-block:: bash
-
-        composer require --dev phpunit/dbunit
-
-
