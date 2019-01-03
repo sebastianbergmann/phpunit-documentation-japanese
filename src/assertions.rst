@@ -142,7 +142,7 @@ assertArraySubset()
 ``$strict`` フラグを使うと、配列内のオブジェクトの比較にその識別子を利用します。
 
 .. code-block:: php
-    :caption: Usage of assertArraySubset()
+    :caption: assertArraySubset() の使用法
     :name: appendixes.assertions.assertArraySubset.example
 
     <?php
@@ -1504,12 +1504,12 @@ assertIsArray()
 
 ``assertIsArray($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``array``.
+``$actual`` の型が ``array`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotArray()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotArray()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsArray()
+    :caption: assertIsArray() の使用法
     :name: appendixes.assertions.assertIsArray.example
 
     <?php
@@ -1547,12 +1547,12 @@ assertIsBool()
 
 ``assertIsBool($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``bool``.
+``$actual`` の型が ``bool`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotBool()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotBool()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsBool()
+    :caption: assertIsBool() の使用法
     :name: appendixes.assertions.assertIsBool.example
 
     <?php
@@ -1590,12 +1590,12 @@ assertIsCallable()
 
 ``assertIsCallable($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``callable``.
+``$actual`` の型が ``callable`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotCallable()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotCallable()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsCallable()
+    :caption: assertIsCallable() の使用法
     :name: appendixes.assertions.assertIsCallable.example
 
     <?php
@@ -1633,12 +1633,12 @@ assertIsFloat()
 
 ``assertIsFloat($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``float``.
+``$actual`` の型が ``float`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotFloat()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotFloat()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsFloat()
+    :caption: assertIsFloat() の使用法
     :name: appendixes.assertions.assertIsFloat.example
 
     <?php
@@ -1676,12 +1676,12 @@ assertIsInt()
 
 ``assertIsInt($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``int``.
+``$actual`` の型が ``int`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotInt()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotInt()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsInt()
+    :caption: assertIsInt() の使用法
     :name: appendixes.assertions.assertIsInt.example
 
     <?php
@@ -1719,12 +1719,12 @@ assertIsIterable()
 
 ``assertIsIterable($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``iterable``.
+``$actual`` の型が ``iterable`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotIterable()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotIterable()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsIterable()
+    :caption: assertIsIterable() の使用法
     :name: appendixes.assertions.assertIsIterable.example
 
     <?php
@@ -1762,12 +1762,12 @@ assertIsNumeric()
 
 ``assertIsNumeric($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``numeric``.
+``$actual`` の型が ``numeric`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotNumeric()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotNumeric()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsNumeric()
+    :caption: assertIsNumeric() の使用法
     :name: appendixes.assertions.assertIsNumeric.example
 
     <?php
@@ -1805,12 +1805,12 @@ assertIsObject()
 
 ``assertIsObject($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``object``.
+``$actual`` の型が ``object`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotObject()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotObject()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsObject()
+    :caption: assertIsObject() の使用法
     :name: appendixes.assertions.assertIsObject.example
 
     <?php
@@ -1848,12 +1848,12 @@ assertIsResource()
 
 ``assertIsResource($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``resource``.
+``$actual`` の型が ``resource`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotResource()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotResource()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsResource()
+    :caption: assertIsResource() の使用法
     :name: appendixes.assertions.assertIsResource.example
 
     <?php
@@ -1891,12 +1891,12 @@ assertIsScalar()
 
 ``assertIsScalar($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``scalar``.
+``$actual`` の型が ``scalar`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotScalar()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotScalar()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsScalar()
+    :caption: assertIsScalar() の使用法
     :name: appendixes.assertions.assertIsScalar.example
 
     <?php
@@ -1934,12 +1934,12 @@ assertIsString()
 
 ``assertIsString($actual[, $message = ''])``
 
-Reports an error identified by ``$message`` if ``$actual`` is not of type ``string``.
+``$actual`` の型が ``string`` でない場合にエラー ``$message`` を報告します。
 
-``assertIsNotString()`` is the inverse of this assertion and takes the same arguments.
+``assertIsNotString()`` はこのアサーションの逆で、同じ引数をとります。
 
 .. code-block:: php
-    :caption: Usage of assertIsString()
+    :caption: assertIsString() の使用法
     :name: appendixes.assertions.assertIsString.example
 
     <?php
