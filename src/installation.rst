@@ -11,7 +11,7 @@ PHPUnit のインストール
 要件
 ####
 
-PHPUnit |version| は PHP 7.1 以降のバージョンで動作しますが、最新版の PHP
+PHPUnit |version| は PHP 7.2 以降のバージョンで動作しますが、最新版の PHP
 を使うことを強く推奨します。
 
 PHPUnit を使うには、拡張モジュール `dom <http://php.net/manual/ja/dom.setup.php>`_、`json <http://php.net/manual/ja/json.installation.php>`_、
@@ -26,7 +26,7 @@ PHP のビルドシステムやソースファイルに手を加えない限り�
 無効にすることはできません。
 
 コードカバレッジをサポートするには `Xdebug <http://xdebug.org/>`_
-2.5.0 以降と `tokenizer <http://php.net/manual/ja/tokenizer.installation.php>`_
+2.7.0 以降と `tokenizer <http://php.net/manual/ja/tokenizer.installation.php>`_
 拡張モジュールが必要です。
 XML 形式で情報を出力するには、`xmlwriter <http://php.net/manual/ja/xmlwriter.installation.php>`_
 拡張モジュールも必要です。
