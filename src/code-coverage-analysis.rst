@@ -209,7 +209,7 @@ PHPUnit でこれを実現するには、
     {
         protected $ba;
 
-        protected function setUp()
+        protected function setUp(): void
         {
             $this->ba = new BankAccount;
         }

@@ -1045,7 +1045,7 @@ vfsStream のような仮想ファイルシステムがなければ、外部へ�
 
     class ExampleTest extends TestCase
     {
-        protected function setUp()
+        protected function setUp(): void
         {
             if (file_exists(dirname(__FILE__) . '/id')) {
                 rmdir(dirname(__FILE__) . '/id');
@@ -1061,7 +1061,7 @@ vfsStream のような仮想ファイルシステムがなければ、外部へ�
             $this->assertTrue(file_exists(dirname(__FILE__) . '/id'));
         }
 
-        protected function tearDown()
+        protected function tearDown(): void
         {
             if (file_exists(dirname(__FILE__) . '/id')) {
                 rmdir(dirname(__FILE__) . '/id');
@@ -1096,7 +1096,7 @@ vfsStream のような仮想ファイルシステムがなければ、外部へ�
 
     class ExampleTest extends TestCase
     {
-        public function setUp()
+        public function setUp(): void
         {
             vfsStreamWrapper::register();
             vfsStreamWrapper::setRoot(new vfsStreamDirectory('exampleDir'));

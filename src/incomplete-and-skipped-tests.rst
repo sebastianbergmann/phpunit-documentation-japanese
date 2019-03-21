@@ -133,7 +133,7 @@ MySQLi 拡張モジュールが使用可能かを調べたうえで、もし使�
 
     class DatabaseTest extends TestCase
     {
-        protected function setUp()
+        protected function setUp(): void
         {
             if (!extension_loaded('mysqli')) {
                 $this->markTestSkipped(
