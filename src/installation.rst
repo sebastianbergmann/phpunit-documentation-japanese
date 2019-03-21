@@ -55,82 +55,22 @@ PHAR の ``--self-update`` 機能を使うには、
 
     suhosin.executor.include.whitelist = phar
 
-PHAR をグローバルにインストールするには、次のようにします。
+PHPUnit の PHAR は、ダウンロードするだけですぐに使えます。
 
 .. code-block:: bash
 
-    $  wget https://phar.phpunit.de/phpunit-|version|.phar
-    $  chmod +x phpunit-|version|.phar
-    $  sudo mv phpunit-|version|.phar /usr/local/bin/phpunit
-    $  phpunit --version
+    $ wget https://phar.phpunit.de/phpunit-|version|.phar
+    $ php phpunit-|version|.phar --version
     PHPUnit x.y.z by Sebastian Bergmann and contributors.
 
-ダウンロードした PHAR ファイルを直接使ってもかまいません。
+PHAR ファイルに実行可能属性をつけておくのが一般的です。
 
 .. code-block:: bash
 
-    $  wget https://phar.phpunit.de/phpunit-|version|.phar
-    $  php phpunit-|version|.phar --version
+    $ wget https://phar.phpunit.de/phpunit-|version|.phar
+    $ chmod +x phpunit-|version|.phar
+    $ ./phpunit-|version|.phar --version
     PHPUnit x.y.z by Sebastian Bergmann and contributors.
-
-.. _installation.phar.windows:
-
-Windows
-=======
-
-PHAR をグローバルにインストールする方法は、
-`Composer を Windows に手動でインストールする <https://getcomposer.org/doc/00-intro.md#installation-windows>`_
-のと同じ手順です。
-
-#.
-
-   PHP バイナリ用のディレクトリを作ります（例：:file:`C:\\bin`）
-
-#.
-
-   ;C:\bin を、環境変数 ``PATH``
-   に追記します
-   (`参考資料 <http://stackoverflow.com/questions/6318156/adding-python-path-on-windows-7>`_)。
-
-#.
-
-   `<https://phar.phpunit.de/phpunit-|version|.phar>`_ をダウンロードして、
-   :file:`C:\\bin\\phpunit.phar` に保存します。
-
-#.
-
-   コマンドプロンプトを開きます (
-   :kbd:`Windows`:kbd:`R`
-   » cmd
-   » :kbd:`ENTER`)。
-
-#.
-
-   以下のようにして、バッチスクリプト
-   (:file:`C:\\bin\\phpunit.cmd`)
-   を作ります。
-
-   .. code-block:: bash
-
-       C:\Users\username>  cd C:\bin
-       C:\bin>  echo @php "%~dp0phpunit.phar" %* > phpunit.cmd
-       C:\bin>  exit
-
-#.
-
-   コマンドプロンプトをもう一枚開き、どこからでも PHPUnit を実行できることを確認します。
-
-   .. code-block:: bash
-
-       C:\Users\username>  phpunit --version
-       PHPUnit x.y.z by Sebastian Bergmann and contributors.
-
-Cygwin や MingW32 (TortoiseGit など) のシェル環境で使う場合は、
-五番目のステップは飛ばしてもかまいません。単にファイルを
-:file:`phpunit`
-という名前 (拡張子 :file:`.phar` は不要) で保存して、あとは
-``chmod 775 phpunit``
-で実行可能にしておきましょう。
 
 .. _installation.phar.verification:
 
@@ -139,7 +79,7 @@ PHPUnit の PHAR リリースの検証
 
 PHPUnit プロジェクトが配布する公式リリースにはすべて、
 リリースマネージャーによる署名がついています。
-検証用の PGP 署名と SHA1 ハッシュは、`phar.phpunit.de <https://phar.phpunit.de/>`_
+検証用の PGP 署名と SHA256 ハッシュは、`phar.phpunit.de <https://phar.phpunit.de/>`_
 から取得できます。
 
 リリースの検証をどのように行うのかについて、説明しましょう。まず、
@@ -148,15 +88,15 @@ PGP 署名 :file:`phpunit.phar.asc` もダウンロードします。
 
 .. code-block:: bash
 
-    wget https://phar.phpunit.de/phpunit.phar
-    wget https://phar.phpunit.de/phpunit.phar.asc
+    $ wget https://phar.phpunit.de/phpunit-|version|.phar
+    $ wget https://phar.phpunit.de/phpunit-|version|.phar.asc
 
-ダウンロードした PHPUnit の PHP Archive (:file:`phpunit.phar`)
-を、署名 (:file:`phpunit.phar.asc`) で検証します。
+ダウンロードした PHPUnit の PHP Archive (:file:`phpunit-|version|.phar`)
+を、署名 (:file:`phpunit-|version|.phar.asc`) で検証します。
 
 .. code-block:: bash
 
-    gpg phpunit.phar.asc
+    $ gpg phpunit-|version|.phar.asc
     gpg: Signature made Sat 19 Jul 2014 01:28:02 PM CEST using RSA key ID 6372C20A
     gpg: Can't check signature: public key not found
 
@@ -181,7 +121,7 @@ Bergmann <sb@sebastian-bergmann.de>" さんの公開鍵を取得できました�
 
 .. code-block:: bash
 
-    gpg phpunit.phar.asc
+    $ gpg phpunit-|version|.phar.asc
     gpg: Signature made Sat 19 Jul 2014 01:28:02 PM CEST using RSA key ID 6372C20A
     gpg: Good signature from "Sebastian Bergmann <sb@sebastian-bergmann.de>"
     gpg:                 aka "Sebastian Bergmann <sebastian@php.net>"
@@ -208,65 +148,9 @@ Sebastian Bergmann 本人であることを、確かめる必要があります�
 こういったことを防ぐために、鍵の作者も検証しなければいけないのです。
 公開鍵の作者を検証する方法については、このマニュアルの範囲を超えるので、割愛します。
 
-PHPUnit のインストールを管理するためのシェルスクリプトを用意しておくのもいいでしょう。
-GnuPG の署名を検証してから、テストスイートを実行させるようなものです。たとえば次のようになります。
-
-.. code-block:: bash
-
-    #!/usr/bin/env bash
-    clean=1 # Delete phpunit.phar after the tests are complete?
-    aftercmd="php phpunit.phar --bootstrap bootstrap.php src/tests"
-    gpg --fingerprint D8406D0D82947747293778314AA394086372C20A
-    if [ $? -ne 0 ]; then
-        echo -e "\033[33mDownloading PGP Public Key...\033[0m"
-        gpg --recv-keys D8406D0D82947747293778314AA394086372C20A
-        # Sebastian Bergmann <sb@sebastian-bergmann.de>
-        gpg --fingerprint D8406D0D82947747293778314AA394086372C20A
-        if [ $? -ne 0 ]; then
-            echo -e "\033[31mCould not download PGP public key for verification\033[0m"
-            exit
-        fi
-    fi
-
-    if [ "$clean" -eq 1 ]; then
-        # Let's clean them up, if they exist
-        if [ -f phpunit.phar ]; then
-            rm -f phpunit.phar
-        fi
-        if [ -f phpunit.phar.asc ]; then
-            rm -f phpunit.phar.asc
-        fi
-    fi
-
-    # 最新のリリースとその署名の取得
-    if [ ! -f phpunit.phar ]; then
-        wget https://phar.phpunit.de/phpunit.phar
-    fi
-    if [ ! -f phpunit.phar.asc ]; then
-        wget https://phar.phpunit.de/phpunit.phar.asc
-    fi
-
-    # 実行前の検証
-    gpg --verify phpunit.phar.asc phpunit.phar
-    if [ $? -eq 0 ]; then
-        echo
-        echo -e "\033[33mBegin Unit Testing\033[0m"
-        # Run the testing suite
-        `$after_cmd`
-        # Cleanup
-        if [ "$clean" -eq 1 ]; then
-            echo -e "\033[32mCleaning Up!\033[0m"
-            rm -f phpunit.phar
-            rm -f phpunit.phar.asc
-        fi
-    else
-        echo
-        chmod -x phpunit.phar
-        mv phpunit.phar /tmp/bad-phpunit.phar
-        mv phpunit.phar.asc /tmp/bad-phpunit.phar.asc
-        echo -e "\033[31mSignature did not match! PHPUnit has been moved to /tmp/bad-phpunit.phar\033[0m"
-        exit 1
-    fi
+GPGを使っていちいち署名を検証したり PHPUnit の PHAR を検証したりするのはつまらない作業です。
+そこで作られたのが PHIVE で、これは PHAR のインストールや検証状況を管理するためのツールです。
+詳しくは `ウェブサイト <https://phar.io/>`_ をご覧ください。
 
 .. _installation.composer:
 
@@ -282,22 +166,15 @@ Composer
 
     composer require --dev phpunit/phpunit ^|version|
 
-.. _installation.optional-packages:
+.. _installation.global:
 
-オプションのパッケージ
-######################
+グローバルなインストール
+#####################
 
-オプションのパッケージとして、これらが使えます。
+PHPUnitをグローバルに（たとえば ``/usr/bin/phpunit`` や
+``/usr/local/bin/phpunit`` などとして）インストールすることはおすすめできません。
 
-``PHP_Invoker``
+PHPUnitはプロジェクト単位でローカルな依存として管理すべきです。
 
-    callable をタイムアウトつきで実行するユーティリティクラス。
-    テストのタイムアウトを厳格に指定するために必要なパッケージ。
-
-    このパッケージは、PHPUnit の PHAR 版の中に含まれています。
-    Composer でインストールするには、次のコマンドを実行します。
-
-    .. code-block:: bash
-
-        composer require --dev phpunit/php-invoker
-
+PHPUnitの特定のバージョンのPHARをプロジェクトの ``tools`` ディレクトリに置く（そしてPHIVEで管理する）か、
+Composerを使っているならそのプロジェクトで必要とするPHPUnitのバージョンを ``composer.json`` に書きましょう。
