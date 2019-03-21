@@ -50,6 +50,7 @@ PHP の配列操作のテストを PHPUnit 用に書く方法を示します。
             $this->assertSame(0, count($stack));
         }
     }
+
 |
     *Martin Fowler*:
 
