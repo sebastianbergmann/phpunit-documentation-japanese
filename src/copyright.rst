@@ -8,7 +8,7 @@
 
 .. code-block:: text
 
-    Copyright (c) 2005-2018 Sebastian Bergmann.
+    Copyright (c) 2005-2019 Sebastian Bergmann.
 
     この作品は、Creative Commons Attribution License の下で
     ライセンスされています。このライセンスの内容を確認するには、
