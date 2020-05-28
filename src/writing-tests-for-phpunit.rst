@@ -677,48 +677,6 @@ PHPUnit はテストが実行される順序を変更しないので、
    ``$expected`` のメッセージが含まれるかどうかを確かめるだけのものであり、
    完全一致するかどうかを確かめるわけではないことに注意しましょう。
 
-別の方法として、``@expectedException``、
-``@expectedExceptionCode``、
-``@expectedExceptionMessage``、
-``@expectedExceptionMessageRegExp`` といったアノテーションでも、
-テスト対象のコードで発生するであろう例外をテストできます。
-:numref:`writing-tests-for-phpunit.exceptions.examples.ExceptionTest2.php`
-に例を示します。
-
-.. code-block:: php
-    :caption: @expectedException アノテーションの使用法
-    :name: writing-tests-for-phpunit.exceptions.examples.ExceptionTest2.php
-
-    <?php
-    use PHPUnit\Framework\TestCase;
-
-    class ExceptionTest extends TestCase
-    {
-        /**
-         * @expectedException InvalidArgumentException
-         */
-        public function testException()
-        {
-        }
-    }
-
-.. code-block:: bash
-
-    $ phpunit ExceptionTest
-    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
-
-    F
-
-    Time: 0 seconds, Memory: 4.75Mb
-
-    There was 1 failure:
-
-    1) ExceptionTest::testException
-    Failed asserting that exception of type "InvalidArgumentException" is thrown.
-
-    FAILURES!
-    Tests: 1, Assertions: 1, Failures: 1.
-
 .. _writing-tests-for-phpunit.errors:
 
 PHP のエラーのテスト
