@@ -330,7 +330,7 @@ PHPUnit |version| は TestRunner エクステンションをサポートして�
 PHPUnit の XML 設定ファイルでエクステンションを組み込む方法については
 :ref:`appendixes.configuration.extensions` を参照ください。
 
-エクステンションでフックを組み込めるイベントはインターフェイスとして航海されており、
+エクステンションでフックを組み込めるイベントはインターフェイスとして公開されており、
 これをエクステンションが実装する必要があります。
 PHPUnit |version| で使えるイベントの一覧を
 :ref:`extending-phpunit.hooks` に示します。
