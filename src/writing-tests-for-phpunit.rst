@@ -32,12 +32,12 @@ PHP の配列操作のテストを PHPUnit 用に書く方法を示します。
     :caption: PHPUnit での配列操作のテスト
     :name: writing-tests-for-phpunit.examples.StackTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StackTest extends TestCase
+    final class StackTest extends TestCase
     {
-        public function testPushAndPop()
+        public function testPushAndPop(): void
         {
             $stack = [];
             $this->assertSame(0, count($stack));
@@ -108,12 +108,12 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
     :caption: ``@depends`` アノテーションを使った依存性の表現
     :name: writing-tests-for-phpunit.examples.StackTest2.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StackTest extends TestCase
+    final class StackTest extends TestCase
     {
-        public function testEmpty()
+        public function testEmpty(): array
         {
             $stack = [];
             $this->assertEmpty($stack);
@@ -124,7 +124,7 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
         /**
          * @depends testEmpty
          */
-        public function testPush(array $stack)
+        public function testPush(array $stack): array
         {
             array_push($stack, 'foo');
             $this->assertSame('foo', $stack[count($stack)-1]);
@@ -136,7 +136,7 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
         /**
          * @depends testPush
          */
-        public function testPop(array $stack)
+        public function testPop(array $stack): void
         {
             $this->assertSame('foo', array_pop($stack));
             $this->assertEmpty($stack);
@@ -171,12 +171,12 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
     :caption: テストの依存性の活用
     :name: writing-tests-for-phpunit.examples.DependencyFailureTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class DependencyFailureTest extends TestCase
+    final class DependencyFailureTest extends TestCase
     {
-        public function testOne()
+        public function testOne(): void
         {
             $this->assertTrue(false);
         }
@@ -184,12 +184,12 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
         /**
          * @depends testOne
          */
-        public function testTwo()
+        public function testTwo(): void
         {
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit --verbose DependencyFailureTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -227,20 +227,22 @@ PHPUnit はテストが実行される順序を変更しないので、
     :caption: 複数の依存性を持つテスト
     :name: writing-tests-for-phpunit.examples.MultipleDependencies.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MultipleDependenciesTest extends TestCase
+    final class MultipleDependenciesTest extends TestCase
     {
-        public function testProducerFirst()
+        public function testProducerFirst(): string
         {
             $this->assertTrue(true);
+
             return 'first';
         }
 
-        public function testProducerSecond()
+        public function testProducerSecond(): string
         {
             $this->assertTrue(true);
+
             return 'second';
         }
 
@@ -248,14 +250,14 @@ PHPUnit はテストが実行される順序を変更しないので、
          * @depends testProducerFirst
          * @depends testProducerSecond
          */
-        public function testConsumer($a, $b)
+        public function testConsumer(string $a, string $b): void
         {
             $this->assertSame('first', $a);
             $this->assertSame('second', $b);
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit --verbose MultipleDependenciesTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -264,7 +266,7 @@ PHPUnit はテストが実行される順序を変更しないので、
 
     Time: 0 seconds, Memory: 3.25Mb
 
-    OK (3 tests, 3 assertions)
+    OK (3 tests, 4 assertions)
 
 .. _writing-tests-for-phpunit.data-providers:
 
@@ -289,20 +291,20 @@ PHPUnit はテストが実行される順序を変更しないので、
     :caption: 配列の配列を返すデータプロバイダの使用
     :name: writing-tests-for-phpunit.data-providers.examples.DataTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class DataTest extends TestCase
+    final class DataTest extends TestCase
     {
         /**
          * @dataProvider additionProvider
          */
-        public function testAdd($a, $b, $expected)
+        public function testAdd(int $a, int $b, int $expected): void
         {
             $this->assertSame($expected, $a + $b);
         }
 
-        public function additionProvider()
+        public function additionProvider(): array
         {
             return [
                 [0, 0, 0],
@@ -313,7 +315,7 @@ PHPUnit はテストが実行される順序を変更しないので、
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit DataTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -339,20 +341,20 @@ PHPUnit はテストが実行される順序を変更しないので、
     :caption: データプロバイダでの名前つきデータセットの使用
     :name: writing-tests-for-phpunit.data-providers.examples.DataTest1.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class DataTest extends TestCase
+    final class DataTest extends TestCase
     {
         /**
          * @dataProvider additionProvider
          */
-        public function testAdd($a, $b, $expected)
+        public function testAdd(int $a, int $b, int $expected): void
         {
             $this->assertSame($expected, $a + $b);
         }
 
-        public function additionProvider()
+        public function additionProvider(): array
         {
             return [
                 'adding zeros'  => [0, 0, 0],
@@ -363,7 +365,7 @@ PHPUnit はテストが実行される順序を変更しないので、
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit DataTest
     PHPUnit 4.6.0 by Sebastian Bergmann and contributors.
@@ -386,28 +388,26 @@ PHPUnit はテストが実行される順序を変更しないので、
     :caption: Iterator オブジェクトを返すデータプロバイダの使用
     :name: writing-tests-for-phpunit.data-providers.examples.DataTest2.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    require 'CsvFileIterator.php';
-
-    class DataTest extends TestCase
+    final class DataTest extends TestCase
     {
         /**
          * @dataProvider additionProvider
          */
-        public function testAdd($a, $b, $expected)
+        public function testAdd(int $a, int $b, int $expected): void
         {
             $this->assertSame($expected, $a + $b);
         }
 
-        public function additionProvider()
+        public function additionProvider(): CsvFileIterator
         {
             return new CsvFileIterator('data.csv');
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit DataTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -433,13 +433,13 @@ PHPUnit はテストが実行される順序を変更しないので、
     <?php
     use PHPUnit\Framework\TestCase;
 
-    class CsvFileIterator implements Iterator
+    final class CsvFileIterator implements Iterator
     {
-        protected $file;
-        protected $key = 0;
-        protected $current;
+        private $file;
+        private $key = 0;
+        private $current;
 
-        public function __construct($file)
+        public function __construct(string $file)
         {
             $this->file = fopen($file, 'r');
         }
@@ -449,31 +449,33 @@ PHPUnit はテストが実行される順序を変更しないので、
             fclose($this->file);
         }
 
-        public function rewind()
+        public function rewind(): void
         {
             rewind($this->file);
+
             $this->current = fgetcsv($this->file);
             $this->key = 0;
         }
 
-        public function valid()
+        public function valid(): bool
         {
             return !feof($this->file);
         }
 
-        public function key()
+        public function key(): int
         {
             return $this->key;
         }
 
-        public function current()
+        public function current(): array
         {
             return $this->current;
         }
 
-        public function next()
+        public function next(): void
         {
             $this->current = fgetcsv($this->file);
+
             $this->key++;
         }
     }
@@ -489,25 +491,27 @@ PHPUnit はテストが実行される順序を変更しないので、
     :caption: 同じテストでの @depends と @dataProvider の組み合わせ
     :name: writing-tests-for-phpunit.data-providers.examples.DependencyAndDataProviderCombo.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class DependencyAndDataProviderComboTest extends TestCase
+    final class DependencyAndDataProviderComboTest extends TestCase
     {
-        public function provider()
+        public function provider(): array
         {
             return [['provider1'], ['provider2']];
         }
 
-        public function testProducerFirst()
+        public function testProducerFirst(): string
         {
             $this->assertTrue(true);
+
             return 'first';
         }
 
-        public function testProducerSecond()
+        public function testProducerSecond(): string
         {
             $this->assertTrue(true);
+
             return 'second';
         }
 
@@ -516,7 +520,7 @@ PHPUnit はテストが実行される順序を変更しないので、
          * @depends testProducerSecond
          * @dataProvider provider
          */
-        public function testConsumer()
+        public function testConsumer(): void
         {
             $this->assertSame(
                 ['provider1', 'first', 'second'],
@@ -525,7 +529,7 @@ PHPUnit はテストが実行される順序を変更しないので、
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit --verbose DependencyAndDataProviderComboTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -557,21 +561,21 @@ PHPUnit はテストが実行される順序を変更しないので、
     :caption: ひとつのテストでの複数のデータプロバイダの使用
     :name: writing-tests-for-phpunit.data-providers.examples2.DataTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class DataTest extends TestCase
+    final class DataTest extends TestCase
     {
         /**
          * @dataProvider additionWithNonNegativeNumbersProvider
          * @dataProvider additionWithNegativeNumbersProvider
          */
-        public function testAdd($a, $b, $expected)
+        public function testAdd(int $a, int $b, int $expected): void
         {
             $this->assertSame($expected, $a + $b);
         }
 
-        public function additionWithNonNegativeNumbersProvider()
+        public function additionWithNonNegativeNumbersProvider(): array
         {
             return [
                 [0, 1, 1],
@@ -580,7 +584,7 @@ PHPUnit はテストが実行される順序を変更しないので、
             ];
         }
 
-        public function additionWithNegativeNumbersProvider()
+        public function additionWithNegativeNumbersProvider(): array
         {
             return [
                 [-1, 1, 0],
@@ -590,7 +594,7 @@ PHPUnit はテストが実行される順序を変更しないので、
         }
      }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit DataTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -637,18 +641,18 @@ PHPUnit はテストが実行される順序を変更しないので、
     :caption: expectException() メソッドの使用法
     :name: writing-tests-for-phpunit.exceptions.examples.ExceptionTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class ExceptionTest extends TestCase
+    final class ExceptionTest extends TestCase
     {
-        public function testException()
+        public function testException(): void
         {
             $this->expectException(InvalidArgumentException::class);
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit ExceptionTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -668,12 +672,12 @@ PHPUnit はテストが実行される順序を変更しないので、
 ``expectException()`` メソッドのほかにも
 ``expectExceptionCode()``、
 ``expectExceptionMessage()``、
-``expectExceptionMessageRegExp()`` といったメソッドで、
+``expectExceptionMessageMatches()`` といったメソッドで、
 テスト対象のコードで発生するであろう例外をテストできます。
 
 .. admonition:: Note
 
-   expectExceptionMessage は ``$actual`` の中に
+   ``expectExceptionMessage()`` は ``$actual`` の中に
    ``$expected`` のメッセージが含まれるかどうかを確かめるだけのものであり、
    完全一致するかどうかを確かめるわけではないことに注意しましょう。
 
@@ -695,47 +699,50 @@ PHP のエラーのテスト
    調べたいと思っているエラーを抑制するようになっていないかどうか確認しましょう。
 
 .. code-block:: php
-    :caption: @expectedException を用いた、PHP エラーが発生することのテスト
+    :caption: PHPのエラーが発生することのテスト
     :name: writing-tests-for-phpunit.exceptions.examples.ErrorTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
-
-    class ExpectedErrorTest extends TestCase
+    final class ErrorTest extends TestCase
     {
-        /**
-         * @expectedException PHPUnit\Framework\Error\Error
-         */
-        public function testFailingInclude()
+        public function testDeprecationCanBeExpected(): void
         {
-            include 'not_existing_file.php';
+            $this->expectDeprecation();
+            // Optionally test that the message is equal to a string
+            $this->expectDeprecationMessage('foo');
+            // Or optionally test that the message matches a regular expression
+            $this->expectDeprecationMessageMatches('/foo/');
+            \trigger_error('foo', \E_USER_DEPRECATED);
+        }
+        public function testNoticeCanBeExpected(): void
+        {
+            $this->expectNotice();
+            // Optionally test that the message is equal to a string
+            $this->expectNoticeMessage('foo');
+            // Or optionally test that the message matches a regular expression
+            $this->expectNoticeMessageMatches('/foo/');
+            \trigger_error('foo', \E_USER_NOTICE);
+        }
+        public function testWarningCanBeExpected(): void
+        {
+            $this->expectWarning();
+            // Optionally test that the message is equal to a string
+            $this->expectWarningMessage('foo');
+            // Or optionally test that the message matches a regular expression
+            $this->expectWarningMessageMatches('/foo/');
+            \trigger_error('foo', \E_USER_WARNING);
+        }
+        public function testErrorCanBeExpected(): void
+        {
+            $this->expectError();
+            // Optionally test that the message is equal to a string
+            $this->expectErrorMessage('foo');
+            // Or optionally test that the message matches a regular expression
+            $this->expectErrorMessageMatches('/foo/');
+            \trigger_error('foo', \E_USER_ERROR);
         }
     }
-
-.. code-block:: bash
-
-    $ phpunit -d error_reporting=2 ExpectedErrorTest
-    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
-
-    .
-
-    Time: 0 seconds
-
-    OK (1 test, 1 assertion)
-
-``PHPUnit\Framework\Error\Notice`` および
-``PHPUnit\Framework\Error\Warning`` は、
-それぞれ PHP の notice と警告に対応します。
-
-.. admonition:: Note
-
-   例外をテストするときには可能な限り限定的にしなければいけません。
-   あまりに一般化されすぎたクラスをテストすると、予期せぬ副作用を引き起こしかねません。
-   というわけで、
-   ``@expectedException`` や
-   ``expectException()``
-   を使った ``Exception``
-   クラスのテストはできないようにしました。
 
 エラーを引き起こすような PHP の関数、たとえば ``fopen``
 などに依存するテストを行うときには、テスト中にエラーを抑制できれば便利なことがあります。
@@ -747,12 +754,12 @@ PHP のエラーのテスト
     :caption: PHP のエラーが発生するコードの返り値のテスト
     :name: writing-tests-for-phpunit.exceptions.examples.TriggerErrorReturnValue.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class ErrorSuppressionTest extends TestCase
+    final class ErrorSuppressionTest extends TestCase
     {
-        public function testFileWriting()
+        public function testFileWriting(): void
         {
             $writer = new FileWriter;
 
@@ -760,13 +767,13 @@ PHP のエラーのテスト
         }
     }
 
-    class FileWriter
+    final class FileWriter
     {
         public function write($file, $content)
         {
             $file = fopen($file, 'w');
 
-            if ($file == false) {
+            if ($file === false) {
                 return false;
             }
 
@@ -774,7 +781,7 @@ PHP のエラーのテスト
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit ErrorSuppressionTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -808,25 +815,27 @@ PHP のエラーのテスト
     :caption: 関数やメソッドの出力内容のテスト
     :name: writing-tests-for-phpunit.output.examples.OutputTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class OutputTest extends TestCase
+    final class OutputTest extends TestCase
     {
-        public function testExpectFooActualFoo()
+        public function testExpectFooActualFoo(): void
         {
             $this->expectOutputString('foo');
+
             print 'foo';
         }
 
-        public function testExpectBarActualBaz()
+        public function testExpectBarActualBaz(): void
         {
             $this->expectOutputString('bar');
+
             print 'baz';
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit OutputTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -883,12 +892,13 @@ PHP のエラーのテスト
     :caption: 配列の比較に失敗したときのエラー出力
     :name: writing-tests-for-phpunit.error-output.examples.ArrayDiffTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class ArrayDiffTest extends TestCase
+    final class ArrayDiffTest extends TestCase
     {
-        public function testEquality() {
+        public function testEquality(): void
+        {
             $this->assertSame(
                 [1, 2,  3, 4, 5, 6],
                 [1, 2, 33, 4, 5, 6]
@@ -896,7 +906,7 @@ PHP のエラーのテスト
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit ArrayDiffTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -936,12 +946,12 @@ PHP のエラーのテスト
     :caption: 要素数の多い配列の比較に失敗したときのエラー出力
     :name: writing-tests-for-phpunit.error-output.examples.LongArrayDiffTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class LongArrayDiffTest extends TestCase
+    final class LongArrayDiffTest extends TestCase
     {
-        public function testEquality()
+        public function testEquality(): void
         {
             $this->assertSame(
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2,  3, 4, 5, 6],
@@ -950,7 +960,7 @@ PHP のエラーのテスト
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit LongArrayDiffTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -994,21 +1004,21 @@ PHP のエラーのテスト
     :caption: 緩い比較を使った場合の diff の生成のエッジケース
     :name: writing-tests-for-phpunit.error-output.edge-cases.examples.ArrayWeakComparisonTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class ArrayWeakComparisonTest extends TestCase
+    final class ArrayWeakComparisonTest extends TestCase
     {
-        public function testEquality()
+        public function testEquality(): void
         {
-            $this->assertSame(
+            $this->assertEquals(
                 [1, 2, 3, 4, 5, 6],
                 ['1', 2, 33, 4, 5, 6]
             );
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit ArrayWeakComparisonTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
