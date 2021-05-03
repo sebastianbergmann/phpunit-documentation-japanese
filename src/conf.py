@@ -24,7 +24,7 @@ def get_version():
     if os.environ.get('READTHEDOCS') == 'True':
         return os.environ.get('READTHEDOCS_VERSION')
 
-    pipe = Popen('git branch | grep \*', stdout=PIPE, shell=True)
+    pipe = Popen('git branch | grep \*', stdout=PIPE, shell=True, universal_newlines=True)
     version = pipe.stdout.read()
 
     if version:
@@ -71,7 +71,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PHPUnit'
-copyright = u'2018, Sebastian Bergmann'
+copyright = u'2020, Sebastian Bergmann'
 author = u'Sebastian Bergmann'
 epub_author = u'Sebastian Bergmann'
 
@@ -225,6 +225,14 @@ html_show_sphinx = False
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'PHPUnitdoc'
+
+html_context = {
+    "display_github": True,
+    "github_user": "sebastianbergmann",
+    "github_repo": "phpunit-documentation-english",
+    "github_version": version,
+    "conf_py_path": "/src/",
+}
 
 # -- Options for LaTeX output ---------------------------------------------
 
