@@ -11,7 +11,7 @@ PHPUnit のインストール
 要件
 ####
 
-PHPUnit |version| は PHP 7.2 以降のバージョンで動作しますが、最新版の PHP
+PHPUnit |version| は PHP 7.3 以降のバージョンで動作しますが、最新版の PHP
 を使うことを強く推奨します。
 
 PHPUnit を使うには、拡張モジュール `dom <http://php.net/manual/ja/dom.setup.php>`_、`json <http://php.net/manual/ja/json.installation.php>`_、
@@ -51,13 +51,13 @@ PHAR の ``--self-update`` 機能を使うには、
 `Suhosin <http://suhosin.org/>`_ 拡張モジュールが有効になっている場合は、
 ``php.ini`` で PHAR の実行を許可する必要があります。
 
-.. code-block:: bash
+.. parsed-literal::
 
     suhosin.executor.include.whitelist = phar
 
 PHPUnit の PHAR は、ダウンロードするだけですぐに使えます。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ wget https://phar.phpunit.de/phpunit-|version|.phar
     $ php phpunit-|version|.phar --version
@@ -65,7 +65,7 @@ PHPUnit の PHAR は、ダウンロードするだけですぐに使えます。
 
 PHAR ファイルに実行可能属性をつけておくのが一般的です。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ wget https://phar.phpunit.de/phpunit-|version|.phar
     $ chmod +x phpunit-|version|.phar
@@ -86,15 +86,15 @@ PHPUnit プロジェクトが配布する公式リリースにはすべて、
 :file:`phpunit.phar` をダウンロードし、さらにその
 PGP 署名 :file:`phpunit.phar.asc` もダウンロードします。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ wget https://phar.phpunit.de/phpunit-|version|.phar
     $ wget https://phar.phpunit.de/phpunit-|version|.phar.asc
 
-ダウンロードした PHPUnit の PHP Archive (:file:`phpunit-|version|.phar`)
-を、署名 (:file:`phpunit-|version|.phar.asc`) で検証します。
+ダウンロードした PHPUnit の PHP Archive (:file:`phpunit-x.y.phar`)
+を、署名 (:file:`phpunit-x.y.phar.asc`) で検証します。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ gpg phpunit-|version|.phar.asc
     gpg: Signature made Sat 19 Jul 2014 01:28:02 PM CEST using RSA key ID 6372C20A
@@ -106,20 +106,22 @@ PGP 署名 :file:`phpunit.phar.asc` もダウンロードします。
 鍵サーバーには、たとえば :file:`pgp.uni-mainz.de` などがあります。
 公開鍵サーバーはお互いリンクしあっているので、どの鍵サーバーを使ってもかまいません。
 
-.. code-block:: bash
+.. parsed-literal::
 
-    gpg --keyserver pgp.uni-mainz.de --recv-keys 0x4AA394086372C20A
-    gpg: requesting key 6372C20A from hkp server pgp.uni-mainz.de
-    gpg: key 6372C20A: public key "Sebastian Bergmann <sb@sebastian-bergmann.de>" imported
+    $ curl --silent https://sebastian-bergmann.de/gpg.asc | gpg --import
+    gpg: key 4AA394086372C20A: 452 signatures not checked due to missing keys
+    gpg: /root/.gnupg/trustdb.gpg: trustdb created
+    gpg: key 4AA394086372C20A: public key "Sebastian Bergmann <sb@sebastian-bergmann.de>" imported
     gpg: Total number processed: 1
-    gpg:               imported: 1  (RSA: 1)
+    gpg:               imported: 1
+    gpg: no ultimately trusted keys found
 
 これで、"Sebastian
 Bergmann <sb@sebastian-bergmann.de>" さんの公開鍵を取得できました。
 ただ、この鍵を作ったのが本当に Sebastian Bergmann という人なのかは、確かめようがありません。
 ともあれ、もう一度リリースの署名を検証してみましょう。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ gpg phpunit-|version|.phar.asc
     gpg: Signature made Sat 19 Jul 2014 01:28:02 PM CEST using RSA key ID 6372C20A
@@ -162,14 +164,14 @@ Composer
 ``phpunit/phpunit`` への (開発時の) 依存情報をプロジェクトの
 :file:`composer.json` ファイルに追加します。
 
-.. code-block:: bash
+.. parsed-literal::
 
-    composer require --dev phpunit/phpunit ^|version|
+    composer require --dev phpunit/phpunit ^\ |version|
 
 .. _installation.global:
 
 グローバルなインストール
-#####################
+##########################
 
 PHPUnitをグローバルに（たとえば ``/usr/bin/phpunit`` や
 ``/usr/local/bin/phpunit`` などとして）インストールすることはおすすめできません。
@@ -178,3 +180,12 @@ PHPUnitはプロジェクト単位でローカルな依存として管理すべ�
 
 PHPUnitの特定のバージョンのPHARをプロジェクトの ``tools`` ディレクトリに置く（そしてPHIVEで管理する）か、
 Composerを使っているならそのプロジェクトで必要とするPHPUnitのバージョンを ``composer.json`` に書きましょう。
+
+Webserver
+#########
+
+PHPUnitはテストを実行するためのフレームワークであり、また、コマンドラインツールです。テストのコーディングおよび実行は開発時に行うものであるため、ウェブサーバにPHPUnitをインストールする理由は全くありません。
+
+**ウェブサーバにPHPUnitをインストールすると、そのデプロイは壊れた状態となります。より一般的な話をすると、** ``vendor`` **ディレクトリをウェブサーバ上で公開したときにも同様にそのデプロイは壊れた状態となります。**
+
+PHPUnitをウェブサーバにアップロードすることは良くないことであると認識してください。`警告はしましたからね。 <https://thephp.cc/news/2020/02/phpunit-a-security-risk>`_
