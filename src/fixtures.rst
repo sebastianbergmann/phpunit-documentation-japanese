@@ -48,33 +48,35 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
     :caption: setUp() を使用して stack フィクスチャを作成する
     :name: fixtures.examples.StackTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StackTest extends TestCase
+    final class StackTest extends TestCase
     {
-        protected $stack;
+        private $stack;
 
         protected function setUp(): void
         {
             $this->stack = [];
         }
 
-        public function testEmpty()
+        public function testEmpty(): void
         {
             $this->assertTrue(empty($this->stack));
         }
 
-        public function testPush()
+        public function testPush(): void
         {
             array_push($this->stack, 'foo');
+
             $this->assertSame('foo', $this->stack[count($this->stack)-1]);
             $this->assertFalse(empty($this->stack));
         }
 
-        public function testPop()
+        public function testPop(): void
         {
             array_push($this->stack, 'foo');
+
             $this->assertSame('foo', array_pop($this->stack));
             $this->assertTrue(empty($this->stack));
         }
@@ -95,17 +97,17 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
     :caption: 利用可能なすべてのテンプレートメソッド
     :name: fixtures.examples.TemplateMethodsTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class TemplateMethodsTest extends TestCase
+    final class TemplateMethodsTest extends TestCase
     {
         public static function setUpBeforeClass(): void
         {
             fwrite(STDOUT, __METHOD__ . "\n");
         }
 
-        protected function setUp()
+        protected function setUp(): void
         {
             fwrite(STDOUT, __METHOD__ . "\n");
         }
@@ -115,13 +117,13 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
             fwrite(STDOUT, __METHOD__ . "\n");
         }
 
-        public function testOne()
+        public function testOne(): void
         {
             fwrite(STDOUT, __METHOD__ . "\n");
             $this->assertTrue(true);
         }
 
-        public function testTwo()
+        public function testTwo(): void
         {
             fwrite(STDOUT, __METHOD__ . "\n");
             $this->assertTrue(false);
@@ -132,7 +134,7 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
             fwrite(STDOUT, __METHOD__ . "\n");
         }
 
-        protected function tearDown()
+        protected function tearDown(): void
         {
             fwrite(STDOUT, __METHOD__ . "\n");
         }
@@ -149,7 +151,7 @@ producer-consumer の関係を使って複数のテストでフィクスチャ�
         }
     }
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit TemplateMethodsTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -238,12 +240,12 @@ tearDown() よりも setUp()
     :caption: テストスイートの複数テスト間でのフィクスチャの共有
     :name: fixtures.sharing-fixture.examples.DatabaseTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class DatabaseTest extends TestCase
+    final class DatabaseTest extends TestCase
     {
-        protected static $dbh;
+        private static $dbh;
 
         public static function setUpBeforeClass(): void
         {
@@ -320,21 +322,21 @@ XML設定ファイルで ``backupGlobals="true"`` を指定します。
 :ref:`appendixes.annotations.backupGlobals` で説明している
 ``@backupGlobals`` アノテーションを使用すると、
 グローバル変数のバックアップ・リストア操作を制御することができます。
-あるいは、グローバル変数のブラックリストを指定して、
+あるいは、グローバル変数のリストを指定して、
 その変数だけはバックアップ・リストアの対象から除外することもできます。
 
 .. code-block:: php
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
-        protected $backupGlobalsBlacklist = ['globalVariable'];
+        protected $backupGlobalsExcludeList = ['globalVariable'];
 
         // ...
     }
 
 .. admonition:: Note
 
-   ``$backupGlobalsBlacklist``
+   ``$backupGlobalsExcludeList``
    プロパティをたとえば ``setUp()``
    メソッド内で設定しても効果が及びません。
 
@@ -364,14 +366,13 @@ XML設定ファイルで ``backupGlobals="true"`` を指定します。
    で明示的にリセットしておくことを推奨します
    (そして、``tearDown()`` でもリセットしておけば、それ以降のテストに影響を及ぼすこともなくなります)。
 
-static 属性のブラックリストを渡せば、保存と復元の対象からそれらを除外することもできます。
-ブラックリストは、このように指定します。
+static 属性のリストを渡せば、保存と復元の対象からそれらを除外することもできます。
 
 .. code-block:: php
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
-        protected $backupStaticAttributesBlacklist = [
+        protected $backupStaticAttributesExcludeList = [
             'className' => ['attributeName']
         ];
 
