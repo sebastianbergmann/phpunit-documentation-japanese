@@ -32,7 +32,7 @@ PHPUnit はテストディレクトリを再帰的に探索し、
 その中のディレクトリの構造は、テスト対象のシステム (SUT) がある
 :file:`src` ディレクトリ以下の構造と同じになっています。
 
-.. code-block:: bash
+.. code-block:: none
 
     src                                 tests
     `-- Currency.php                    `-- CurrencyTest.php
@@ -41,10 +41,10 @@ PHPUnit はテストディレクトリを再帰的に探索し、
     `-- autoload.php
 
 PHPUnit のコマンドラインテストランナーに
-テストディレクトリの場所を指示してやるだけで、
+テストディレクトリの場所を指示することで、
 このライブラリのすべてのテストを実行できます。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit --bootstrap src/autoload.php tests
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -64,9 +64,9 @@ PHPUnit のコマンドラインテストランナーに
 ``CurrencyTest`` で宣言されているテストだけを実行するには、
 次のコマンドを実行します。
 
-.. code-block:: bash
+.. parsed-literal::
 
-    $ phpunit --bootstrap src/autoload.php tests/CurrencyTest
+    $ phpunit --bootstrap src/autoload.php tests/CurrencyTest.php
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
 
     ........
@@ -78,7 +78,7 @@ PHPUnit のコマンドラインテストランナーに
 実行したいテストをより細かく指示するには
 ``--filter`` オプションを使います。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit --bootstrap src/autoload.php --filter testObjectCanBeConstructedForValidConstructorArgument tests
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -110,7 +110,7 @@ PHPUnit の XML 設定ファイル (:ref:`appendixes.configuration`)
 :file:`*Test.php` というファイルにある
 ``*Test`` クラスをすべて追加する設定です。
 
-.. code-block:: php
+.. code-block:: xml
     :caption: XML 設定ファイルを用いたテストスイートの構成
     :name: organizing-tests.xml-configuration.examples.phpunit.xml
 
@@ -122,15 +122,27 @@ PHPUnit の XML 設定ファイル (:ref:`appendixes.configuration`)
       </testsuites>
     </phpunit>
 
+特定のテストスイートを実行したい場合は、``--testsuite`` オプションを利用します。
+
+.. parsed-literal::
+
+    $ phpunit --bootstrap src/autoload.php --testsuite money
+    PHPUnit |version|.0 by Sebastian Bergmann and contributors.
+
+    ..
+    Time: 167 ms, Memory: 3.00Mb
+
+    OK (2 test, 2 assertions)
+
 ``--configuration`` が設定
 *されていない* 場合は、現在の作業ディレクトリから
 :file:`phpunit.xml` あるいは
 :file:`phpunit.xml.dist` を (この順に) 探し、
 見つかった場合はそれを自動的に読み込みます。
 
-どのテストを実行するのかを明示的に指定することができます。
+また以下のように、テストの実行順序を XML 設定ファイルで明示的に指定することもできます。
 
-.. code-block:: php
+.. code-block:: xml
     :caption: XML 設定ファイルを用いたテストスイートの構成
     :name: organizing-tests.xml-configuration.examples.phpunit.xml2
 
