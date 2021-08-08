@@ -7,7 +7,7 @@
 ============
 
 Gerard Meszaros は、テストダブルの概念を
-:ref:`Meszaros2007` でこのように述べています。
+:ref:`Meszaros2007 <appendixes.bibliography>` でこのように述べています。
 
     *Gerard Meszaros*:
 
@@ -40,11 +40,11 @@ Gerard Meszaros は、テストダブルの概念を
     単に実際のものと同じ API を提供し、
     SUT に「これは本物だ!」と思わせるだけでいいのです。
 
-PHPUnit の ``createMock($type)`` メソッドや ``getMockBuilder($type)`` メソッドを使うと、
+PHPUnit の ``createStub($type)`` メソッドや ``getMockBuilder($type)`` メソッドを使うと、
 指定した元インターフェイス (あるいは元クラス) のテストダブルとして振る舞うオブジェクトを自動的に生成することができます。
 このテストダブルオブジェクトは、元のオブジェクトを要するすべての場面で使うことができます。
 
-``createMock($type)`` メソッドは、指定した型 (インターフェイスやクラス)
+``createStub($type)`` 、および ``createMock($type)`` メソッドは、指定した型 (インターフェイスやクラス)
 のテストダブルオブジェクトをその場で返します。
 テストダブルの作成は、デフォルトではベストプラクティスに沿って行われます
 (元クラスの ``__construct()`` や ``__clone()``
@@ -54,7 +54,7 @@ PHPUnit の ``createMock($type)`` メソッドや ``getMockBuilder($type)`` メ�
 
 デフォルトでは、元クラスのすべてのメソッドが置き換えられて、
 (元のメソッドは呼び出さずに) 単に ``null``
-を返すだけのダミー実装になります。たとえば
+を返すダミー実装になります。たとえば
 ``will($this->returnValue())`` メソッドを使うと、
 ダミー実装がコールされたときに値を返すよう設定することができます。
 
@@ -83,7 +83,7 @@ SUT の入力を間接的にコントロールできるようにすることが�
 :numref:`test-doubles.stubs.examples.StubTest.php`
 に、スタブメソッドの作成と返り値の設定の方法を示します。まず、
 ``PHPUnit\Framework\TestCase`` クラスの
-``createMock()`` メソッドを用いて
+``createStub()`` メソッドを用いて
 ``SomeClass`` オブジェクトのスタブを作成します
 (:numref:`test-doubles.stubs.examples.SomeClass.php`)。
 次に、PHPUnit が提供する、いわゆる
@@ -99,7 +99,7 @@ SUT の入力を間接的にコントロールできるようにすることが�
     :caption: スタブを作りたいクラス
     :name: test-doubles.stubs.examples.SomeClass.php
 
-    <?php
+    <?php declare(strict_types=1);
     class SomeClass
     {
         public function doSomething()
@@ -112,15 +112,15 @@ SUT の入力を間接的にコントロールできるようにすることが�
     :caption: メソッドに固定値を返させるスタブ
     :name: test-doubles.stubs.examples.StubTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testStub()
+        public function testStub(): void
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->createMock(SomeClass::class);
+            $stub = $this->createStub(SomeClass::class);
 
             // スタブの設定を行います
             $stub->method('doSomething')
@@ -139,24 +139,43 @@ SUT の入力を間接的にコントロールできるようにすることが�
    元のクラスで "method" という名前のメソッドが宣言されている場合は、
    ``$stub->expects($this->any())->method('doSomething')->willReturn('foo');`` としなければいけません。
 
-舞台裏では、``createMock()`` メソッドが使われたときに
+舞台裏では、``createStub()`` メソッドが使われたときに
 PHPUnit が自動的に、求める振る舞いを実装した新たな PHP のクラスを生成しています。
+
+
+なお、 ``createStub()`` は、メソッドの戻り値の型に基づいて自動的に、そして再帰的に戻り値をスタブ化します。以下のような例を考えてみましょう。
+
+.. code-block:: php
+    :caption: 返り値について型宣言されたメソッド
+    :name: test-doubles.stubs.examples.returnTypeDeclaration.php
+
+    <?php declare(strict_types=1);
+    class C
+    {
+        public function m(): D
+        {
+            // Do something.
+        }
+    }
+
+上の例のように、 ``C::m()`` は返り値として ``D`` のオブジェクトを返すことが宣言されています。 ``C`` のテストダブルを作成し、返り値を ``willReturn()`` メソッドなどで設定しなかった場合、 ``C`` のテストダブルで ``m()`` のメソッドを呼び出すと、 PHPUnit は自動的に ``D`` のテストダブルを作成して返します。
+同様に ``m`` の型定義がスカラー型であった場合は、 ``0`` ( ``int`` の場合)、  ``0.0`` ( ``float`` の場合)、 ``[]`` ( ``配列`` の場合) が生成され返されます。
 
 :numref:`test-doubles.stubs.examples.StubTest2.php` に例を示します。
 これは、モックビルダーの流れるようなインターフェイスを使って、テストダブルの作成方法を設定するものです。
-このテストダブルで使っている設定は、``createMock()``
+このテストダブルで使っている設定は、``createStub()``
 がデフォルトで使用するベストプラクティスと同じです。
 
 .. code-block:: php
     :caption: モックビルダー API を使った、生成されるテストダブルクラスの変更
     :name: test-doubles.stubs.examples.StubTest2.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testStub()
+        public function testStub(): void
         {
             // SomeClass クラスのスタブを作成します
             $stub = $this->getMockBuilder(SomeClass::class)
@@ -192,15 +211,15 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: メソッドに引数のひとつを返させるスタブ
     :name: test-doubles.stubs.examples.StubTest3.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testReturnArgumentStub()
+        public function testReturnArgumentStub(): void
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->createMock(SomeClass::class);
+            $stub = $this->createStub(SomeClass::class);
 
             // スタブの設定を行います
             $stub->method('doSomething')
@@ -223,15 +242,15 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: スタブオブジェクトへの参照を返すメソッドのスタブ
     :name: test-doubles.stubs.examples.StubTest4.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testReturnSelf()
+        public function testReturnSelf(): void
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->createMock(SomeClass::class);
+            $stub = $this->createStub(SomeClass::class);
 
             // スタブの設定を行います
             $stub->method('doSomething')
@@ -252,15 +271,15 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: メソッドにマップからの値を返させるスタブ
     :name: test-doubles.stubs.examples.StubTest5.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testReturnValueMapStub()
+        public function testReturnValueMapStub(): void
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->createMock(SomeClass::class);
+            $stub = $this->createStub(SomeClass::class);
 
             // 値を返すための、引数のマップを作製します
             $map = [
@@ -291,15 +310,15 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: メソッドにコールバックからの値を返させるスタブ
     :name: test-doubles.stubs.examples.StubTest6.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testReturnCallbackStub()
+        public function testReturnCallbackStub(): void
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->createMock(SomeClass::class);
+            $stub = $this->createStub(SomeClass::class);
 
             // スタブの設定を行います
             $stub->method('doSomething')
@@ -320,15 +339,15 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: メソッドに、リストで指定した値をその順で返させるスタブ
     :name: test-doubles.stubs.examples.StubTest7.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testOnConsecutiveCallsStub()
+        public function testOnConsecutiveCallsStub(): void
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->createMock(SomeClass::class);
+            $stub = $this->createStub(SomeClass::class);
 
             // スタブの設定を行います
             $stub->method('doSomething')
@@ -349,15 +368,15 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: メソッドに例外をスローさせるスタブ
     :name: test-doubles.stubs.examples.StubTest8.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class StubTest extends TestCase
+    final class StubTest extends TestCase
     {
-        public function testThrowExceptionStub()
+        public function testThrowExceptionStub(): void
         {
             // SomeClass クラスのスタブを作成します
-            $stub = $this->createMock(SomeClass::class);
+            $stub = $this->createStub(SomeClass::class);
 
             // スタブの設定を行います
             $stub->method('doSomething')
@@ -371,7 +390,7 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
 また、スタブを使用することで、よりよい設計を行うことができるようにもなります。
 あちこちで使用されているリソースを単一の窓口 (façade : ファサード)
 経由でアクセスするようにすることで、
-それを簡単にスタブに置き換えられるようになります。例えば、
+それをスタブに置き換えられるようになります。例えば、
 データベースへのアクセスのコードをそこらじゅうにちりばめるのではなく、
 その代わりに ``IDatabase`` インターフェイスを実装した単一の
 ``Database`` オブジェクトを使用するようにします。すると、
@@ -420,7 +439,7 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: テスト対象のシステム (SUT) の一部である Subject クラスと Observer クラス
     :name: test-doubles.mock-objects.examples.SUT.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     class Subject
@@ -491,31 +510,26 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
 
 まず
 ``PHPUnit\Framework\TestCase`` クラスの
-``getMockBuilder()`` メソッドを使用して ``Observer`` のモックオブジェクトを作成します。
-``getMock()`` メソッドの二番目の (オプションの)
-パラメータに配列を指定しているので、``Observer``
-クラスの中の ``update()`` メソッドについてのみモック実装が作成されます。
+``createMock()`` メソッドを使用して ``Observer`` のモックオブジェクトを作成します。
 
 あるメソッドがコールされたのかどうか、そしてどんな引数を渡してコールされたのかを検証したいので、
-``expects()`` メソッドと ``with()`` メソッドを用意しました。
+``expects()`` メソッドと ``with()`` メソッドを利用します。
 これらを使って、このやりとりがどのように行われるのかを指定します。
 
 .. code-block:: php
     :caption: あるメソッドが、指定した引数で一度だけコールされることを確かめるテスト
     :name: test-doubles.mock-objects.examples.SubjectTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class SubjectTest extends TestCase
+    final class SubjectTest extends TestCase
     {
-        public function testObserversAreUpdated()
+        public function testObserversAreUpdated(): void
         {
             // Observer クラスのモックを作成します。
             // update() メソッドのみのモックです。
-            $observer = $this->getMockBuilder(Observer::class)
-                             ->setMethods(['update'])
-                             ->getMock();
+            $observer = $this->createMock(Observer::class);
 
             // update() メソッドが一度だけコールされ、その際の
             // パラメータは文字列 'something' となる、
@@ -544,18 +558,16 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: メソッドが引数つきでコールされることを、さまざまな制約の下でテストする例
     :name: test-doubles.mock-objects.examples.SubjectTest2.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class SubjectTest extends TestCase
+    final class SubjectTest extends TestCase
     {
-        public function testErrorReported()
+        public function testErrorReported(): void
         {
             // Observer クラスのモックを作成します。
             // reportError() メソッドをモックします。
-            $observer = $this->getMockBuilder(Observer::class)
-                             ->setMethods(['reportError'])
-                             ->getMock();
+            $observer = $this->createMock(Observer::class);
 
             $observer->expects($this->once())
                      ->method('reportError')
@@ -583,12 +595,12 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: あるメソッドが、指定した引数つきで 2 回呼び出されることを確かめるテスト
     :name: test-doubles.mock-objects.examples.with-consecutive.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class FooTest extends TestCase
+    final class FooTest extends TestCase
     {
-        public function testFunctionCalledTwoTimesWithSpecificArguments()
+        public function testFunctionCalledTwoTimesWithSpecificArguments(): void
         {
             $mock = $this->getMockBuilder(stdClass::class)
                          ->setMethods(['set'])
@@ -615,27 +627,27 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: より複雑な引数の検証
     :name: test-doubles.mock-objects.examples.SubjectTest3.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class SubjectTest extends TestCase
+    final class SubjectTest extends TestCase
     {
-        public function testErrorReported()
+        public function testErrorReported(): void
         {
             // Observer クラスのモックを作成します。
             // reportError() メソッドをモックします。
-            $observer = $this->getMockBuilder(Observer::class)
-                             ->setMethods(['reportError'])
-                             ->getMock();
-
+            $observer = $this->createMock(Observer::class);
             $observer->expects($this->once())
                      ->method('reportError')
-                     ->with($this->greaterThan(0),
-                            $this->stringContains('Something'),
-                            $this->callback(function($subject){
-                              return is_callable([$subject, 'getName']) &&
-                                     $subject->getName() == 'My subject';
-                            }));
+                     ->with(
+                         $this->greaterThan(0),
+                         $this->stringContains('Something'),
+                         $this->callback(function($subject)
+                         {
+                             return is_callable([$subject, 'getName']) &&
+                                    $subject->getName() == 'My subject';
+                         }
+                     ));
 
             $subject = new Subject('My subject');
             $subject->attach($observer);
@@ -650,12 +662,12 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: メソッドが一度だけ呼ばれ、同じオブジェクトが渡されたことを確かめるテスト
     :name: test-doubles.mock-objects.examples.clone-object-parameters-usecase.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class FooTest extends TestCase
+    final class FooTest extends TestCase
     {
-        public function testIdenticalObjectPassed()
+        public function testIdenticalObjectPassed(): void
         {
             $expectedObject = new stdClass;
 
@@ -675,12 +687,12 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
     :caption: パラメータのクローンの有効にしたモックオブジェクトの作成
     :name: test-doubles.mock-objects.examples.enable-clone-object-parameters.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class FooTest extends TestCase
+    final class FooTest extends TestCase
     {
-        public function testIdenticalObjectPassed()
+        public function testIdenticalObjectPassed(): void
         {
             $cloneArguments = true;
 
@@ -726,7 +738,7 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
    このマッチャーを使うときには注意しましょう。テストが実装の詳細とあまりにも密結合になり、
    脆いテストになってしまう可能性があるからです。
 
-最初に説明したとおり、``createMock()``
+最初に説明したとおり、 ``createStub()`` および ``createMock()``
 メソッドが用いるデフォルトのテストダブル生成方法がニーズを満たさない場合は、
 ``getMockBuilder($type)`` メソッドを使えば生成方法をカスタマイズできます。
 モックビルダーが提供するメソッドの一覧は、次のとおりです。
@@ -760,57 +772,6 @@ PHPUnit が自動的に、求める振る舞いを実装した新たな PHP の�
 
   ``disableAutoload()`` を使うと、テストダブルクラスを生成するときに ``__autoload()`` を無効にすることができます。
 
-.. _test-doubles.prophecy:
-
-Prophecy
-########
-
-`Prophecy <https://github.com/phpspec/prophecy>`_ は
-「クセは強いけれども、強力で柔軟な、PHP のオブジェクトモッキングフレームワークです。
-最初は phpspec2 のニーズを満たすために作られましたが、今やそれ以外のテスティングフレームワークでも、
-最小限の努力で使えるようになりました」
-とのことです。
-
-PHPUnit は、Prophecy を使ったテストダブルの作成に標準で対応しています。
-:numref:`test-doubles.prophecy.examples.SubjectTest.php`
-は、:numref:`test-doubles.mock-objects.examples.SubjectTest.php`
-と同じテストを、Prophecy の理念に沿って表すとどうなるかを示す例です。
-
-.. code-block:: php
-    :caption: あるメソッドが、指定した引数で一度だけコールされることを確かめるテスト
-    :name: test-doubles.prophecy.examples.SubjectTest.php
-
-    <?php
-    use PHPUnit\Framework\TestCase;
-
-    class SubjectTest extends TestCase
-    {
-        public function testObserversAreUpdated()
-        {
-            $subject = new Subject('My subject');
-
-            // Observer クラスの prophecy を作成します。
-            $observer = $this->prophesize(Observer::class);
-
-            // update() メソッドが一度だけコールされ、その際の
-            // パラメータは文字列 'something' となる、
-            // ということを期待しています。
-            $observer->update('something')->shouldBeCalled();
-
-            // prophecy を公開し、モックオブジェクトを
-            // Subject にアタッチします。
-            $subject->attach($observer->reveal());
-
-            // $subject オブジェクトの doSomething() メソッドをコールします。
-            // これは、Observer オブジェクトのモックの update() メソッドを、
-            // 文字列 'something' を引数としてコールすることを期待されています。
-            $subject->doSomething();
-        }
-    }
-
-Prophecy を使ってスタブやスパイそしてモックを作ったり設定したり使ったりする方法の詳細については、
-その `ドキュメント <https://github.com/phpspec/prophecy#how-to-use-it>`_ を参照ください。
-
 .. _test-doubles.mocking-traits-and-abstract-classes:
 
 トレイトと抽象クラスのモック
@@ -824,7 +785,7 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
     :caption: トレイトの具象メソッドのテスト
     :name: test-doubles.mock-objects.examples.TraitClassTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     trait AbstractTrait
@@ -837,9 +798,9 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
         public abstract function abstractMethod();
     }
 
-    class TraitClassTest extends TestCase
+    final class TraitClassTest extends TestCase
     {
-        public function testConcreteMethod()
+        public function testConcreteMethod(): void
         {
             $mock = $this->getMockForTrait(AbstractTrait::class);
 
@@ -860,7 +821,7 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
     :caption: 抽象クラスの具象メソッドのテスト
     :name: test-doubles.mock-objects.examples.AbstractClassTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     abstract class AbstractClass
@@ -873,9 +834,9 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
         public abstract function abstractMethod();
     }
 
-    class AbstractClassTest extends TestCase
+    final class AbstractClassTest extends TestCase
     {
-        public function testConcreteMethod()
+        public function testConcreteMethod(): void
         {
             $stub = $this->getMockForAbstractClass(AbstractClass::class);
 
@@ -894,7 +855,7 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
 
 ウェブサービスとのやりとりを行うアプリケーションを、
 実際にウェブサービスとやりとりすることなくテストしたくなることもあるでしょう。
-ウェブサービスのスタブやモックを作りやすくするために ``getMockFromWsdl()``
+ウェブサービスのスタブやモックを作成するために ``getMockFromWsdl()``
 メソッドが用意されており、これは ``getMock()`` (上を参照ください)
 とほぼ同様に使うことができます。唯一の違いは、
 ``getMockFromWsdl()`` が返すスタブやモックが WSDL
@@ -909,12 +870,12 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
     :caption: ウェブサービスのスタブ
     :name: test-doubles.stubbing-and-mocking-web-services.examples.GoogleTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class GoogleTest extends TestCase
+    final class GoogleTest extends TestCase
     {
-        public function testSearch()
+        public function testSearch(): void
         {
             $googleSearch = $this->getMockFromWsdl(
               'GoogleSearch.wsdl', 'GoogleSearch'
@@ -973,157 +934,5 @@ Prophecy を使ってスタブやスパイそしてモックを作ったり設�
             );
         }
     }
-
-.. _test-doubles.mocking-the-filesystem:
-
-ファイルシステムのモック
-########################
-
-`vfsStream <https://github.com/mikey179/vfsStream>`_ は
-`仮想ファイルシステム <http://ja.wikipedia.org/wiki/仮想ファイルシステム>`_
-用の `ストリームラッパー <http://www.php.net/streams>`_ で、
-ユニットテストにおいて実際のファイルシステムのモックを作るときに有用です。
-
-`Composer <https://getcomposer.org/>`_
-を使ってプロジェクトの依存関係を管理するには、
-``mikey179/vfsstream`` への依存情報をプロジェクトの
-:file:`composer.json` ファイルに追加します。
-次に示すのは最小限の
-:file:`composer.json` ファイルの例で、
-開発時の PHPUnit 4.6 と vfsStream への依存を定義しています。
-
-.. code-block:: php
-
-    {
-        "require-dev": {
-            "phpunit/phpunit": "~4.6",
-            "mikey179/vfsstream": "~1"
-        }
-    }
-
-:numref:`test-doubles.mocking-the-filesystem.examples.Example.php`
-は、ファイルシステムを操作するクラスの例です。
-
-.. code-block:: php
-    :caption: ファイルシステムを操作するクラス
-    :name: test-doubles.mocking-the-filesystem.examples.Example.php
-
-    <?php
-    use PHPUnit\Framework\TestCase;
-
-    class Example
-    {
-        protected $id;
-        protected $directory;
-
-        public function __construct($id)
-        {
-            $this->id = $id;
-        }
-
-        public function setDirectory($directory)
-        {
-            $this->directory = $directory . DIRECTORY_SEPARATOR . $this->id;
-
-            if (!file_exists($this->directory)) {
-                mkdir($this->directory, 0700, true);
-            }
-        }
-    }
-
-vfsStream のような仮想ファイルシステムがなければ、外部への影響なしに
-``setDirectory()`` メソッドを個別にテストすることができません
-(:numref:`test-doubles.mocking-the-filesystem.examples.ExampleTest.php`
-を参照ください)。
-
-.. code-block:: php
-    :caption: ファイルシステムを操作するクラスのテスト
-    :name: test-doubles.mocking-the-filesystem.examples.ExampleTest.php
-
-    <?php
-    use PHPUnit\Framework\TestCase;
-
-    class ExampleTest extends TestCase
-    {
-        protected function setUp(): void
-        {
-            if (file_exists(dirname(__FILE__) . '/id')) {
-                rmdir(dirname(__FILE__) . '/id');
-            }
-        }
-
-        public function testDirectoryIsCreated()
-        {
-            $example = new Example('id');
-            $this->assertFalse(file_exists(dirname(__FILE__) . '/id'));
-
-            $example->setDirectory(dirname(__FILE__));
-            $this->assertTrue(file_exists(dirname(__FILE__) . '/id'));
-        }
-
-        protected function tearDown(): void
-        {
-            if (file_exists(dirname(__FILE__) . '/id')) {
-                rmdir(dirname(__FILE__) . '/id');
-            }
-        }
-    }
-
-この方式には、次のような問題があります。
-
--
-
-  外部のリソースを使うため、ファイルシステムのテストが断続的になる可能性があります。その結果、テストがあまり当てにならないものになります。
-
--
-
-  ``setUp()`` と ``tearDown()`` で、テストの前後にそのディレクトリがないことを確認する必要があります。
-
--
-
-  ``tearDown()`` メソッドを実行する前にテストが異常終了したときに、ファイルシステム上にディレクトリが残ったままとなります。
-
-:numref:`test-doubles.mocking-the-filesystem.examples.ExampleTest2.php`
-は、vfsStream を使ってファイルシステムのモックを作成し、
-ファイルシステムを操作するクラスのテストを行う例です。
-
-.. code-block:: php
-    :caption: ファイルシステムを操作するクラスのテストにおけるファイルシステムのモックの作成
-    :name: test-doubles.mocking-the-filesystem.examples.ExampleTest2.php
-
-    <?php
-    use PHPUnit\Framework\TestCase;
-
-    class ExampleTest extends TestCase
-    {
-        public function setUp(): void
-        {
-            vfsStreamWrapper::register();
-            vfsStreamWrapper::setRoot(new vfsStreamDirectory('exampleDir'));
-        }
-
-        public function testDirectoryIsCreated()
-        {
-            $example = new Example('id');
-            $this->assertFalse(vfsStreamWrapper::getRoot()->hasChild('id'));
-
-            $example->setDirectory(vfsStream::url('exampleDir'));
-            $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild('id'));
-        }
-    }
-
-この方式には次のような利点があります。
-
--
-
-  テストが簡潔になります。
-
--
-
-  vfsStream が、テスト対象のコードから操作するファイルシステム環境を用意してくれるので、開発者はそれを自由に扱えるようになります。
-
--
-
-  実際のファイルシステムを操作することがなくなるので、``tearDown()`` メソッドでの後始末が不要になります。
 
 
