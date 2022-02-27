@@ -299,7 +299,7 @@ PHPUnit は、*失敗 (failures)* と
         --filter 'TestNamespace\\TestCaseClass::testMethod'
         --filter 'TestNamespace\\TestCaseClass'
         --filter TestNamespace
-        --filter TestCaseClase
+        --filter TestCaseClass
         --filter testMethod
         --filter '/::testMethod .*"my named data"/'
         --filter '/::testMethod .*#5$/'
