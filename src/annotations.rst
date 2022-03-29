@@ -45,14 +45,15 @@ PHPUnit などのアプリケーションでは、
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         /**
          * @after
          */
-        public function tearDownSomeFixtures()
+        public function tearDownSomeFixtures(): void
         {
             // ...
         }
@@ -60,7 +61,7 @@ PHPUnit などのアプリケーションでは、
         /**
          * @after
          */
-        public function tearDownSomeOtherFixtures()
+        public function tearDownSomeOtherFixtures(): void
         {
             // ...
         }
@@ -77,14 +78,15 @@ PHPUnit などのアプリケーションでは、
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         /**
          * @afterClass
          */
-        public static function tearDownSomeSharedFixtures()
+        public static function tearDownSomeSharedFixtures(): void
         {
             // ...
         }
@@ -92,7 +94,7 @@ PHPUnit などのアプリケーションでは、
         /**
          * @afterClass
          */
-        public static function tearDownSomeOtherSharedFixtures()
+        public static function tearDownSomeOtherSharedFixtures(): void
         {
             // ...
         }
@@ -103,37 +105,47 @@ PHPUnit などのアプリケーションでは、
 @backupGlobals
 ##############
 
-グローバル変数の保存や復元を、テストケースクラスのすべてのテストで完全に無効にすることができます。
-このように使います。
+PHPUnit では、グローバル変数やスーパーグローバル変数の値をバックアップしてからテストを始め、
+テストが終わった後でそれらの値を復元することができます。
+
+``@backupGlobals enabled`` アノテーションはクラスレベルで使うことができます。
+この場合、テストケースクラスのすべてのテストでグローバル変数の保存と復元が行われます。
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     /**
-     * @backupGlobals disabled
+     * @backupGlobals enabled
      */
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         // ...
     }
 
-``@backupGlobals`` アノテーションは、テストメソッドレベルで使うこともできます。
+``@backupGlobals`` アノテーションをテストメソッドレベルで使うこともできます。
 これによって、保存と復元の操作をより細やかに制御できるようになります。
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     /**
-     * @backupGlobals disabled
+     * @backupGlobals enabled
      */
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
-        /**
-         * @backupGlobals enabled
-         */
         public function testThatInteractsWithGlobalVariables()
+        {
+            // ...
+        }
+
+        /**
+         * @backupGlobals disabled
+         */
+        public function testThatDoesNotInteractWithGlobalVariables(): void
         {
             // ...
         }
@@ -144,24 +156,46 @@ PHPUnit などのアプリケーションでは、
 @backupStaticAttributes
 #######################
 
-``@backupStaticAttributes`` アノテーションを使うと、
-宣言されたクラス内のすべての static プロパティの値をバックアップしてからテストを始め、
+PHPUnit では、宣言されたクラス内のすべての static 属性の値をバックアップしてからテストを始め、
 テストが終わった後でそれらの値を復元することができます。
-テストケースクラス単位、あるいはテストメソッド単位で使えます。
+
+``@backupStaticAttributes enabled`` アノテーションはクラスレベルで使うことができます。
+この場合、テストケースクラスのすべてのテストで static 属性の保存と復元が行われます。
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
+    use PHPUnit\Framework\TestCase;
+    /**
+     * @backupStaticAttributes enabled
+     */
+    final class MyTest extends TestCase
+    {
+        // ...
+    }
+
+``@backupStaticAttributes`` アノテーションをテストメソッドレベルで使うこともできます。
+これによって、保存と復元の操作をより細やかに制御できるようになります。
+
+.. code-block:: php
+
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     /**
      * @backupStaticAttributes enabled
      */
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
+        public function testThatInteractsWithStaticAttributes(): void
+        {
+            // ...
+        }
+
         /**
          * @backupStaticAttributes disabled
          */
-        public function testThatInteractsWithStaticAttributes()
+        public function testThatDoesNotInteractWithStaticAttributes(): void
         {
             // ...
         }
@@ -186,14 +220,15 @@ PHPUnit などのアプリケーションでは、
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         /**
          * @before
          */
-        public function setupSomeFixtures()
+        public function setupSomeFixtures(): void
         {
             // ...
         }
@@ -201,7 +236,7 @@ PHPUnit などのアプリケーションでは、
         /**
          * @before
          */
-        public function setupSomeOtherFixtures()
+        public function setupSomeOtherFixtures(): void
         {
             // ...
         }
@@ -218,14 +253,15 @@ PHPUnit などのアプリケーションでは、
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         /**
          * @beforeClass
          */
-        public static function setUpSomeSharedFixtures()
+        public static function setUpSomeSharedFixtures(): void
         {
             // ...
         }
@@ -233,7 +269,7 @@ PHPUnit などのアプリケーションでは、
         /**
          * @beforeClass
          */
-        public static function setUpSomeOtherSharedFixtures()
+        public static function setUpSomeOtherSharedFixtures(): void
         {
             // ...
         }
@@ -262,17 +298,34 @@ PHPUnit などのアプリケーションでは、
 .. code-block:: php
 
     /**
-     * @covers BankAccount::getBalance
+     * @covers \BankAccount
      */
-    public function testBalanceIsInitiallyZero()
+    public function testBalanceIsInitiallyZero(): void
     {
         $this->assertSame(0, $this->ba->getBalance());
     }
 
-これを指定した場合は、指定したメソッドのみのコードカバレッジ情報を考慮することになります。
+``@covers`` アノテーションが利用された場合、出力されるコードカバレッジの算出方法が変わります。
+アノテーションで自身を指定するテストから実行された場合のみ、「covered」と判定されます。
+アノテーションで自身を指定していないテストから間接的に利用されたとしても、「covered」とは判定されません。
+これによって、コードカバレッジが実際よりも高く出る false positive を避けることができます。
+
+このアノテーションはテストクラスの docblock に記載することも、個別のテストメソッドの
+docblock に記載することもできますが、
+テストクラスの docblock に記載することが推奨され、個別のテストメソッドの docblock に記載することは推奨されません。
+
+:ref:`XML 設定ファイル <appendixes.configuration>` の ``forceCoversAnnotation`` オプションを ``true`` に設定した場合、
+全てのテストメソッドにおいて ``covers`` アノテーションを設定しなければなりません
+(テストクラス単位で設定しても、それぞれのテストメソッドを個別に設定しても構いません)
 
 :numref:`appendixes.annotations.covers.tables.annotations`
 に ``@covers`` アノテーションの構文を示します。
+
+:ref:`code-coverage-analysis.specifying-covered-parts` のセクションでは、このアノテーションを使うより詳細な例を紹介しています。
+
+このアノテーションは、完全修飾クラス名を必要とすることに注意してください。
+完全修飾クラス名の先頭のバックスラッシュは省略しても動作に問題ありませんが、読み手に完全修飾クラス名であることを伝えるために
+先頭にバックスラッシュをつける形式で記載することが推奨されます。
 
 .. rst-class:: table
 .. list-table:: カバーするメソッドを指定するためのアノテーション
@@ -281,25 +334,25 @@ PHPUnit などのアプリケーションでは、
 
     * - アノテーション
       - 説明
-    * - ``@covers ClassName::methodName``
+    * - ``@covers ClassName::methodName`` (not recommended)
       - そのテストメソッドが指定したメソッドをカバーすることを表します。
-    * - ``@covers ClassName``
+    * - ``@covers ClassName`` (recommended)
       - そのテストメソッドが指定したクラスのすべてのメソッドをカバーすることを表します。
-    * - ``@covers ClassName<extended>``
+    * - ``@covers ClassName<extended>`` (not recommended)
       - そのテストメソッドが、指定したクラスとその親クラスおよびインターフェイスのすべてのメソッドをカバーすることを表します。
-    * - ``@covers ClassName::<public>``
+    * - ``@covers ClassName::<public>`` (not recommended)
       - そのテストメソッドが、指定したクラスのすべての public メソッドをカバーすることを表します。
-    * - ``@covers ClassName::<protected>``
+    * - ``@covers ClassName::<protected>`` (not recommended)
       - そのテストメソッドが、指定したクラスのすべての protected メソッドをカバーすることを表します。
-    * - ``@covers ClassName::<private>``
+    * - ``@covers ClassName::<private>`` (not recommended)
       - そのテストメソッドが、指定したクラスのすべての private メソッドをカバーすることを表します。
-    * - ``@covers ClassName::<!public>``
+    * - ``@covers ClassName::<!public>`` (not recommended)
       - そのテストメソッドが、指定したクラスのすべての非 public メソッドをカバーすることを表します。
-    * - ``@covers ClassName::<!protected>``
+    * - ``@covers ClassName::<!protected>`` (not recommended)
       - そのテストメソッドが、指定したクラスのすべての非 protected メソッドをカバーすることを表します。
-    * - ``@covers ClassName::<!private>``
+    * - ``@covers ClassName::<!private>`` (not recommended)
       - そのテストメソッドが、指定したクラスのすべての非 private メソッドをカバーすることを表します。
-    * - ``@covers ::functionName``
+    * - ``@covers ::functionName`` (recommended)
       - そのテストメソッドが、指定したグローバル関数をカバーすることを表します。
 
 .. _appendixes.annotations.coversDefaultClass:
@@ -314,22 +367,26 @@ PHPUnit などのアプリケーションでは、
 :numref:`appendixes.annotations.examples.CoversDefaultClassTest.php`
 を参照ください。
 
+このアノテーションは、完全修飾クラス名を必要とすることに注意してください。
+完全修飾クラス名の先頭のバックスラッシュは省略しても動作に問題ありませんが、読み手に完全修飾クラス名であることを伝えるために
+先頭にバックスラッシュをつける形式で記載することが推奨されます。
+
 .. code-block:: php
     :caption: @coversDefaultClass を使ったアノテーションの短縮
     :name: appendixes.annotations.examples.CoversDefaultClassTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     /**
      * @coversDefaultClass \Foo\CoveredClass
      */
-    class CoversDefaultClassTest extends TestCase
+    final class CoversDefaultClassTest extends TestCase
     {
         /**
          * @covers ::publicMethod
          */
-        public function testSomething()
+        public function testSomething(): void
         {
             $o = new Foo\CoveredClass;
             $o->publicMethod();
@@ -345,7 +402,7 @@ PHPUnit などのアプリケーションでは、
 そのテストケースについてはコードカバレッジ情報を記録しないように指定できます。
 
 これはインテグレーションテストで使えます。例として
-:ref:`code-coverage-analysis.specifying-covered-methods.examples.GuestbookIntegrationTest.php`
+:ref:`code-coverage-analysis.specifying-covered-parts.examples.GuestbookIntegrationTest.php`
 を参照ください。
 
 このメソッドはクラスレベルおよびメソッドレベルで使え、
@@ -388,146 +445,6 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
 
 アサーションがひとつもないテストを、リスキーであるとみなさないようにします。
 
-.. _appendixes.annotations.expectedException:
-
-@expectedException
-##################
-
-:ref:`writing-tests-for-phpunit.exceptions.examples.ExceptionTest.php`
-は、テストするコード内で例外がスローされたかどうかを
-``@expectedException`` アノテーションを使用して調べる方法を示すものです。
-
-詳細は :ref:`writing-tests-for-phpunit.exceptions`
-を参照ください。
-
-.. _appendixes.annotations.expectedExceptionCode:
-
-@expectedExceptionCode
-######################
-
-``@expectedExceptionCode`` アノテーションを
-``@expectedException`` と組み合わせて使うと、
-スローされた例外のエラーコードについてのアサーションが可能となり、
-例外をより狭い範囲に特定できるようになります。
-
-.. code-block:: php
-
-    use PHPUnit\Framework\TestCase;
-
-    class MyTest extends TestCase
-    {
-        /**
-         * @expectedException     MyException
-         * @expectedExceptionCode 20
-         */
-        public function testExceptionHasErrorCode20()
-        {
-            throw new MyException('Some Message', 20);
-        }
-    }
-
-テストを実行しやすくし、重複を減らすために、
-ショートカットを使ってクラス定数を指定することができます。
-``@expectedExceptionCode`` で
-"``@expectedExceptionCode ClassName::CONST``" のようにして使います。
-
-.. code-block:: php
-
-    use PHPUnit\Framework\TestCase;
-
-    class MyTest extends TestCase
-    {
-        /**
-          * @expectedException     MyException
-          * @expectedExceptionCode MyClass::ERRORCODE
-          */
-        public function testExceptionHasErrorCode20()
-        {
-          throw new MyException('Some Message', 20);
-        }
-    }
-    class MyClass
-    {
-        const ERRORCODE = 20;
-    }
-
-.. _appendixes.annotations.expectedExceptionMessage:
-
-@expectedExceptionMessage
-#########################
-
-``@expectedExceptionMessage`` アノテーションは
-``@expectedExceptionCode`` と似ており、
-例外のエラーメッセージに関するアサーションを行います。
-
-.. code-block:: php
-
-    use PHPUnit\Framework\TestCase;
-
-    class MyTest extends TestCase
-    {
-        /**
-         * @expectedException        MyException
-         * @expectedExceptionMessage Some Message
-         */
-        public function testExceptionHasRightMessage()
-        {
-            throw new MyException('Some Message', 20);
-        }
-    }
-
-期待するメッセージを、例外メッセージの一部にすることもできます。
-これは、特定の名前や渡したパラメータが例外に表示されることを確かめたいけれども
-例外メッセージ全体は固定していない場合に便利です。
-
-.. code-block:: php
-
-    use PHPUnit\Framework\TestCase;
-
-    class MyTest extends TestCase
-    {
-         /**
-          * @expectedException        MyException
-          * @expectedExceptionMessage broken
-          */
-         public function testExceptionHasRightMessage()
-         {
-             $param = "broken";
-             throw new MyException('Invalid parameter "'.$param.'".', 20);
-         }
-    }
-
-テストを実行しやすくし、重複を減らすために、
-ショートカットを使ってクラス定数を指定することができます。
-``@expectedExceptionMessage`` で
-"``@expectedExceptionMessage ClassName::CONST``" のようにして使います。
-サンプルコードは :ref:`appendixes.annotations.expectedExceptionCode` を参照ください。
-
-.. _appendixes.annotations.expectedExceptionMessageRegExp:
-
-@expectedExceptionMessageRegExp
-###############################
-
-期待するメッセージを、``@expectedExceptionMessageRegExp``
-アノテーションを使って正規表現で指定することもできます。
-これは、部分文字列だけでは指定したメッセージとのマッチングが不十分なときに便利です。
-
-.. code-block:: php
-
-    use PHPUnit\Framework\TestCase;
-
-    class MyTest extends TestCase
-    {
-         /**
-          * @expectedException              MyException
-          * @expectedExceptionMessageRegExp /Argument \d+ can not be an? \w+/
-          */
-         public function testExceptionHasRightMessage()
-         {
-             throw new MyException('Argument 2 can not be an integer');
-         }
-    }
-
 .. _appendixes.annotations.group:
 
 @group
@@ -538,22 +455,23 @@ PHPUnit は、テストメソッド間の依存性の明示的な宣言をサポ
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         /**
          * @group specification
          */
-        public function testSomething()
+        public function testSomething(): void
         {
         }
 
         /**
-         * @group regresssion
+         * @group regression
          * @group bug2204
          */
-        public function testSomethingElse()
+        public function testSomethingElse(): void
         {
         }
     }
@@ -609,15 +527,16 @@ PHPUnit は親プロセスのグローバルな状態を保存しようと試み
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         /**
          * @runInSeparateProcess
          * @preserveGlobalState disabled
          */
-        public function testInSeparateProcess()
+        public function testInSeparateProcess(): void
         {
             // ...
         }
@@ -645,12 +564,13 @@ PHPUnit は親プロセスのグローバルな状態を保存しようと試み
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     /**
      * @runTestsInSeparateProcesses
      */
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         // ...
     }
@@ -673,14 +593,15 @@ PHPUnit は親プロセスのグローバルな状態を保存しようと試み
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class MyTest extends TestCase
+    final class MyTest extends TestCase
     {
         /**
          * @runInSeparateProcess
          */
-        public function testInSeparateProcess()
+        public function testInSeparateProcess(): void
         {
             // ...
         }
@@ -729,7 +650,7 @@ small テストは実行時間が 1 秒を超えたら失敗します。
     /**
      * @test
      */
-    public function initialBalanceShouldBe0()
+    public function initialBalanceShouldBe0(): void
     {
         $this->assertSame(0, $this->ba->getBalance());
     }
@@ -745,15 +666,18 @@ small テストは実行時間が 1 秒を超えたら失敗します。
 
 .. code-block:: php
 
+    <?php declare(strict_types=1);
+    use PHPUnit\Framework\TestCase;
+
     /**
      * @testdox A bank account
      */
-    class BankAccountTest extends TestCase
+    final class BankAccountTest extends TestCase
     {
         /**
          * @testdox has an initial balance of zero
          */
-        public function balanceIsInitiallyZero()
+        public function balanceIsInitiallyZero(): void
         {
             $this->assertSame(0, $this->ba->getBalance());
         }
@@ -764,6 +688,27 @@ small テストは実行時間が 1 秒を超えたら失敗します。
    PHPUnit 7.0 より前のバージョンでは、アノテーションのパースにバグがあるため、
    ``@testdox`` アノテーションを指定すると自動的に
    ``@test`` アノテーションも指定したものとみなされます。
+
+メソッドレベルで ``@testdox`` アノテーションを ``@dataProvider`` アノテーションと一緒に利用する場合、別の説明の中でメソッドの引数をプレースホルダとして使えます。
+
+.. code-block:: php
+    /**
+     * @dataProvider additionProvider
+     * @testdox Adding $a to $b results in $expected
+     */
+    public function testAdd($a, $b, $expected)
+    {
+        $this->assertSame($expected, $a + $b);
+    }
+    public function additionProvider()
+    {
+        return [
+            [0, 0, 0],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 1, 3]
+        ];
+    }
 
 .. _appendixes.annotations.testWith:
 
@@ -783,13 +728,10 @@ small テストは実行時間が 1 秒を超えたら失敗します。
 .. code-block:: php
 
     /**
-     * @param string    $input
-     * @param int       $expectedLength
-     *
-     * @testWith        ["test", 4]
-     *                  ["longer-string", 13]
+     * @testWith ["test", 4]
+     *           ["longer-string", 13]
      */
-    public function testStringLength(string $input, int $expectedLength)
+    public function testStringLength(string $input, int $expectedLength): void
     {
         $this->assertSame($expectedLength, strlen($input));
     }
@@ -799,12 +741,9 @@ JSONのオブジェクト形式で書いた場合は、連想配列として扱�
 .. code-block:: php
 
     /**
-     * @param array     $array
-     * @param array     $keys
-     *
-       * @testWith        [{"day": "monday", "conditions": "sunny"}, ["day", "conditions"]]
+     * @testWith [{"day": "monday", "conditions": "sunny"}, ["day", "conditions"]]
      */
-    public function testArrayKeys($array, $keys)
+    public function testArrayKeys(array $array, array $keys): void
     {
         $this->assertSame($keys, array_keys($array));
     }
@@ -830,18 +769,23 @@ JSONのオブジェクト形式で書いた場合は、連想配列として扱�
 .. code-block:: php
 
     /**
-     * @covers BankAccount::deposit
-     * @uses   Money
+     * @covers \BankAccount
+     * @uses   \Money
      */
-    public function testMoneyCanBeDepositedInAccount()
+    public function testMoneyCanBeDepositedInAccount(): void
     {
         // ...
     }
 
-このアノテーションは、厳密なカバレッジモードで使うと特に有用です。
-このモードの場合、意図せずカバーしてしまったコードがテストを失敗させてしまうことがあるからです。
+:numref:`code-coverage-analysis.specifying-covered-parts.examples.InvoiceTest.php`
+にて、他の使用例を確認することができます。
+
+このアノテーションはコードを読む人の助けになることに加え、
+意図せずコードをカバーしていた場合にテストを失敗させる厳密なカバレッジモードで使うと特に有用です。
 厳密なカバレッジモードに関する詳細な情報は
-:ref:`risky-tests.unintentionally-covered-code`
-を参照ください。
+ref:`risky-tests.unintentionally-covered-code`
+を参照してください。
 
-
+このアノテーションは、完全修飾クラス名を必要とすることに注意してください。
+完全修飾クラス名の先頭のバックスラッシュは省略しても動作に問題ありませんが、読み手に完全修飾クラス名であることを伝えるために
+先頭にバックスラッシュをつける形式で記載することが推奨されます。
