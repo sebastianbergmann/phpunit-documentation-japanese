@@ -17,7 +17,7 @@
 
 .. code-block:: php
 
-    public function testSomething()
+    public function testSomething(): void
     {
     }
 
@@ -52,12 +52,12 @@
     :caption: テストに未完成の印をつける
     :name: incomplete-and-skipped-tests.incomplete-tests.examples.SampleTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class SampleTest extends TestCase
+    final class SampleTest extends TestCase
     {
-        public function testSomething()
+        public function testSomething(): void
         {
             // オプション: お望みなら、ここで何かのテストをしてください。
             $this->assertTrue(true, 'これは動いているはずです。');
@@ -68,12 +68,11 @@
             );
         }
     }
-    ?>
 
 未完成のテストは、PHPUnit のコマンドライン版テストランナーでは以下のように
 ``I`` で表されます。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit --verbose SampleTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -115,7 +114,7 @@
 考えてみましょう。たとえば、データベースの抽象化レイヤーを使用しており、
 それがさまざまなドライバを使用してさまざまなデータベースシステムを
 サポートしているとします。MySQL ドライバのテストができるのは、
-当然 MySQL サーバが使用できる環境だけです。
+MySQL サーバが使用できる環境だけです。
 
 :numref:`incomplete-and-skipped-tests.skipping-tests.examples.DatabaseTest.php`
 に示すテストケースクラス ``DatabaseTest`` には、
@@ -128,10 +127,10 @@ MySQLi 拡張モジュールが使用可能かを調べたうえで、もし使�
     :caption: テストを省略する
     :name: incomplete-and-skipped-tests.skipping-tests.examples.DatabaseTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class DatabaseTest extends TestCase
+    final class DatabaseTest extends TestCase
     {
         protected function setUp(): void
         {
@@ -142,17 +141,16 @@ MySQLi 拡張モジュールが使用可能かを調べたうえで、もし使�
             }
         }
 
-        public function testConnection()
+        public function testConnection(): void
         {
             // ...
         }
     }
-    ?>
 
 飛ばされたテストは、PHPUnit のコマンドライン版テストランナーでは以下のように
 ``S`` で表されます。
 
-.. code-block:: bash
+.. parsed-literal::
 
     $ phpunit --verbose DatabaseTest
     PHPUnit |version|.0 by Sebastian Bergmann and contributors.
@@ -203,53 +201,58 @@ MySQLi 拡張モジュールが使用可能かを調べたうえで、もし使�
       - 例
       - 別の例
     * - ``PHP``
-      - PHP のバージョン
-      - @requires PHP 5.3.3
-      - @requires PHP 7.1-dev
+      - PHP のバージョン (比較演算子を利用することもできます)
+      - @requires PHP 7.1.20
+      - @requires PHP >= 7.2
     * - ``PHPUnit``
-      - PHPUnit のバージョン
-      - @requires PHPUnit 3.6.3
-      - @requires PHPUnit 4.6
+      - PHPUnit のバージョン (比較演算子を利用することもできます)
+      - @requires PHPUnit 7.3.1
+      - @requires PHPUnit < 8
     * - ``OS``
-      - `PHP_OS <http://php.net/manual/ja/reserved.constants.php#constant.php-os>`_ にマッチする正規表現
+      - `PHP_OS <https://www.php.net/manual/ja/reserved.constants.php#constant.php-os>`_ にマッチする正規表現
       - @requires OS Linux
       - @requires OS WIN32|WINNT
     * - ``OSFAMILY``
-      - 任意の `OS ファミリー <http://php.net/manual/ja/reserved.constants.php#constant.php-os-family>`_
+      - 任意の `OS family <https://www.php.net/manual/ja/reserved.constants.php#constant.php-os-family>`_
       - @requires OSFAMILY Solaris
       - @requires OSFAMILY Windows
     * - ``function``
-      - `function_exists <http://php.net/function_exists>`_ に渡せるパラメータ
+      - `function_exists <https://www.php.net/manual/ja/function.function-exists.php>`_ に渡せるパラメータ
       - @requires function imap_open
       - @requires function ReflectionMethod::setAccessible
     * - ``extension``
-      - 拡張モジュール名 (オプションでバージョンも指定できる)
+      - 拡張モジュール名 (バージョンを明示的に指定したり、比較演算子を利用して指定したりできます)
       - @requires extension mysqli
-      - @requires extension redis 2.2.0
+      - @requires extension redis >= 2.2.0
+
+下記の演算子を用いて、PHPやPHPUnit、その他拡張機能のバージョンを指定することができます。
+
+``<``, ``<=``, ``>``, ``>=``, ``=``, ``==``, ``!=``, ``<>``
+
+バージョンの比較には、PHPの `version_compare <https://www.php.net/manual/ja/function.version-compare.php>`_ 関数を利用しています。そのため、 ``=`` と ``==`` の演算子は ``X.Y.Z`` の形式のバージョンであればうまく動作しますが、 ``X.Y`` の形式である場合は動作しません。
 
 .. code-block:: php
     :caption: @requires を使ったテストケースのスキップ
     :name: incomplete-and-skipped-tests.skipping-tests.examples.DatabaseClassSkippingTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     /**
      * @requires extension mysqli
      */
-    class DatabaseTest extends TestCase
+    final class DatabaseTest extends TestCase
     {
         /**
-         * @requires PHP 5.3
+         * @requires PHP >= 5.3
          */
-        public function testConnection()
+        public function testConnection(): void
         {
             // このテストには mysqli 拡張モジュールと PHP 5.3 以降が必須です
         }
 
         // ... その他のすべてのテストには mysqli 拡張モジュールが必須です
     }
-    ?>
 
 特定のバージョンの PHP でしか使えない構文を利用する場合は、
 :ref:`appendixes.configuration.testsuites`
