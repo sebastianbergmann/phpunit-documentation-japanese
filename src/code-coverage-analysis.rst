@@ -20,19 +20,15 @@ PHPUnit のコードカバレッジ解析では
 `php-code-coverage <https://github.com/sebastianbergmann/php-code-coverage>`_
 コンポーネントを使っています。このコンポーネントは、
 `Xdebug <https://www.xdebug.org/>`_
-拡張モジュールが提供するステートメントカバレッジ機能を利用しています。
+や `PCOV <https://github.com/krakjoe/pcov>`_
+などのPHP拡張モジュールが提供するコードカバレッジ機能、もしくは
+`PHPDBG <https://www.php.net/manual/en/book.phpdbg.php>`_
+などが提供するコードカバレッジ機能を利用しています。
 
 .. admonition:: Note
 
-   Xdebug は PHPUnit 本体には組み込まれていません。
-   テストを実行したときに no code coverage driver is available という notice が出る場合は、
-   Xdebug がインストールされていないかあるいはうまく設定できていないのでしょう。
-   PHPUnit のコードカバレッジ機能を使う前に、まずは
-   `Xdebug のインストールガイド <https://xdebug.org/docs/install>`_
-   を読んでみましょう。
-
-   php-code-coverage は `phpdbg <https://phpdbg.room11.org/introduction.html>`_
-   もコードカバレッジデータのソースとしてサポートしています。
+   テストを実行する際に「 no code coverage driver is available 」という WARNING のエラーが出る場合、
+   Xdebug や PCOV がインストールされていない、もしくはうまく設定できていない可能性があります。
 
 PHPUnit は、HTML ベースのコードカバレッジレポートを生成するだけでなく、
 XML ベースのログファイルにコードカバレッジ情報を出力することもできます。
@@ -56,6 +52,18 @@ Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています
     *ラインカバレッジ* は、
     実行可能な行が実行されたかどうかを計測します。
 
+*Branch Coverage*
+
+    *ブランチカバレッジ* は、テストスイートの実行中に、
+    制御構造内の boolean 式が ``true`` あるいは ``false``
+    のどちらかとして評価されたかどうかを計測します。
+
+*Path Coverage*
+
+    *パスカバレッジ* は、テストスイートの実行中に、
+    関数やメソッド内で取りうる実行パスが網羅されたかどうかを計測します。
+    実行パスとは、関数やメソッドに入ってから出るまでの間のルート内での分岐のことです。
+
 *Function and Method Coverage*
 
     *関数・メソッドカバレッジ* は、
@@ -70,26 +78,6 @@ Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています
     php-code-coverage は、クラスやトレイト内のすべてのメソッドがカバーされている場合にのみ、
     そのクラスやトレイトがカバーされたとみなします。
 
-*Opcode Coverage*
-
-    *オペコードカバレッジ* は、関数やメソッドのオペコードが、
-    テストスイートの実行中に実行されたかどうかを計測します。
-    通常は、1 行のコードをコンパイルすると、複数のオペコードになります。
-    ラインカバレッジは、複数のオペコードのうち少なくともひとつが実行された時点で、
-    その行が実行されたとみなします。
-
-*Branch Coverage*
-
-    *ブランチカバレッジ* は、テストスイートの実行中に、
-    制御構造内の boolean 式が ``true`` あるいは ``false``
-    のどちらかとして評価されたかどうかを計測します。
-
-*Path Coverage*
-
-    *パスカバレッジ* は、テストスイートの実行中に、
-    関数やメソッド内で取りうる実行パスが網羅されたかどうかを計測します。
-    実行パスとは、関数やメソッドに入ってから出るまでの間のルート内での分岐のことです。
-
 *Change Risk Anti-Patterns (CRAP) Index*
 
     *Change Risk Anti-Patterns (CRAP) インデックス*
@@ -98,36 +86,30 @@ Clover、Crap4J、PHPUnit など、さまざまな形式に対応しています
     CRAPインデックスを下げるには、テストを書くか、
     あるいはリファクタリングでコードの複雑性を下げます。
 
-.. admonition:: Note
+.. _code-coverage-analysis.including-files:
 
-   *オペコードカバレッジ*、
-   *ブランチカバレッジ*、
-   *パスカバレッジ* については、
-   php-code-coverage ではまだサポートしていません。
+コードカバレッジレポートに含めるファイルの指定
+################################################
 
-.. _code-coverage-analysis.whitelisting-files:
-
-ファイルのホワイトリスト
-########################
-
-*ホワイトリスト* を設定して、
+フィルターを設定して、
 PHPUnit に対してどのソースコードファイルをコードカバレッジレポートに含めるかを指定する必要があります。
-ホワイトリストの設定には、コマンドラインオプションの ``--whitelist``
-を使うか、あるいは設定ファイルを使います (:ref:`appendixes.configuration.whitelisting-files` を参照ください)。
+フィルターの設定には、コマンドラインオプションの ``--coverage-filter``
+:ref:`command line <textui.clioptions>` を使うか、あるいは設定ファイルを使います (
+:ref:`appendixes.configuration.whitelisting-files` を参照ください)。
 
-設定項目 ``addUncoveredFilesFromWhitelist`` および ``processUncoveredFilesFromWhitelist`` で、ホワイトリストの使いかたを設定できます。
+設定項目 ``includeUncoveredFilesInCodeCoverageReport`` および ``processUncoveredFilesForCodeCoverageReport`` で、フィルターの使いかたを設定できます。
 
-- ``addUncoveredFilesFromWhitelist="false"`` と指定すると、ホワイトリストの追加したファイルのうち、実行される行が少なくとも一行以上あるファイルだけをコードカバレッジレポートに含めます。
+- ``includeUncoveredFilesInCodeCoverageReport="false"`` と指定すると、指定したファイルのうち、実行される行が少なくとも一行以上あるファイルだけをコードカバレッジレポートに含めます。
 
-- ``addUncoveredFilesFromWhitelist="true"`` (デフォルト) と指定すると、実行されるコードが一行もないファイルを含めてホワイトリスト上のすべてのファイルをコードカバレッジレポートに含めます。
+- ``includeUncoveredFilesInCodeCoverageReport="true"`` (デフォルト) と指定すると、実行されるコードが一行もないファイルを含めて、フィルターで指定したすべてのファイルをコードカバレッジレポートに含めます。
 
-- ``processUncoveredFilesFromWhitelist="false"`` (デフォルト) と指定すると、実行される行が一行もないホワイトリスト上のファイルも (``addUncoveredFilesFromWhitelist="true"`` が指定されている場合) コードカバレッジレポートに追加されますが、PHPUnit には読み込まれず、実行可能な行数の解析は行われません。
+- ``processUncoveredFilesForCodeCoverageReport="false"`` (デフォルト) と指定すると、フィルターで指定したファイルのうち、実行される行が一行もないファイルも (``includeUncoveredFilesInCodeCoverageReport="true"`` が指定されている場合) コードカバレッジレポートに追加されますが、PHPUnit には読み込まれず、実行可能な行数の解析は行われません。
 
-- ``processUncoveredFilesFromWhitelist="true"`` と指定すると、実行される行が一行もないホワイトリスト上のファイルが PHPUnit に読み込まれて、実行可能な行数の解析も行われるようになります。
+- ``processUncoveredFilesForCodeCoverageReport="true"`` と指定すると、フィルターで指定したファイルのうち、実行される行が一行もないファイルも PHPUnit に読み込まれて、実行可能な行数の解析も行われるようになります。
 
 .. admonition:: Note
 
-   ``processUncoveredFilesFromWhitelist="true"``
+   ``processUncoveredFilesForCodeCoverageReport="true"``
    が設定されている場合のソースコードファイルの読み込みでは、
    もしクラスや関数のスコープから外れるコードが含まれていたときに問題が起こる可能性があります。
 
@@ -149,25 +131,25 @@ PHPUnit でこれを実現するには、
     :caption: ``@codeCoverageIgnore``、``@codeCoverageIgnoreStart`` および ``@codeCoverageIgnoreEnd`` アノテーションの使用法
     :name: code-coverage-analysis.ignoring-code-blocks.examples.Sample.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     /**
      * @codeCoverageIgnore
      */
-    class Foo
+    final class Foo
     {
-        public function bar()
+        public function bar(): void
         {
         }
     }
 
-    class Bar
+    final class Bar
     {
         /**
          * @codeCoverageIgnore
          */
-        public function foo()
+        public function foo(): void
         {
         }
     }
@@ -179,35 +161,67 @@ PHPUnit でこれを実現するには、
     }
 
     exit; // @codeCoverageIgnore
-    ?>
 
 これらのアノテーションを使って無視するよう指定された行は、
 もし実行可能なら (たとえ実行されていなくても) 実行されたものとみなされ、
 強調表示されません。
 
-.. _code-coverage-analysis.specifying-covered-methods:
+.. _code-coverage-analysis.specifying-covered-parts:
 
-カバーするメソッドの指定
-########################
+対象とするコードパーツの指定
+###############################
 
 テストコードで ``@covers`` アノテーション
-(:ref:`appendixes.annotations.covers.tables.annotations`)
+(:ref:`annotation documentation <appendixes.annotations.covers.tables.annotations>`
 を参照ください) を使用すると、
-そのテストメソッドがどのメソッドをテストしたいのかを指定することができます。
-これを指定すると、指定したメソッドのコードカバレッジ情報のみを考慮します。
-:numref:`code-coverage-analysis.specifying-covered-methods.examples.BankAccountTest.php`
+そのテストクラスやテストメソッドがどのコードパーツをテストしたいのかを指定することができます。
+これを指定すると、指定したコードパーツのコードカバレッジ情報のみを考慮します。
+:numref:`code-coverage-analysis.specifying-covered-parts.examples.InvoiceTest.php`
 に例を示します。
+
+
+.. admonition:: Note
+
+    ``@covers`` アノテーションでメソッドを指定した場合、そのメソッドがテストによってカバーされているどうかのみが判定されます。このメソッドによって呼び出された他のメソッドがテストによってカバーされたかどうかは判定されません。
+
+    そのため、 ``@covers`` アノテーションをつけたメソッドに対して *Extract Method* (メソッドの抽出) のリファクタリングを行う場合は、新しく抽出したメソッドに適宜 ``@covers`` アノテーションを追加する必要があります。
+
+    これが、このアノテーションをクラス単位で利用することを推奨している理由です。
+
+.. code-block:: php
+    :caption: どのクラスを対象とするかを指定したテスト
+    :name: code-coverage-analysis.specifying-covered-parts.examples.InvoiceTest.php
+
+    <?php declare(strict_types=1);
+    use PHPUnit\Framework\TestCase;
+    /**
+     * @covers \Invoice
+     * @uses \Money
+     */
+    final class InvoiceTest extends TestCase
+    {
+        private $invoice;
+        protected function setUp(): void
+        {
+            $this->invoice = new Invoice;
+        }
+        public function testAmountInitiallyIsEmpty(): void
+        {
+            $this->assertEquals(new Money, $this->invoice->getAmount());
+        }
+    }
+
 
 .. code-block:: php
     :caption: どのメソッドを対象とするかを指定したテスト
-    :name: code-coverage-analysis.specifying-covered-methods.examples.BankAccountTest.php
+    :name: code-coverage-analysis.specifying-covered-parts.examples.BankAccountTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
-    class BankAccountTest extends TestCase
+    final class BankAccountTest extends TestCase
     {
-        protected $ba;
+        private $ba;
 
         protected function setUp(): void
         {
@@ -215,17 +229,17 @@ PHPUnit でこれを実現するには、
         }
 
         /**
-         * @covers BankAccount::getBalance
+         * @covers \BankAccount::getBalance
          */
-        public function testBalanceIsInitiallyZero()
+        public function testBalanceIsInitiallyZero(): void
         {
             $this->assertSame(0, $this->ba->getBalance());
         }
 
         /**
-         * @covers BankAccount::withdrawMoney
+         * @covers \BankAccount::withdrawMoney
          */
-        public function testBalanceCannotBecomeNegative()
+        public function testBalanceCannotBecomeNegative(): void
         {
             try {
                 $this->ba->withdrawMoney(1);
@@ -241,9 +255,9 @@ PHPUnit でこれを実現するには、
         }
 
         /**
-         * @covers BankAccount::depositMoney
+         * @covers \BankAccount::depositMoney
          */
-        public function testBalanceCannotBecomeNegative2()
+        public function testBalanceCannotBecomeNegative2(): void
         {
             try {
                 $this->ba->depositMoney(-1);
@@ -259,11 +273,11 @@ PHPUnit でこれを実現するには、
         }
 
         /**
-         * @covers BankAccount::getBalance
-         * @covers BankAccount::depositMoney
-         * @covers BankAccount::withdrawMoney
+         * @covers \BankAccount::getBalance
+         * @covers \BankAccount::depositMoney
+         * @covers \BankAccount::withdrawMoney
          */
-        public function testDepositWithdrawMoney()
+        public function testDepositWithdrawMoney(): void
         {
             $this->assertSame(0, $this->ba->getBalance());
             $this->ba->depositMoney(1);
@@ -272,7 +286,6 @@ PHPUnit でこれを実現するには、
             $this->assertSame(0, $this->ba->getBalance());
         }
     }
-    ?>
 
 あるテストが、*一切* メソッドをカバーしてはならないことも指定できます。
 そのために使うのが ``@coversNothing`` アノテーションです。
@@ -282,17 +295,17 @@ PHPUnit でこれを実現するには、
 
 .. code-block:: php
     :caption: どのメソッドもカバーすべきでないことを指定したテスト
-    :name: code-coverage-analysis.specifying-covered-methods.examples.GuestbookIntegrationTest.php
+    :name: code-coverage-analysis.specifying-covered-parts.examples.GuestbookIntegrationTest.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\DbUnit\TestCase
 
-    class GuestbookIntegrationTest extends TestCase
+    final class GuestbookIntegrationTest extends TestCase
     {
         /**
          * @coversNothing
          */
-        public function testAddEntry()
+        public function testAddEntry(): void
         {
             $guestbook = new Guestbook();
             $guestbook->addEntry("suzy", "Hello world!");
@@ -307,7 +320,6 @@ PHPUnit でこれを実現するには、
             $this->assertTablesEqual($expectedTable, $queryTable);
         }
     }
-    ?>
 
 .. _code-coverage-analysis.edge-cases:
 
@@ -320,7 +332,7 @@ PHPUnit でこれを実現するには、
 .. code-block:: php
     :name: code-coverage-analysis.edge-cases.examples.Sample.php
 
-    <?php
+    <?php declare(strict_types=1);
     use PHPUnit\Framework\TestCase;
 
     // カバレッジは「行単位」であって文単位ではないので、
@@ -338,31 +350,3 @@ PHPUnit でこれを実現するには、
     if (false) {
         this_call_will_never_show_up_as_covered();
     }
-    ?>
-
-Xdebug を使ったコードカバレッジ出力の高速化
-####################################################
-
-Xdebug 2.6 以降では、ホワイトリストによるフィルタリングを Xdebug に任せることで、
-コードカバレッジ用データを収集する効率を劇的に向上させることができます。
-
-そのためには、まず ``--dump-xdebug-filter`` オプションを使って
-Xdebug 用のフィルタースクリプトを生成します。
-
-.. code-block:: bash
-
-    $ phpunit --dump-xdebug-filter build/xdebug-filter.php
-    PHPUnit 7.4.0 by Sebastian Bergmann and contributors.
-
-    Runtime:       PHP 7.2.11 with Xdebug 2.6.1
-    Configuration: /workspace/project/phpunit.xml
-
-    Wrote Xdebug filter script to build/xdebug-filter.php
-
-これで、 コードカバレッジレポートの生成時に ``--prepend`` オプションを使って
-Xdebug フィルタースクリプトをロードできるようになりました。
-
-.. code-block:: bash
-
-    $ phpunit --prepend build/xdebug-filter.php --coverage-html build/coverage-report
-
