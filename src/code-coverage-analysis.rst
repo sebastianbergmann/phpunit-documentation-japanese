@@ -27,8 +27,8 @@ PHPUnit のコードカバレッジ解析では
 
 .. admonition:: Note
 
-   テストを実行する際に「 no code coverage driver is available 」という WARNING のエラーが出る場合、
-   Xdebug や PCOV がインストールされていない、もしくはうまく設定できていない可能性があります。
+   テストの実行中に「 no code coverage drive is available 」という WARNING のエラーが表示された場合、
+   それは利用している PHP の CLI バイナリ (``php``) に Xdebug や PCOV が読み込まれていないということを示します。
 
 PHPUnit は、HTML ベースのコードカバレッジレポートを生成するだけでなく、
 XML ベースのログファイルにコードカバレッジ情報を出力することもできます。
