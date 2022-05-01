@@ -17,7 +17,7 @@ PHPUnit |version| は PHP 7.3 以降のバージョンで動作しますが、�
 PHPUnit を使うには、拡張モジュール `dom <http://php.net/manual/ja/dom.setup.php>`_、`json <http://php.net/manual/ja/json.installation.php>`_、
 が必要です。これらは通常、デフォルトで有効になっています。
 
-PHPUnit また、拡張モジュール
+また、 PHPUnit には拡張モジュール
 `pcre <http://php.net/manual/ja/pcre.installation.php>`_、
 `reflection <http://php.net/manual/ja/reflection.installation.php>`_、
 そして `spl <http://php.net/manual/ja/spl.installation.php>`_
