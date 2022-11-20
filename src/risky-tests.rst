@@ -70,7 +70,7 @@ PHPUnit は、テストの最中の出力を検出することができます。
 :ref:`コマンドライン <textui.clioptions>` オプション
 ``--enforce-time-limit`` を使うか、あるいは PHPUnit の
 :ref:`設定ファイル <appendixes.configuration>` で
-``beStrictAboutTestSize="true"`` を設定します。
+``enforceTimeLimit="true"`` を設定します。
 
 ``@large`` とマークされたテストは、
 実行時間が 60 秒を超えたら失敗します。
