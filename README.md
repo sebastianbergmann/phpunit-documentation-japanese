@@ -1,3 +1,5 @@
+**The PHPUnit project is no longer involved with the translation of its documentation to other languages. This repository is now archived.**
+
 # 翻訳
 
 （日本語以外の）他言語版のドキュメントは、それぞれ個別のリポジトリで管理されています。
